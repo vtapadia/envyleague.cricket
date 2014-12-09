@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="001001" author="vtapadia" dbms="postgresql" >
+        <createSequence sequenceName="hibernate_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="001002" author="vtapadia" dbms="postgresql" >
+        <createTable tableName="EL_AUTHORITY" >
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <insert tableName="EL_AUTHORITY">
+            <column name="name">ADMIN</column>
+        </insert>
+        <insert tableName="EL_AUTHORITY">
+            <column name="name">USER</column>
+        </insert>
+        <rollback>
+            <dropTable tableName="EL_AUTHORITY" />
+        </rollback>
+    </changeSet>
+    <changeSet id="001003" author="vtapadia" dbms="postgresql" >
+        <createTable tableName="EL_USER">
+            <column name="login" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(100)"/>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+            <column name="activated" type="boolean" defaultValueBoolean="false" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="lang_key" type="varchar(5)"/>
+            <column name="activation_key" type="varchar(20)"/>
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+        <createTable tableName="EL_USER_AUTHORITY">
+            <column name="login" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="login, name" tableName="EL_USER_AUTHORITY"/>
+        <createTable tableName="EL_PERSISTENT_TOKEN">
+            <column name="series" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_login" type="varchar(50)"/>
+            <column name="token_value" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="token_date" type="date"/>
+            <column name="ip_address" type="varchar(39)"/>
+            <column name="user_agent" type="varchar(255)"/>
+        </createTable>
+        <createIndex indexName="idx_user_authority"
+                     tableName="EL_USER_AUTHORITY"
+                     unique="true">
+            <column name="login" type="varchar(50)"/>
+            <column name="name" type="varchar(50)"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="001004" author="vtapadia" dbms="postgresql" >
+        <createTable tableName="EL_CRIC_TOURNAMENT">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="start_date" type="timestamp" />
+            <column name="end_date" type="timestamp" />
+        </createTable>
+    </changeSet>
+    <changeSet id="001005" author="vtapadia" dbms="postgresql">
+        <createTable tableName="EL_CRIC_LEAGUE">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="tournament" type="varchar(50)"></column>
+            <column name="owner" type="varchar(50)"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="001006" author="vtapadia" dbms="postgresql">
+        <createTable tableName="EL_CRIC_MATCH">
+            <column name="number" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="match_type" type="varchar(50)"></column>
+            <column name="start_time" type="timestamp" />
+            <column name="team_a" type="varchar(50)" />
+            <column name="team_b" type="varchar(50)" />
+            <column name="team_winner" type="varchar(50)" />
+            <column name="total_score" type="int"></column>
+            <column name="total_wickets" type="int"></column>
+        </createTable>
+    </changeSet>
+    <changeSet id="001007" author="vtapadia" dbms="postgresql">
+        <createTable tableName="EL_CRIC_PREDICTION">
+            <column name="user" type="varchar(50)"></column>
+            <column name="match" type="int"></column>
+            <column name="team_winner" type="varchar(50)"/>
+            <column name="total_score" type="int" />
+            <column name="total_wickets" type="int" />
+        </createTable>
+        <addPrimaryKey columnNames="user, match" tableName="EL_CRIC_PREDICTION"/>
+    </changeSet>
+    <changeSet id="001008" author="vtapadia" dbms="postgresql">
+        <createTable tableName="EL_CRIC_TEAM">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="points" type="int" />
+        </createTable>
+    </changeSet>
+    <changeSet id="001009" author="vtapadia" dbms="postgresql">
+        <createTable tableName="EL_USER_CRIC_LEAGUE">
+            <column name="login" type="varchar(50)" />
+            <column name="name" type="varchar(50)" />
+        </createTable>
+        <addPrimaryKey columnNames="login, name" tableName="EL_USER_CRIC_LEAGUE"/>
+        <rollback>
+            <dropTable tableName="EL_USER_CRIC_LEAGUE" />
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
