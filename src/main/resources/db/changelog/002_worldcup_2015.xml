@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="002001" author="vtapadia" dbms="postgresql">
+        <insert tableName="EL_CRIC_TOURNAMENT">
+            <column name="name">World Cup 2015</column>
+            <column name="start_date">2015-02-14T22:00:00</column>
+            <column name="end_date">2015-03-31T00:00:00</column>
+        </insert>
+    </changeSet>
+    <changeSet id="002002" author="vtapadia" dbms="postgresql">
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Afganistan</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Australia</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Bangladesh</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">England</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">India</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Ireland</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">New Zealand</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Pakistan</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Scotland</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">South Africa</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Sri Lanka</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">UAE</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">West Indies</column>
+            <column name="points">0</column>
+        </insert>
+        <insert tableName="EL_CRIC_TEAM">
+            <column name="name">Zimbabwe</column>
+            <column name="points">0</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -22,6 +22,9 @@ public class League implements Serializable {
     @Column(length = 50)
     private String name;
 
+    @Column(name = "fee")
+    private int fee;
+
     @ManyToOne
     @JoinColumn(name = "tournament", nullable = false)
     private Tournament tournament;
@@ -36,6 +39,14 @@ public class League implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
     }
 
     public Tournament getTournament() {

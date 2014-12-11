@@ -139,4 +139,14 @@
             <dropTable tableName="EL_USER_CRIC_LEAGUE" />
         </rollback>
     </changeSet>
+    <changeSet id="001010" author="vtapadia" dbms="postgresql">
+        <addColumn tableName="EL_CRIC_PREDICTION">
+            <column name="points" type="int"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="001011" author="vtapadia" dbms="postgresql">
+        <addColumn tableName="EL_CRIC_LEAGUE">
+            <column name="fee" type="int"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

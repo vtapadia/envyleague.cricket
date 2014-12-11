@@ -32,6 +32,7 @@ public class Prediction implements Serializable {
     private Integer totalScore;
     @Column(name = "total_wickets")
     private Integer totalWickets;
+    private Integer points;
 
     public User getUser() {
         return user;
@@ -71,5 +72,13 @@ public class Prediction implements Serializable {
 
     public void setTotalWickets(Integer totalWickets) {
         this.totalWickets = totalWickets;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 }
