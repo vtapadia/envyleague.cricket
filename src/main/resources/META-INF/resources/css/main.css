@@ -1,0 +1,19 @@
+
+/*
+Referenced from ui.bootstrap
+*/
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.logo-main {
+    width:auto;
+    height: auto;
+    max-width:70px;
+}
+
+.footer {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+}
