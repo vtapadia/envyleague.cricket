@@ -1,0 +1,61 @@
+package com.envyleague.cricket.service;
+
+import com.envyleague.cricket.domain.Authority;
+import com.envyleague.cricket.domain.User;
+import com.envyleague.cricket.repository.AuthorityRepository;
+import com.envyleague.cricket.repository.PersistentTokenRepository;
+import com.envyleague.cricket.repository.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.Set;
+
+@Service
+@Transactional
+public class UserService {
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
+
+    private static final int ACTIVATION_KEY_LENGTH = 20;
+
+    @Inject
+    private PasswordEncoder passwordEncoder;
+
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private PersistentTokenRepository persistentTokenRepository;
+
+    @Inject
+    private AuthorityRepository authorityRepository;
+
+    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+                                      String langKey) {
+        User newUser = new User();
+        Authority authority = authorityRepository.findOne("USER");
+        Set<Authority> authorities = new HashSet<>();
+        String encryptedPassword = passwordEncoder.encode(password);
+        newUser.setLogin(login);
+        newUser.setPassword(encryptedPassword);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setLangKey(langKey);
+        // new user is not active
+        newUser.setActivated(false);
+        // new user gets registration key
+        newUser.setActivationKey(RandomStringUtils.randomNumeric(ACTIVATION_KEY_LENGTH));
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
+}

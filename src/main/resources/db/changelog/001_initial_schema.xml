@@ -149,4 +149,9 @@
             <column name="fee" type="int"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001012" author="vtapadia" dbms="postgresql">
+        <insert tableName="EL_AUTHORITY">
+            <column name="name">LEAGUE</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

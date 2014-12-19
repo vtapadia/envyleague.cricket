@@ -1,12 +1,24 @@
 <div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="alert alert-success" ng-show="success" translate="register.messages.success">
+            <div class="alert alert-success" ng-show="success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
             </div>
             <div class="alert alert-danger" ng-show="doNotMatch">
                 The password and its confirmation do not match!
             </div>
+            <div class="alert alert-danger" ng-show="error">
+                <strong>Registration failed!</strong> Please check your input and try again.
+            </div>
+
+            <div class="alert alert-danger" ng-show="errorUserExists">
+                <strong>Login name already registered!</strong> Please choose another one.
+            </div>
+
+            <div class="alert alert-danger" ng-show="errorEmailExists">
+                <strong>E-mail is already in use!</strong> Please choose another one.
+            </div>
+
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
                 <div class="form-group">
