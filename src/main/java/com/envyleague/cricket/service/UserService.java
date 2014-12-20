@@ -58,4 +58,16 @@ public class UserService {
         return newUser;
     }
 
+    public User activateRegistration(String key) {
+        log.debug("Activating user for activation key {}", key);
+        User user = userRepository.getUserByActivationKey(key);
+        if (user != null) {
+            user.setActivated(true);
+            user.setActivationKey(null);
+            log.info("Activated user : " + user.getLogin());
+            userRepository.save(user);
+        }
+        return user;
+    }
+
 }

@@ -44,7 +44,16 @@ envyLeagueApp.controller('RegisterController', function ($scope, Register) {
         };
     });
 
-envyLeagueApp.controller('ActivationController', function ($scope) {
+envyLeagueApp.controller('ActivationController', function ($scope, $routeParams, Activate) {
+        Activate.get({key: $routeParams.key},
+            function (value, responseHeaders) {
+                $scope.error = null;
+                $scope.success = 'OK';
+            },
+            function (httpResponse) {
+                $scope.success = null;
+                $scope.error = "ERROR";
+            });
     });
 envyLeagueApp.controller('LoginController', function ($scope) {
     });

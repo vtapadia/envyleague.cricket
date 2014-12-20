@@ -35,7 +35,7 @@ public class UserController {
     MailService mailService;
 
     @RequestMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
+    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
         if (userRepository.findOne(userDTO.getLogin()) != null) {
             return new ResponseEntity<String>("login already in use", HttpStatus.BAD_REQUEST);
@@ -51,5 +51,15 @@ public class UserController {
         //final Locale locale = Locale.forLanguageTag(user.getLangKey());
         mailService.sendActivationMail(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/activate",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> activateUser(String key) {
+        User user = userService.activateRegistration(key);
+        if (user != null) {
+            return new ResponseEntity<String>(user.getLogin(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

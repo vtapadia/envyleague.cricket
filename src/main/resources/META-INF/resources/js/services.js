@@ -9,5 +9,6 @@ envyLeagueApp.factory('Register', function ($resource) {
 
 envyLeagueApp.factory('Activate', function ($resource) {
         return $resource('rest/user/activate', {}, {
+            'get': { method: 'GET', params: {}, isArray: false}
         });
     });
