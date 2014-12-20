@@ -25,8 +25,8 @@ import javax.inject.Inject;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private Logger logger = LoggerFactory.getLogger(SecurityConfiguration.class);
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Inject
     private Environment env;

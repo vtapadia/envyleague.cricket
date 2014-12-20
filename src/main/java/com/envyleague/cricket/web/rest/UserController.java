@@ -2,6 +2,7 @@ package com.envyleague.cricket.web.rest;
 
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.UserRepository;
+import com.envyleague.cricket.service.MailService;
 import com.envyleague.cricket.service.UserService;
 import com.envyleague.cricket.web.dto.UserDTO;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class UserController {
     @Inject
     private UserService userService;
 
+    @Inject
+    MailService mailService;
+
     @RequestMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
                                              HttpServletResponse response) {
@@ -45,6 +49,7 @@ public class UserController {
                 userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                 userDTO.getLangKey());
         //final Locale locale = Locale.forLanguageTag(user.getLangKey());
+        mailService.sendActivationMail(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
