@@ -1,5 +1,6 @@
 package com.envyleague.cricket.web.rest;
 
+import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.service.MailService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/user")
@@ -33,6 +35,21 @@ public class UserController {
 
     @Inject
     MailService mailService;
+
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> userDetails(HttpServletRequest request, HttpServletResponse response) {
+        User user = userService.getUserWithAuthorities();
+        if (user != null) {
+            return new ResponseEntity<UserDTO>(new UserDTO(
+                    user.getLogin(), null,
+                    user.getFirstName(), user.getLastName(),
+                    user.getEmail(), user.getLangKey(),
+                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList())),
+                HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @RequestMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO, HttpServletRequest request,

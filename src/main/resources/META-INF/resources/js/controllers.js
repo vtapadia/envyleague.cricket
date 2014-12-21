@@ -55,8 +55,17 @@ envyLeagueApp.controller('ActivationController', function ($scope, $routeParams,
                 $scope.error = "ERROR";
             });
     });
-envyLeagueApp.controller('LoginController', function ($scope) {
+envyLeagueApp.controller('LoginController', function ($scope, AuthenticationSharedService) {
+        $scope.rememberMe = true;
+        $scope.login = function () {
+            AuthenticationSharedService.login({
+                username: $scope.username,
+                password: $scope.password,
+                rememberMe: $scope.rememberMe
+            });
+        }
     });
-envyLeagueApp.controller('LogoutController', function ($scope) {
+envyLeagueApp.controller('LogoutController', function ($scope, AuthenticationSharedService) {
+        AuthenticationSharedService.logout();
     });
 

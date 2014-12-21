@@ -5,6 +5,7 @@ import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.AuthorityRepository;
 import com.envyleague.cricket.repository.PersistentTokenRepository;
 import com.envyleague.cricket.repository.UserRepository;
+import com.envyleague.cricket.security.SecurityUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,13 @@ public class UserService {
             userRepository.save(user);
         }
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserWithAuthorities() {
+        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        currentUser.getAuthorities().size(); // eagerly load the association
+        return currentUser;
     }
 
 }
