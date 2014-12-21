@@ -2,7 +2,12 @@
 
 /* Controllers */
 
-envyLeagueApp.controller('MainController', function ($scope) {
+envyLeagueApp.controller('HomeController', function ($scope, SocialService) {
+
+    });
+
+envyLeagueApp.controller('MainController', function ($scope, SocialService) {
+        SocialService.save();
     });
 
 envyLeagueApp.controller('AdminController', function ($scope) {

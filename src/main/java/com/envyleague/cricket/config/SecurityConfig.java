@@ -107,6 +107,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/user/register").permitAll()
                 .antMatchers("/rest/user/activate").permitAll()
                 .antMatchers("/rest/user/authenticate").permitAll()
+                .antMatchers("/rest/social").permitAll()
+                .antMatchers("/connect").permitAll()
                 .antMatchers("/app/rest/logs/**").hasAuthority(Authorities.ADMIN.name())
                 .antMatchers("/app/**").authenticated()
                 .antMatchers("/metrics/**").hasAuthority(Authorities.ADMIN.name())

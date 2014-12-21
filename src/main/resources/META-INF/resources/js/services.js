@@ -34,6 +34,17 @@ envyLeagueApp.factory('UserService', function ($resource) {
         return $resource('rest/user', {}, {
         });
     });
+envyLeagueApp.factory('SocialService', function ($resource, $http) {
+        return {
+            save: function (param) {
+                $http.post('connect/facebook', null, {
+                    headers :{
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                });
+            }
+        };
+    });
 
 envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http, authService, Session, UserService) {
         return {
