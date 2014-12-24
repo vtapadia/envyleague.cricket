@@ -57,7 +57,7 @@ public class SocialFacebookController {
         Connection<User> users = userFacebookClient.fetchConnection("me/friends", User.class);
         System.out.println("users=" + users);
         userService.saveFacebookDetails(debugTokenInfo.getUserId(), accessToken.getAccessToken());
-        FacebookType fb = facebookClient.publish("/notifications", FacebookType.class, Parameter.with("template", "Testing notification from envyleague"), Parameter.with("ref", "eleague_notification"));
+        FacebookType fb = facebookClient.publish(debugTokenInfo.getUserId() + "/notifications", FacebookType.class, Parameter.with("template", "Testing notification from envyleague"), Parameter.with("ref", "eleague_notification"));
         System.out.println(fb);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "http://www.envyleague.com/");
