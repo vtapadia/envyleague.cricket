@@ -37,14 +37,8 @@ envyLeagueApp.factory('UserService', function ($resource) {
         });
     });
 envyLeagueApp.factory('SocialService', function ($resource, $http) {
-        this.validate: function(data) {
-            $http.get('rest/social/facebook/validate')
-                .success(function (data, status, headers, config) {
-                    //TODO
-                }.error(function (data, status, headers, config) {
-
-                }
-        }
+        this.validate = function(data) {
+        };
         return this;
     });
 
