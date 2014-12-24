@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/rest/user")
 public class UserController {
 
-    private final Logger log = LoggerFactory.getLogger(UserController.class);
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Inject
     private UserRepository userRepository;
@@ -43,7 +43,7 @@ public class UserController {
             return new ResponseEntity<UserDTO>(new UserDTO(
                     user.getLogin(), null,
                     user.getFirstName(), user.getLastName(),
-                    user.getEmail(), user.getLangKey(),
+                    user.getEmail(), user.getLangKey(), user.getFacebookUserId(),
                     user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList())),
                 HttpStatus.OK);
         } else {
