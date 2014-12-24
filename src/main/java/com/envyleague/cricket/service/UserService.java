@@ -71,11 +71,17 @@ public class UserService {
         return user;
     }
 
-    @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
+    }
+
+    public void saveFacebookDetails(String facebookUserId, String facebookUserToken) {
+        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        currentUser.setFacebookUserId(facebookUserId);
+        currentUser.setFacebookAuthToken(facebookUserToken);
+        userRepository.save(currentUser);
     }
 
 }

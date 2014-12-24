@@ -154,4 +154,10 @@
             <column name="name">LEAGUE</column>
         </insert>
     </changeSet>
+    <changeSet id="001013" author="vtapadia" dbms="postgresql">
+        <addColumn tableName="EL_USER">
+            <column name="FACEBOOK_USER_ID" type="varchar(500)"></column>
+            <column name="FACEBOOK_AUTH_TOKEN" type="varchar(500)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

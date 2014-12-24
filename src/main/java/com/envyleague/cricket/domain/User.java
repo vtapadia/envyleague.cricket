@@ -52,8 +52,14 @@ public class User implements Serializable {
     private String langKey;
 
     @Size(min = 0, max = 20)
-    @Column(name = "activation_key", length = 20)
+    @Column(name = "ACTIVATION_KEY", length = 20)
     private String activationKey;
+
+    @Column(name="FACEBOOK_USER_ID", length = 500)
+    private String facebookUserId;
+
+    @Column(name="FACEBOOK_AUTH_TOKEN", length = 500)
+    private String facebookAuthToken;
 
     @ManyToMany
     @JoinTable(
@@ -136,6 +142,22 @@ public class User implements Serializable {
 
     public void setLangKey(String langKey) {
         this.langKey = langKey;
+    }
+
+    public String getFacebookUserId() {
+        return facebookUserId;
+    }
+
+    public void setFacebookUserId(String facebookUserId) {
+        this.facebookUserId = facebookUserId;
+    }
+
+    public String getFacebookAuthToken() {
+        return facebookAuthToken;
+    }
+
+    public void setFacebookAuthToken(String facebookAuthToken) {
+        this.facebookAuthToken = facebookAuthToken;
     }
 
     public Set<League> getLeagues() {

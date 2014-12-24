@@ -16,6 +16,8 @@ public class UserDTO {
 
     private String langKey;
 
+    private String facebookUserId;
+
     private List<String> roles;
 
     public UserDTO() {
@@ -29,6 +31,19 @@ public class UserDTO {
         this.lastName = lastName;
         this.email = email;
         this.langKey = langKey;
+        this.roles = roles;
+    }
+
+    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
+                   String facebookUserId,
+                   List<String> roles) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.langKey = langKey;
+        this.facebookUserId = facebookUserId;
         this.roles = roles;
     }
 
@@ -56,6 +71,10 @@ public class UserDTO {
         return langKey;
     }
 
+    public String getFacebookUserId() {
+        return facebookUserId;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
@@ -71,6 +90,9 @@ public class UserDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", langKey='").append(langKey).append('\'');
+        if (facebookUserId != null) {
+            sb.append(", facebookUserId='").append(facebookUserId).append('\'');
+        }
         sb.append(", roles=").append(roles);
         sb.append('}');
         return sb.toString();
