@@ -73,7 +73,7 @@ envyLeagueApp.config(
 
     // Call when the user logs out
     $rootScope.$on('event:auth-loginCancelled', function() {
-        $location.path('');
+        $location.path('/').replace();
     });
 
 });

@@ -3,5 +3,8 @@
         <div class="col-md-8 col-md-offset-2" ng-show="authenticated && account.facebookUserId==undefined">
             <a href="https://www.facebook.com/dialog/oauth?client_id=580227588789938&response_type=code&redirect_uri=http://www.envyleague.com/rest/social/facebook/&scope=public_profile,email,user_friends,manage_notifications">Login to Facebook</a>
         </div>
+        <div class="col-md-8 col-md-offset-2" ng-show="authenticated">
+            <a href="https://www.facebook.com/dialog/oauth?client_id=580227588789938&response_type=code&redirect_uri=http://www.envyleague.com/rest/social/facebook/&scope=public_profile,email,user_friends,manage_notifications">Relink user Facebook</a>
+        </div>
     </div>
 </div>
