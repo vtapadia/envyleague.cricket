@@ -27,6 +27,16 @@ envyLeagueApp.config(
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
             });
+    $httpProvider.interceptors.push(['$rootScope', function($rootScope) {
+      return {
+        'request': function(config) {
+               // same as above
+               config.headers['Access-Control-Allow-Origin'] = '*';
+               return config;
+            }
+        }
+      }
+      ]);
     }
 ).run(function($rootScope, $location, $http) {
     $rootScope.authenticated = false;

@@ -14,11 +14,12 @@ envyLeagueApp.factory('Activate', function ($resource) {
     });
 
 envyLeagueApp.factory('Session', function () {
-        this.create = function (login, firstName, lastName, email, userRoles) {
+        this.create = function (login, firstName, lastName, email, facebookUserId, userRoles) {
             this.login = login;
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
+            this.facebookUserId = facebookUserId;
             this.userRoles = userRoles;
         };
         this.invalidate = function () {
@@ -26,6 +27,7 @@ envyLeagueApp.factory('Session', function () {
             this.firstName = null;
             this.lastName = null;
             this.email = null;
+            this.facebookUserId = null;
             this.userRoles = null;
         };
         return this;
@@ -35,15 +37,15 @@ envyLeagueApp.factory('UserService', function ($resource) {
         });
     });
 envyLeagueApp.factory('SocialService', function ($resource, $http) {
-        return {
-            save: function (param) {
-                $http.post('connect/facebook', null, {
-                    headers :{
-                        "Access-Control-Allow-Origin": "*"
-                    }
-                });
-            }
-        };
+        this.validate: function(data) {
+            $http.get('rest/social/facebook/validate')
+                .success(function (data, status, headers, config) {
+                    //TODO
+                }.error(function (data, status, headers, config) {
+
+                }
+        }
+        return this;
     });
 
 envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http, authService, Session, UserService) {
@@ -57,7 +59,7 @@ envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
                     UserService.get(function(data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                        Session.create(data.login, data.firstName, data.lastName, data.email, data.facebookUserId, data.roles);
                         $rootScope.account = Session;
                         authService.loginConfirmed(data);
                     });
