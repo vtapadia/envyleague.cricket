@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     User getUserByActivationKey(String activationKey);
 
     User findOneByEmail(String email);
+
+    User findOneByFacebookUserId(String facebookUserId);
 }
