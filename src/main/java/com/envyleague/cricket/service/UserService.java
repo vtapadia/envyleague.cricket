@@ -20,7 +20,7 @@ import java.util.Set;
 @Service
 @Transactional
 public class UserService {
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static final int ACTIVATION_KEY_LENGTH = 20;
 
