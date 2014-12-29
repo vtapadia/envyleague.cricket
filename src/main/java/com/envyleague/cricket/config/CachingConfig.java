@@ -1,6 +1,7 @@
 package com.envyleague.cricket.config;
 
 import net.sf.ehcache.config.CacheConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableCaching
+@AutoConfigureAfter(DatabaseConfig.class)
 public class CachingConfig implements CachingConfigurer {
     @Bean(destroyMethod="shutdown")
     public net.sf.ehcache.CacheManager ehCacheManager() {

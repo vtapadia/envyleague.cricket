@@ -3,6 +3,7 @@ package com.envyleague.cricket.config;
 import com.envyleague.cricket.web.filter.SimpleCORSFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 @Configuration
+@AutoConfigureAfter(CachingConfig.class)
 public class WebConfig implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
