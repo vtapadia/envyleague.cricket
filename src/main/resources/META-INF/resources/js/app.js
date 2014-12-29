@@ -23,6 +23,23 @@ envyLeagueApp.config(
                 templateUrl: 'views/main.html',
                 controller: 'LogoutController'
             })
+            //Cricket Leagues
+            .when('/cricket/leagues', {
+                templateUrl: 'views/cricket/my_leagues.html',
+                controller: 'CricMyLeaguesController'
+            })
+            .when('/cricket/predictions', {
+                templateUrl: 'views/cricket/predictions.html',
+                controller: 'CricPredictionController'
+            })
+            .when('/cricket/league', {
+                templateUrl: 'views/cricket/new_league.html',
+                controller: 'CricNewLeagueController'
+            })
+            .when('/cricket/all/leagues', {
+                templateUrl: 'views/cricket/all_leagues.html',
+                controller: 'CricAllLeaguesController'
+            })
             .otherwise({
                 templateUrl: 'views/main.html',
                 controller: 'MainController'
