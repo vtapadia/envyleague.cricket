@@ -160,4 +160,8 @@
             <column name="FACEBOOK_AUTH_TOKEN" type="varchar(500)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001014" author="vtapadia">
+        <dropColumn tableName="EL_PERSISTENT_TOKEN" columnName="ip_address"></dropColumn>
+        <dropColumn tableName="EL_PERSISTENT_TOKEN" columnName="user_agent"></dropColumn>
+    </changeSet>
 </databaseChangeLog>

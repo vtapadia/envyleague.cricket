@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Base64;
@@ -17,12 +18,17 @@ import org.springframework.security.web.authentication.rememberme.CookieTheftExc
 import org.springframework.security.web.authentication.rememberme.InvalidCookieException;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.TransactionManager;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
@@ -51,6 +57,7 @@ import java.util.Arrays;
  * <p/>
  */
 @Service
+@Transactional
 public class CustomPersistentRememberMeServices extends
         AbstractRememberMeServices {
 
@@ -74,6 +81,12 @@ public class CustomPersistentRememberMeServices extends
     private UserRepository userRepository;
 
     @Inject
+    private TransactionTemplate transactionTemplate;
+
+    @Inject
+    private HibernateTransactionManager transactionManager;
+
+    @Inject
     public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
 
         super(env.getProperty("envyleague.security.rememberme.key"), userDetailsService);
@@ -81,7 +94,6 @@ public class CustomPersistentRememberMeServices extends
     }
 
     @Override
-    @Transactional
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
 
         PersistentToken token = getPersistentToken(cookieTokens);
@@ -91,8 +103,6 @@ public class CustomPersistentRememberMeServices extends
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
         token.setTokenDate(new LocalDate());
         token.setTokenValue(generateTokenData());
-        token.setIpAddress(request.getRemoteAddr());
-        token.setUserAgent(request.getHeader("User-Agent"));
         try {
             persistentTokenRepository.saveAndFlush(token);
             addCookie(token, request, response);
@@ -104,7 +114,6 @@ public class CustomPersistentRememberMeServices extends
     }
 
     @Override
-    @Transactional
     public void onLoginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication successfulAuthentication) {
         String login = successfulAuthentication.getName();
 
@@ -116,12 +125,19 @@ public class CustomPersistentRememberMeServices extends
         token.setUser(user);
         token.setTokenValue(generateTokenData());
         token.setTokenDate(new LocalDate());
-        token.setIpAddress(request.getRemoteAddr());
-        token.setUserAgent(request.getHeader("User-Agent"));
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        // explicitly setting the transaction name is something that can only be done programmatically
+        def.setName("persistToken");
+        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+
+        TransactionStatus status = transactionManager.getTransaction(def);
         try {
-            persistentTokenRepository.saveAndFlush(token);
+            persistentTokenRepository.save(token);
+            persistentTokenRepository.flush();
             addCookie(token, request, response);
+            transactionManager.commit(status);
         } catch (DataAccessException e) {
+            transactionManager.rollback(status);
             log.error("Failed to save persistent token ", e);
         }
     }
@@ -133,7 +149,6 @@ public class CustomPersistentRememberMeServices extends
      * current user, so when he logs out from one browser, all his other sessions are destroyed.
      */
     @Override
-    @Transactional
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String rememberMeCookie = extractRememberMeCookie(request);
         if (rememberMeCookie != null && rememberMeCookie.length() != 0) {
