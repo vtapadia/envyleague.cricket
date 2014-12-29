@@ -2,7 +2,6 @@ package com.envyleague.cricket.repository;
 
 import com.envyleague.cricket.domain.PersistentToken;
 import com.envyleague.cricket.domain.User;
-import org.joda.time.LocalDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -14,6 +13,8 @@ public interface PersistentTokenRepository extends JpaRepository<PersistentToken
 
     List<PersistentToken> findByUser(User user);
 
-    List<PersistentToken> findByTokenDateBefore(LocalDate localDate);
+    PersistentToken findOneBySeries(String series);
+
+    Long deleteByUser(User user);
 
 }
