@@ -16,7 +16,9 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
@@ -84,6 +86,15 @@ public class DatabaseConfig implements EnvironmentAware {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public TransactionTemplate transactionTemplate() {
+        TransactionTemplate template = new TransactionTemplate(transactionManager());
+        template.setIsolationLevel(TransactionDefinition.ISOLATION_DEFAULT);
+        template.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        template.setReadOnly(false);
+        return template;
     }
 
     @Bean
