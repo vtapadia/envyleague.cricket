@@ -1,0 +1,48 @@
+<div>
+    <div class="row">
+        <div class="alert alert-success" ng-show="success">
+            <strong>League requested!</strong> Once Admin approves, you will receive a notification/email.
+        </div>
+        <div class="alert alert-danger" ng-show="error">
+            <strong>League creation failed!</strong> Please check your input and try again.
+        </div>
+        <div class="alert alert-danger" ng-show="errorLeagueExists">
+            <strong>League name already used!</strong> Please choose another one.
+        </div>
+        <form ng-show="!success" class="form" role="form" novalidate ng-submit="request()" show-validation>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" ng-model="league.name" ng-minlength=1 ng-maxlength=50 required>
+                <div ng-show="form.name.$dirty && form.name.$invalid">
+                    <p class="help-block"
+                       ng-show="form.name.$error.required">
+                        League Name is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.name.$error.minlength">
+                        League name is required to be at least 1 character
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.name.$error.maxlength">
+                        League name cannot be longer than 50 characters
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fee">Fee per member (0 can be also be set)</label>
+                <input type="number" class="form-control" id="fee" ng-model="league.fee" min="0" max="1000" required value="0">
+                <div ng-show="form.fee.$dirty && form.fee.$invalid">
+                    <p class="help-block"
+                       ng-show="form.fee.$error.required">
+                        Fee for each member should be defined. It is used to determine the price money.
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.fee.$error.min || form.fee.$error.max">
+                        The fee should be between 0 to 1000.
+                    </p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Request</button>
+        </form>
+    </div>
+</div>

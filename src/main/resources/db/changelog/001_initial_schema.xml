@@ -164,4 +164,11 @@
         <dropColumn tableName="EL_PERSISTENT_TOKEN" columnName="ip_address"></dropColumn>
         <dropColumn tableName="EL_PERSISTENT_TOKEN" columnName="user_agent"></dropColumn>
     </changeSet>
+    <changeSet id="001015" author="vtapadia">
+        <addColumn tableName="EL_CRIC_LEAGUE">
+            <column name="max_members" type="int"></column>
+            <column name="status" type="varchar(25)"></column>
+            <column name="message" type="varchar(255)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
