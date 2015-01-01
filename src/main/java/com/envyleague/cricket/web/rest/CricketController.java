@@ -30,7 +30,7 @@ public class CricketController {
     @RequestMapping(value = "/league", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerNewLeague(@NotNull @RequestBody LeagueDTO leagueDTO) {
         log.info("New league request " + leagueDTO);
-        if (leagueRepository.findOne(leagueDTO.getName()) != null) {
+        if (leagueRepository.findOneByName(leagueDTO.getName()) != null) {
             return new ResponseEntity<String>("League name already in use", HttpStatus.BAD_REQUEST);
         }
         leagueService.requestNewLeague(leagueDTO.getName(), leagueDTO.getFee());

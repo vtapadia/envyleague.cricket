@@ -4,45 +4,79 @@
 var envyLeagueApp = angular.module('envyLeagueApp', ['http-auth-interceptor',
     'ngResource', 'ngRoute', 'ngCookies', 'ui.bootstrap']);
 
+envyLeagueApp.constant('USER_ROLES', {
+        'all': '*',
+        'admin': 'ADMIN',
+        'league': 'LEAGUE',
+        'user': 'USER'
+    });
+
 envyLeagueApp.config(
-    function ($routeProvider, $httpProvider) {
+    function ($routeProvider, $httpProvider, USER_ROLES) {
         $routeProvider
             .when('/register', {
                 templateUrl: 'views/register.html',
-                controller: 'RegisterController'
+                controller: 'RegisterController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             })
             .when('/activate', {
                 templateUrl: 'views/activate.html',
-                controller: 'ActivationController'
+                controller: 'ActivationController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
-                controller: 'LoginController'
+                controller: 'LoginController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             })
             .when('/logout', {
                 templateUrl: 'views/main.html',
-                controller: 'LogoutController'
+                controller: 'LogoutController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             })
             //Cricket Leagues
             .when('/cricket/leagues', {
                 templateUrl: 'views/cricket/my_leagues.html',
-                controller: 'CricMyLeaguesController'
+                controller: 'CricMyLeaguesController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
             })
             .when('/cricket/predictions', {
                 templateUrl: 'views/cricket/predictions.html',
-                controller: 'CricPredictionController'
+                controller: 'CricPredictionController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
             })
             .when('/cricket/league', {
                 templateUrl: 'views/cricket/new_league.html',
-                controller: 'CricNewLeagueController'
+                controller: 'CricNewLeagueController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
             })
             .when('/cricket/all/leagues', {
                 templateUrl: 'views/cricket/all_leagues.html',
-                controller: 'CricAllLeaguesController'
+                controller: 'CricAllLeaguesController',
+                access: {
+                    authorizedRoles: [USER_ROLES.users]
+                }
             })
             .otherwise({
                 templateUrl: 'views/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             });
     $httpProvider.interceptors.push(['$rootScope', function($rootScope) {
       return {
@@ -55,9 +89,14 @@ envyLeagueApp.config(
       }
       ]);
     }
-).run(function($rootScope, $location, $http) {
+).run(function($rootScope, $location, $http, AuthenticationSharedService, USER_ROLES, Session) {
     $rootScope.authenticated = false;
 
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+        $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
+        $rootScope.userRoles = USER_ROLES;
+        AuthenticationSharedService.valid(next.access.authorizedRoles);
+    });
     // Call when the the client is confirmed
     $rootScope.$on('event:auth-loginConfirmed', function(data) {
         $rootScope.authenticated = true;

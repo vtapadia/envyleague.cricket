@@ -4,4 +4,5 @@ import com.envyleague.cricket.domain.League;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LeagueRepository extends JpaRepository<League, String> {
+    public League findOneByName(String name);
 }

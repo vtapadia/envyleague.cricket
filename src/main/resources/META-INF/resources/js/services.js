@@ -69,7 +69,7 @@ envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http
                 }).success(function (data, status, headers, config) {
                     if (!Session.login) {
                         UserService.get(function(data) {
-                            Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                            Session.create(data.login, data.firstName, data.lastName, data.email, data.facebookUserId, data.roles);
                             $rootScope.account = Session;
                             if (!$rootScope.isAuthorized(authorizedRoles)) {
                                 // user is not allowed
@@ -103,6 +103,9 @@ envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http
 
                 var isAuthorized = false;
                 angular.forEach(authorizedRoles, function(authorizedRole) {
+                    console.log(Session.login);
+                    console.log(!!Session.login);
+                    console.log(Session.userRoles);
                     var authorized = (!!Session.login &&
                         Session.userRoles.indexOf(authorizedRole) !== -1);
 
