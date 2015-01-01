@@ -10,7 +10,7 @@
             <div class="alert alert-danger" ng-show="errorLeagueExists">
                 <strong>League name already used!</strong> Please choose another one.
             </div>
-            <form ng-show="!success" class="form" role="form" novalidate ng-submit="request()" show-validation>
+            <form ng-show="!success" name="form" role="form" novalidate ng-submit="request()" show-validation>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" ng-model="league.name" ng-minlength=1 ng-maxlength=50 required>
@@ -51,7 +51,7 @@
                         </p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid || form.$error">Request</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Request</button>
             </form>
         </div>
     </div>
