@@ -1,0 +1,43 @@
+<div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error">
+            {{errorMessage}}
+        </div>
+        <div nf-show="leagues" class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th>Owner</th>
+                    <th>League Name</th>
+                    <th>Fee per member</th>
+                    <th>Status</th>
+                    <th>Max Members</th>
+                    <th>Message</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="league in leagues">
+                    <td>
+                        {{league.owner.login}}
+                    </td>
+                    <td>
+                        {{league.name}}
+                    </td>
+                    <td>
+                        {{league.fee}}
+                    </td>
+                    <td>
+                        <select ng-model="league.status" ng-options="status as status for status in STATUS"></select>
+                    </td>
+                    <td>
+                        <input type="number" ng-model="league.maxMembers">
+                    </td>
+                    <td>
+                        <input type="text" ng-model="league.message">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,10 @@ envyLeagueApp.constant('USER_ROLES', {
         'user': 'USER'
     });
 
+envyLeagueApp.constant('STATUS',
+    ['ACTIVE', 'PENDING', 'CANCELLED']
+);
+
 envyLeagueApp.config(
     function ($routeProvider, $httpProvider, USER_ROLES) {
         $routeProvider
@@ -103,12 +107,13 @@ envyLeagueApp.config(
       }
       ]);
     }
-).run(function($rootScope, $location, $http, AuthenticationSharedService, USER_ROLES, Session) {
+).run(function($rootScope, $location, $http, AuthenticationSharedService, USER_ROLES, STATUS, Session) {
     $rootScope.authenticated = false;
 
     $rootScope.$on('$routeChangeStart', function (event, next) {
         $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
         $rootScope.userRoles = USER_ROLES;
+        $rootScope.STATUS = STATUS;
         AuthenticationSharedService.valid(next.access.authorizedRoles);
     });
     // Call when the the client is confirmed

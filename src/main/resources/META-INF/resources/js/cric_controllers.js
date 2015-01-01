@@ -33,5 +33,32 @@ envyLeagueApp.controller('CricAllLeaguesController', function ($scope, SocialSer
 });
 
 //Admin Controllers
-envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialService) {
+envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialService, AdminLeague) {
+    $scope.updateVisible = true;
+    AdminLeague.query({},
+        function(data, responseHeaders) {
+            $scope.leagues = data;
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data;
+        }
+    );
+
+    $scope.update = function(data) {
+        $scope.updateVisible = false;
+        $scope.error = null;
+        $scope.errorMessage = null;
+        console.log(data);
+        AdminLeague.save(data,
+            function(data, responseHeaders) {
+                $scope.updateVisible = true;
+            },
+            function(httpResponse) {
+                $scope.updateVisible = true;
+                $scope.error = "ERROR";
+                $scope.errorMessage = httpResponse.data;
+            }
+        );
+    };
 });

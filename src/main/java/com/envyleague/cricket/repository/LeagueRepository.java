@@ -9,5 +9,5 @@ import java.util.List;
 public interface LeagueRepository extends JpaRepository<League, String> {
     public League findOneByName(String name);
 
-    public List<League> findByStatusIn(Status... status);
+    public List<League> findByStatusInOrderByStatusDesc(Status... status);
 }

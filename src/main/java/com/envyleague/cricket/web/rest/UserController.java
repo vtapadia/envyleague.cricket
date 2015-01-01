@@ -40,11 +40,7 @@ public class UserController {
     public ResponseEntity<UserDTO> userDetails(HttpServletRequest request, HttpServletResponse response) {
         User user = userService.getUserWithAuthorities();
         if (user != null) {
-            return new ResponseEntity<UserDTO>(new UserDTO(
-                    user.getLogin(), null,
-                    user.getFirstName(), user.getLastName(),
-                    user.getEmail(), user.getLangKey(), user.getFacebookUserId(),
-                    user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList())),
+            return new ResponseEntity<UserDTO>(new UserDTO(user),
                 HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -68,7 +68,7 @@ public class FacebookService {
                         Parameter.with("ref", "envyleague_notification"));
                 retValue = true;
             } catch (Exception e) {
-                log.warn("Unable to send welcome notification. ", e);
+                log.warn("Unable to send notification. ", e);
             }
         }
         return retValue;

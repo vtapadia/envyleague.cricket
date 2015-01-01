@@ -12,4 +12,7 @@ envyLeagueApp.factory('CricketLeague', function ($resource) {
     });
 });
 
-
+envyLeagueApp.factory('AdminLeague', function ($resource) {
+    return $resource('rest/admin/league', {}, {
+    });
+});

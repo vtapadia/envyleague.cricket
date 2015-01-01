@@ -20,6 +20,11 @@ public class MailService {
     private JavaMailSender javaMailSender;
 
     @Async
+    public void sendEmail(String to, String subject, String content) {
+        sendEmail(to, subject, content, false, true);
+    }
+
+    @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
         log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
                 isMultipart, isHtml, to, subject, content);
@@ -43,7 +48,6 @@ public class MailService {
         sendEmail(user.getEmail(), "Activation mail for www.envyleague.com",
                 "<p>Dear " + user.getLogin() + ",<p>Please click the below link for activating user account. <br> " +
                         "www.envyleague.com/#/activate?key="+user.getActivationKey()+"<br>" +
-                        "<p>Thanks<br>Nidhi and Varesh",
-                false,true);
+                        "<p>Thanks<br>Nidhi and Varesh");
     }
 }

@@ -1,6 +1,10 @@
 package com.envyleague.cricket.web.dto;
 
+import com.envyleague.cricket.domain.Authority;
+import com.envyleague.cricket.domain.User;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDTO {
 
@@ -21,6 +25,15 @@ public class UserDTO {
     private List<String> roles;
 
     public UserDTO() {
+    }
+
+    public UserDTO(User user) {
+        this.login = user.getLogin();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.langKey = user.getLangKey();
+        this.roles = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList());
+        this.email = user.getEmail();
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
