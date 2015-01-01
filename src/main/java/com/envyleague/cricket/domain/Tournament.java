@@ -8,6 +8,8 @@ import org.joda.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,6 +25,9 @@ public class Tournament implements Serializable {
     @Id
     @Column(length = 50)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @NotNull
     @Column(name = "start_date")
@@ -45,6 +50,14 @@ public class Tournament implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public LocalDateTime getStartDate() {

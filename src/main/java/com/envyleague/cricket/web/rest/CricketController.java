@@ -33,7 +33,11 @@ public class CricketController {
         if (leagueRepository.findOneByName(leagueDTO.getName()) != null) {
             return new ResponseEntity<String>("League name already in use", HttpStatus.BAD_REQUEST);
         }
-        leagueService.requestNewLeague(leagueDTO.getName(), leagueDTO.getFee());
+        try {
+            leagueService.requestNewLeague(leagueDTO.getName(), leagueDTO.getFee());
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

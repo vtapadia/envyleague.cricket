@@ -78,6 +78,7 @@ public class DatabaseConfig implements EnvironmentAware {
         lef.setDataSource(dataSource);
         lef.setJpaVendorAdapter(jpaVendorAdapter);
         lef.setPackagesToScan("com.envyleague.cricket.domain");
+        lef.afterPropertiesSet();
         return lef;
     }
 

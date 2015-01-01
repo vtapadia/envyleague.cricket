@@ -171,4 +171,9 @@
             <column name="message" type="varchar(255)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001016" author="vtapadia">
+        <addColumn tableName="EL_CRIC_TOURNAMENT">
+            <column name="status" type="varchar(25)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

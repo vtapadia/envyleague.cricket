@@ -72,5 +72,9 @@
             <column name="points">0</column>
         </insert>
     </changeSet>
-
+    <changeSet id="002003" author="vtapadia" dbms="postgresql">
+        <update tableName="EL_CRIC_TOURNAMENT">
+            <column name="status">ACTIVE</column>
+        </update>
+    </changeSet>
 </databaseChangeLog>

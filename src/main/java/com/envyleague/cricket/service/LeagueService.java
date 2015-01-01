@@ -1,8 +1,11 @@
 package com.envyleague.cricket.service;
 
 import com.envyleague.cricket.domain.League;
+import com.envyleague.cricket.domain.Status;
+import com.envyleague.cricket.domain.Tournament;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.LeagueRepository;
+import com.envyleague.cricket.repository.TournamentRepository;
 import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.security.SecurityUtils;
 import org.slf4j.Logger;
@@ -23,14 +26,23 @@ public class LeagueService {
     @Inject
     UserRepository userRepository;
 
+    @Inject
+    TournamentRepository tournamentRepository;
+
     public void requestNewLeague(String leagueName, int fee) {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        log.info("User " + currentUser.getLogin() + " requested for a new League ");
-        League league = new League();
-        league.setOwner(currentUser);
-        league.setFee(fee);
-        league.setName(leagueName);
-        leagueRepository.save(league);
+        log.info("User " + currentUser.getLogin() + " requested for a new League " + leagueName);
+        Tournament tournament = tournamentRepository.findOneByStatus(Status.ACTIVE);
+        if (tournament != null) {
+            League league = new League();
+            league.setOwner(currentUser);
+            league.setTournament(tournament);
+            league.setFee(fee);
+            league.setName(leagueName);
+            leagueRepository.save(league);
+        } else {
+            throw new ServiceException("Tournament not started for league registration.");
+        }
     }
 
 
