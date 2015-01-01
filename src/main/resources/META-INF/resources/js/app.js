@@ -71,6 +71,20 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.users]
                 }
             })
+            //Admin League
+            .when('/admin/league', {
+                templateUrl: 'views/admin/league.html',
+                controller: 'AdminLeagueController',
+                access: {
+                    authorizedRoles: [USER_ROLES.admin]
+                }
+            })
+            .when('/error', {
+                templateUrl: 'views/error.html',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
             .otherwise({
                 templateUrl: 'views/main.html',
                 controller: 'MainController',

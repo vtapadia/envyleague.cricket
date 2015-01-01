@@ -31,3 +31,7 @@ envyLeagueApp.controller('CricNewLeagueController', function ($scope, CricketLea
 
 envyLeagueApp.controller('CricAllLeaguesController', function ($scope, SocialService) {
 });
+
+//Admin Controllers
+envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialService) {
+});

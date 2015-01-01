@@ -72,9 +72,12 @@ public class UserService {
     }
 
     public User getUserWithAuthorities() {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        if (currentUser != null) {
-            currentUser.getAuthorities().size(); // eagerly load the association
+        User currentUser = null;
+        if (SecurityUtils.getCurrentLogin() != null) {
+            currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+            if (currentUser != null) {
+                currentUser.getAuthorities().size(); // eagerly load the association
+            }
         }
         return currentUser;
     }
