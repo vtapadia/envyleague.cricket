@@ -4,19 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "EL_USER")
@@ -61,19 +66,21 @@ public class User implements Serializable {
     @Column(name="FACEBOOK_AUTH_TOKEN", length = 500)
     private String facebookAuthToken;
 
-    @ManyToMany
-    @JoinTable(
-            name = "EL_USER_CRIC_LEAGUE",
-            joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
-            inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
-    private Set<League> leagues = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserLeague> userLeagues = new HashSet<UserLeague>();
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "EL_USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
-            inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
+//    @JsonIgnore
+//    @ManyToMany
+//    @JoinTable(
+//            name = "EL_USER_AUTHORITY",
+//            joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
+//            inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
+//    private Set<Authority1> authorities = new HashSet<>();
+//
+    @ElementCollection(targetClass = Authority.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "EL_USER_AUTHORITY", joinColumns = @JoinColumn(name = "login"))
+    @Column(name = "name", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Set<Authority> authorities = new HashSet<>();
 
     @JsonIgnore
@@ -160,14 +167,6 @@ public class User implements Serializable {
         this.facebookAuthToken = facebookAuthToken;
     }
 
-    public Set<League> getLeagues() {
-        return leagues;
-    }
-
-    public void setLeagues(Set<League> leagues) {
-        this.leagues = leagues;
-    }
-
     public Set<Authority> getAuthorities() {
         return authorities;
     }
@@ -182,6 +181,19 @@ public class User implements Serializable {
 
     public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
         this.persistentTokens = persistentTokens;
+    }
+
+    public Set<UserLeague> getUserLeagues() {
+        return userLeagues;
+    }
+
+    public void setUserLeagues(Set<UserLeague> userLeagues) {
+        this.userLeagues = userLeagues;
+    }
+
+    @JsonIgnore
+    public List<League> getLeagues() {
+        return userLeagues.stream().map(UserLeague::getLeague).collect(Collectors.toList());
     }
 
     @Override
@@ -217,7 +229,7 @@ public class User implements Serializable {
                 ", activated=" + activated +
                 ", langKey='" + langKey + '\'' +
                 ", facebookUserId='" + facebookUserId + '\'' +
-                ", leagues=" + leagues +
+                ", userLeagues=" + userLeagues +
                 ", authorities=" + authorities +
                 '}';
     }

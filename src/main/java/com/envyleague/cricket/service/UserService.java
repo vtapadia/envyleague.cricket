@@ -2,7 +2,6 @@ package com.envyleague.cricket.service;
 
 import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.User;
-import com.envyleague.cricket.repository.AuthorityRepository;
 import com.envyleague.cricket.repository.PersistentTokenRepository;
 import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.security.SecurityUtils;
@@ -14,8 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.EnumSet;
 
 @Service
 @Transactional
@@ -33,14 +31,9 @@ public class UserService {
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
-    @Inject
-    private AuthorityRepository authorityRepository;
-
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("USER");
-        Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
         newUser.setPassword(encryptedPassword);
@@ -52,8 +45,7 @@ public class UserService {
         newUser.setActivated(false);
         // new user gets registration key
         newUser.setActivationKey(RandomStringUtils.randomNumeric(ACTIVATION_KEY_LENGTH));
-        authorities.add(authority);
-        newUser.setAuthorities(authorities);
+        newUser.setAuthorities(EnumSet.of(Authority.USER));
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -89,4 +81,10 @@ public class UserService {
         userRepository.save(currentUser);
     }
 
+    public void addIfMissingUserRole(User user, Authority authority) {
+        if (!user.getAuthorities().contains(authority)) {
+            user.getAuthorities().add(authority);
+            userRepository.save(user);
+        }
+    }
 }

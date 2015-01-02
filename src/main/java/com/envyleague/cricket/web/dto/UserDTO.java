@@ -4,6 +4,7 @@ import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.User;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserDTO {
@@ -22,7 +23,7 @@ public class UserDTO {
 
     private String facebookUserId;
 
-    private List<String> roles;
+    private Set<Authority> roles;
 
     public UserDTO() {
     }
@@ -32,12 +33,12 @@ public class UserDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.langKey = user.getLangKey();
-        this.roles = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList());
+        this.roles = user.getAuthorities();
         this.email = user.getEmail();
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
+                   Set<Authority> roles) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -49,7 +50,7 @@ public class UserDTO {
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
                    String facebookUserId,
-                   List<String> roles) {
+                   Set<Authority> roles) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -88,7 +89,7 @@ public class UserDTO {
         return facebookUserId;
     }
 
-    public List<String> getRoles() {
+    public Set<Authority> getRoles() {
         return roles;
     }
 

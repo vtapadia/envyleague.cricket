@@ -1,9 +1,11 @@
 package com.envyleague.cricket.service;
 
+import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.League;
 import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.domain.Tournament;
 import com.envyleague.cricket.domain.User;
+import com.envyleague.cricket.domain.UserLeague;
 import com.envyleague.cricket.repository.LeagueRepository;
 import com.envyleague.cricket.repository.TournamentRepository;
 import com.envyleague.cricket.repository.UserRepository;
@@ -36,6 +38,9 @@ public class LeagueService {
     @Inject
     FacebookService facebookService;
 
+    @Inject
+    UserService userService;
+
     public void requestNewLeague(String leagueName, int fee) {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
         log.info("User " + currentUser.getLogin() + " requested for a new League " + leagueName);
@@ -56,6 +61,15 @@ public class LeagueService {
         leagueRepository.save(league);
         if (statusUpdated) {
             //Send a notification to the owner.
+            if (league.getStatus() == Status.ACTIVE) {
+                userService.addIfMissingUserRole(league.getOwner(), Authority.LEAGUE);
+                if (!league.getOwner().getLeagues().contains(league)) {
+                    //Make owner a player also
+                    UserLeague userLeague = new UserLeague(league.getOwner(), league);
+                    userLeague.setStatus(Status.ACTIVE);
+                    league.getOwner().getUserLeagues().add(userLeague);
+                }
+            }
             StringBuilder sb = new StringBuilder();
             sb.append("<p>Dear " + league.getOwner().getLogin() + ",");
             sb.append("<p>Your LEAGUE status has been updated to " + league.getStatus()+ ". <br> ");
@@ -68,6 +82,7 @@ public class LeagueService {
             mailService.sendEmail(league.getOwner().getEmail(), "Notification from www.envyLeague.com",
                     sb.toString());
             if (StringUtils.isNotBlank(league.getOwner().getFacebookUserId())) {
+                log.info("Sending facebook notifications.");
                 facebookService.sendNotification(league.getOwner(), "Your League " + league.getName() + " has been updated to " + league.getStatus()+ ".");
             }
         }

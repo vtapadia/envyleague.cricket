@@ -3,17 +3,22 @@ package com.envyleague.cricket.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "EL_CRIC_LEAGUE")
@@ -43,6 +48,10 @@ public class League implements Serializable {
 
     @Column(name = "message")
     private String message;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "league", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    private Set<UserLeague> userLeagues = new HashSet<>();
 
     public String getName() {
         return name;
@@ -98,5 +107,13 @@ public class League implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Set<UserLeague> getUserLeagues() {
+        return userLeagues;
+    }
+
+    public void setUserLeagues(Set<UserLeague> userLeagues) {
+        this.userLeagues = userLeagues;
     }
 }

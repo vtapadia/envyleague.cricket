@@ -176,4 +176,12 @@
             <column name="status" type="varchar(25)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001017" author="vtapadia">
+        <addColumn tableName="EL_USER_CRIC_LEAGUE">
+            <column name="status" type="varchar(25)"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="001018" author="vtapadia">
+        <dropTable tableName="EL_AUTHORITY" />
+    </changeSet>
 </databaseChangeLog>

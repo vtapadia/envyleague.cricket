@@ -1,6 +1,5 @@
 package com.envyleague.cricket.web.rest;
 
-import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.service.MailService;
