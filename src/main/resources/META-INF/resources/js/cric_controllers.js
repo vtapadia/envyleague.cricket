@@ -2,8 +2,35 @@
 
 /* Controllers */
 
-envyLeagueApp.controller('CricMyLeaguesController', function ($scope, SocialService) {
-});
+envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLeague) {
+    $scope.error = null;
+    $scope.errorMessage = null;
+    $scope.updateVisible = true;
+    CricketLeague.query({},
+        function(data, responseHeaders) {
+            $scope.leagues = data;
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data;
+        }
+    );
+    $scope.update = function(data) {
+        $scope.updateVisible = false;
+        $scope.error = null;
+        $scope.errorMessage = null;
+        console.log(data);
+        CricketLeague.save(data,
+            function(data, responseHeaders) {
+                $scope.updateVisible = true;
+            },
+            function(httpResponse) {
+                $scope.updateVisible = true;
+                $scope.error = "ERROR";
+                $scope.errorMessage = httpResponse.data;
+            }
+        );
+    };});
 
 envyLeagueApp.controller('CricPredictionController', function ($scope, SocialService) {
 });
@@ -13,7 +40,7 @@ envyLeagueApp.controller('CricNewLeagueController', function ($scope, CricketLea
     $scope.error = null;
     $scope.errorLeagueExists = null;
     $scope.request = function() {
-        CricketLeague.save($scope.league,
+        CricketLeague.request($scope.league,
             function (value, responseHeaders) {
                 $scope.success = 'OK';
             },

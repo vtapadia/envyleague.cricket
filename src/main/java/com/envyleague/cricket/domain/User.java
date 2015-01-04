@@ -66,17 +66,9 @@ public class User implements Serializable {
     @Column(name="FACEBOOK_AUTH_TOKEN", length = 500)
     private String facebookAuthToken;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserLeague> userLeagues = new HashSet<UserLeague>();
+    @OneToMany(mappedBy = "userLeagueKey.user", cascade = CascadeType.ALL)
+    private Set<UserLeague> userLeagues = new HashSet<>();
 
-//    @JsonIgnore
-//    @ManyToMany
-//    @JoinTable(
-//            name = "EL_USER_AUTHORITY",
-//            joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
-//            inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
-//    private Set<Authority1> authorities = new HashSet<>();
-//
     @ElementCollection(targetClass = Authority.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "EL_USER_AUTHORITY", joinColumns = @JoinColumn(name = "login"))
     @Column(name = "name", nullable = false)

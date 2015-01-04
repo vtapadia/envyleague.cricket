@@ -9,6 +9,7 @@ envyLeagueApp.factory('Cricket', function ($resource) {
 
 envyLeagueApp.factory('CricketLeague', function ($resource) {
     return $resource('rest/cricket/league', {}, {
+        'request':   {method:'PUT'},
     });
 });
 

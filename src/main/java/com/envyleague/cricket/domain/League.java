@@ -50,7 +50,7 @@ public class League implements Serializable {
     private String message;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "league", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userLeagueKey.league", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private Set<UserLeague> userLeagues = new HashSet<>();
 
     public String getName() {

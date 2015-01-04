@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -63,29 +65,29 @@ public class DatabaseConfig implements EnvironmentAware {
         return dataSource;
     }
 
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("com.envyleague.cricket.domain");
-        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-        return sessionFactoryBean;
-    }
+//    @Bean
+//    public LocalSessionFactoryBean sessionFactory() {
+//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+//        sessionFactoryBean.setDataSource(dataSource());
+//        sessionFactoryBean.setPackagesToScan("com.envyleague.cricket.domain");
+//        sessionFactoryBean.setHibernateProperties(hibernateProperties());
+//        return sessionFactoryBean;
+//    }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setDataSource(dataSource);
-        lef.setJpaVendorAdapter(jpaVendorAdapter);
+        lef.setDataSource(dataSource());
+        lef.setJpaVendorAdapter(jpaVendorAdapter());
         lef.setPackagesToScan("com.envyleague.cricket.domain");
         lef.afterPropertiesSet();
         return lef;
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 
@@ -98,11 +100,11 @@ public class DatabaseConfig implements EnvironmentAware {
         return template;
     }
 
-    @Bean
-    public EntityManager entityManager() {
-        return entityManagerFactory(dataSource(),jpaVendorAdapter()).getObject().createEntityManager();
-    }
-
+//    @Bean
+//    public EntityManager entityManager() {
+//        return entityManagerFactory().createEntityManager();
+//    }
+//
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();

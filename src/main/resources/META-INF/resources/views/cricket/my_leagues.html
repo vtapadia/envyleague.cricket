@@ -1,0 +1,34 @@
+<div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error">
+            {{errorMessage}}
+        </div>
+        <div ng-show="leagues" class="table-responsive">
+            <table class="table table-condensed">
+                <caption>My Owned Leagues</caption>
+                <tr>
+                    <th>League Name</th>
+                    <th>Fee per member</th>
+                    <th>Players</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="league in leagues">
+                    <td>
+                        {{league.name}} (Fee:{{league.fee}})
+                    </td>
+                    <td>
+                        {{league.status}}
+                    </td>
+                    <td>
+                        <ul ng-repeat="player in league.players">
+                            <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
+                        </ul>
+                    </td>
+                    <td ng-show="league.status == 'ACTIVE'">
+                        <button type="button" class="btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

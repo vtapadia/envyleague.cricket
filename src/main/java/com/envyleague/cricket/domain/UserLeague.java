@@ -1,6 +1,7 @@
 package com.envyleague.cricket.domain;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,22 +17,17 @@ import java.io.Serializable;
 @Table(name = "EL_USER_CRIC_LEAGUE")
 public class UserLeague implements Serializable {
     public UserLeague() {
-
+        userLeagueKey = new UserLeagueKey();
     }
 
     public UserLeague(User user, League league) {
-        this.user = user;
-        this.league = league;
+        userLeagueKey = new UserLeagueKey();
+        userLeagueKey.setUser(user);
+        userLeagueKey.setLeague(league);
     }
-    @ManyToOne
-    @JoinColumn(name = "login")
-    @Id
-    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "name")
-    @Id
-    private League league;
+    @EmbeddedId
+    private UserLeagueKey userLeagueKey;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING;
@@ -45,18 +41,18 @@ public class UserLeague implements Serializable {
     }
 
     public User getUser() {
-        return user;
+        return userLeagueKey.getUser();
     }
 
     public void setUser(User user) {
-        this.user = user;
+        userLeagueKey.setUser(user);
     }
 
     public League getLeague() {
-        return league;
+        return userLeagueKey.getLeague();
     }
 
     public void setLeague(League league) {
-        this.league = league;
+        userLeagueKey.setLeague(league);
     }
 }

@@ -1,5 +1,6 @@
 package com.envyleague.cricket.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,13 +15,13 @@ import java.io.Serializable;
 public class Prediction implements Serializable {
     @NotNull
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user", nullable = false)
     private User user;
 
     @NotNull
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "match", nullable = false)
     private Match match;
 

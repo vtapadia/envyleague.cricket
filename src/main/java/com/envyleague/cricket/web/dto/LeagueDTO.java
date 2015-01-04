@@ -3,6 +3,9 @@ package com.envyleague.cricket.web.dto;
 import com.envyleague.cricket.domain.League;
 import com.envyleague.cricket.domain.Status;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LeagueDTO {
     private String name;
     private int fee;
@@ -10,6 +13,7 @@ public class LeagueDTO {
     private int maxMembers;
     private Status status;
     private String message;
+    private List<UserLeagueDTO> players;
 
     public LeagueDTO() {}
 
@@ -20,6 +24,7 @@ public class LeagueDTO {
         this.maxMembers = league.getMaxMembers();
         this.status = league.getStatus();
         this.message = league.getMessage();
+        this.players = league.getUserLeagues().stream().map(UserLeagueDTO::new).collect(Collectors.toList());
     }
 
     public String getName() {
@@ -68,6 +73,14 @@ public class LeagueDTO {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<UserLeagueDTO> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<UserLeagueDTO> players) {
+        this.players = players;
     }
 
     @Override

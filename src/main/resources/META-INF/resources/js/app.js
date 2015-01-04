@@ -47,7 +47,7 @@ envyLeagueApp.config(
                 }
             })
             //Cricket Leagues
-            .when('/cricket/leagues', {
+            .when('/cricket/myleagues', {
                 templateUrl: 'views/cricket/my_leagues.html',
                 controller: 'CricMyLeaguesController',
                 access: {

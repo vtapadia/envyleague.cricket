@@ -9,6 +9,7 @@ import com.restfb.FacebookClient.AccessToken;
 import com.restfb.FacebookClient.DebugTokenInfo;
 import com.restfb.Parameter;
 import com.restfb.types.FacebookType;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,6 +73,7 @@ public class FacebookService {
             }
         }
         return retValue;
+
     }
 
     public Set<User> fetchFriends(User user) {

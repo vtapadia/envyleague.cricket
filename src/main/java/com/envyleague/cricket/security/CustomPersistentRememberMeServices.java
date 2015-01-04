@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Base64;
@@ -84,9 +83,6 @@ public class CustomPersistentRememberMeServices extends
     private TransactionTemplate transactionTemplate;
 
     @Inject
-    private HibernateTransactionManager transactionManager;
-
-    @Inject
     public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
 
         super(env.getProperty("envyleague.security.rememberme.key"), userDetailsService);
@@ -125,19 +121,11 @@ public class CustomPersistentRememberMeServices extends
         token.setUser(user);
         token.setTokenValue(generateTokenData());
         token.setTokenDate(new LocalDate());
-        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        // explicitly setting the transaction name is something that can only be done programmatically
-        def.setName("persistToken");
-        def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-
-        TransactionStatus status = transactionManager.getTransaction(def);
         try {
             persistentTokenRepository.save(token);
             persistentTokenRepository.flush();
             addCookie(token, request, response);
-            transactionManager.commit(status);
         } catch (DataAccessException e) {
-            transactionManager.rollback(status);
             log.error("Failed to save persistent token ", e);
         }
     }
