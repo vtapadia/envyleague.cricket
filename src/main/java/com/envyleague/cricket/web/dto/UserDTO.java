@@ -34,6 +34,7 @@ public class UserDTO {
         this.lastName = user.getLastName();
         this.langKey = user.getLangKey();
         this.roles = user.getAuthorities();
+        this.facebookUserId = user.getFacebookUserId();
         this.email = user.getEmail();
     }
 
