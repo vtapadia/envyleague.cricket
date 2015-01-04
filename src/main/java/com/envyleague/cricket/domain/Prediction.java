@@ -2,6 +2,7 @@ package com.envyleague.cricket.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,17 +14,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "EL_CRIC_PREDICTION")
 public class Prediction implements Serializable {
-    @NotNull
-    @Id
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "user", nullable = false)
-    private User user;
-
-    @NotNull
-    @Id
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "match", nullable = false)
-    private Match match;
+    @EmbeddedId
+    private PredictionKey predictionKey;
 
     @ManyToOne
     @JoinColumn(name = "team_winner")
@@ -35,20 +27,32 @@ public class Prediction implements Serializable {
     private Integer totalWickets;
     private Integer points;
 
+    public Prediction() {
+        this.predictionKey = new PredictionKey();
+    }
+
     public User getUser() {
-        return user;
+        return predictionKey.getUser();
     }
 
     public void setUser(User user) {
-        this.user = user;
+        predictionKey.setUser(user);
     }
 
     public Match getMatch() {
-        return match;
+        return predictionKey.getMatch();
     }
 
     public void setMatch(Match match) {
-        this.match = match;
+        predictionKey.setMatch(match);
+    }
+
+    public League getLeague() {
+        return predictionKey.getLeague();
+    }
+
+    public void setLeague(League league) {
+        predictionKey.setLeague(league);
     }
 
     public Team getTeamWinner() {

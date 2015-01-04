@@ -184,4 +184,9 @@
     <changeSet id="001018" author="vtapadia">
         <dropTable tableName="EL_AUTHORITY" />
     </changeSet>
+    <changeSet id="001019" author="vtapadia">
+        <addColumn tableName="EL_CRIC_PREDICTION">
+            <column name="league" type="varchar(50)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
