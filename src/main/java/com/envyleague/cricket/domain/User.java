@@ -38,12 +38,8 @@ public class User implements Serializable {
     private String password;
 
     @Size(min = 0, max = 50)
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Size(min = 0, max = 50)
-    @Column(name = "last_name", length = 50)
-    private String lastName;
+    @Column(name = "name", length = 50)
+    private String name;
 
     @Email
     @Size(min = 0, max = 100)
@@ -95,20 +91,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -215,8 +203,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", activated=" + activated +
                 ", langKey='" + langKey + '\'' +

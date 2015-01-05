@@ -189,4 +189,11 @@
             <column name="league" type="varchar(50)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001020" author="vtapadia">
+        <dropColumn tableName="EL_USER" columnName="first_name"/>
+        <dropColumn tableName="EL_USER" columnName="last_name"/>
+        <addColumn tableName="EL_USER">
+            <column name="name" type="varchar(50)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

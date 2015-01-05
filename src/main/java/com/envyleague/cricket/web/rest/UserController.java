@@ -58,7 +58,7 @@ public class UserController {
         log.info("Registering new user " + userDTO);
 
         User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
+                userDTO.getName(), userDTO.getEmail().toLowerCase(),
                 userDTO.getLangKey());
         //final Locale locale = Locale.forLanguageTag(user.getLangKey());
         mailService.sendActivationMail(user);

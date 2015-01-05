@@ -46,8 +46,7 @@ public class FacebookService {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
         currentUser.setFacebookUserId(debugTokenInfo.getUserId());
         currentUser.setFacebookAuthToken(accessToken.getAccessToken());
-        currentUser.setFirstName(self.getFirstName());
-        currentUser.setLastName(self.getLastName());
+        currentUser.setName(self.getName());
         userRepository.save(currentUser);
         return currentUser;
     }

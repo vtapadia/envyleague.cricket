@@ -13,9 +13,7 @@ public class UserDTO {
 
     private String password;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String email;
 
@@ -30,32 +28,29 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this.login = user.getLogin();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+        this.name = user.getName();
         this.langKey = user.getLangKey();
         this.roles = user.getAuthorities();
         this.facebookUserId = user.getFacebookUserId();
         this.email = user.getEmail();
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
+    public UserDTO(String login, String password, String name, String email, String langKey,
                    Set<Authority> roles) {
         this.login = login;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
+    public UserDTO(String login, String password, String name, String email, String langKey,
                    String facebookUserId,
                    Set<Authority> roles) {
         this.login = login;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.email = email;
         this.langKey = langKey;
         this.facebookUserId = facebookUserId;
@@ -70,12 +65,8 @@ public class UserDTO {
         return login;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
@@ -101,8 +92,7 @@ public class UserDTO {
         if(password != null) {
             sb.append(", password='").append(password.length()).append('\'');
         }
-        sb.append(", firstName='").append(firstName).append('\'');
-        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", name='").append(name).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", langKey='").append(langKey).append('\'');
         if (facebookUserId != null) {

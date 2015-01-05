@@ -15,7 +15,7 @@ public class UserLeagueDTO {
     public UserLeagueDTO(UserLeague userLeague) {
         User user = userLeague.getUser();
         this.user = user.getLogin();
-        this.name = user.getFirstName();
+        this.name = user.getName();
         this.email = user.getEmail();
         this.status = userLeague.getStatus();
         this.league = userLeague.getLeague().getName();

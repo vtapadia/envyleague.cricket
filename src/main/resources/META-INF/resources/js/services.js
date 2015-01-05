@@ -14,18 +14,16 @@ envyLeagueApp.factory('Activate', function ($resource) {
     });
 
 envyLeagueApp.factory('Session', function () {
-        this.create = function (login, firstName, lastName, email, facebookUserId, userRoles) {
+        this.create = function (login, name, email, facebookUserId, userRoles) {
             this.login = login;
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.name = name;
             this.email = email;
             this.facebookUserId = facebookUserId;
             this.userRoles = userRoles;
         };
         this.invalidate = function () {
             this.login = null;
-            this.firstName = null;
-            this.lastName = null;
+            this.name = null;
             this.email = null;
             this.facebookUserId = null;
             this.userRoles = null;
@@ -53,7 +51,7 @@ envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http
                     ignoreAuthModule: 'ignoreAuthModule'
                 }).success(function (data, status, headers, config) {
                     UserService.get(function(data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.facebookUserId, data.roles);
+                        Session.create(data.login, data.name, data.email, data.facebookUserId, data.roles);
                         $rootScope.account = Session;
                         authService.loginConfirmed(data);
                     });
@@ -69,7 +67,7 @@ envyLeagueApp.factory('AuthenticationSharedService', function ($rootScope, $http
                 }).success(function (data, status, headers, config) {
                     if (!Session.login) {
                         UserService.get(function(data) {
-                            Session.create(data.login, data.firstName, data.lastName, data.email, data.facebookUserId, data.roles);
+                            Session.create(data.login, data.name, data.email, data.facebookUserId, data.roles);
                             $rootScope.account = Session;
                             if (!$rootScope.isAuthorized(authorizedRoles)) {
                                 // user is not allowed

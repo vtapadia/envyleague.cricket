@@ -31,14 +31,13 @@ public class UserService {
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+    public User createUserInformation(String login, String password, String name, String email,
                                       String langKey) {
         User newUser = new User();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
         newUser.setPassword(encryptedPassword);
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
+        newUser.setName(name);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
         // new user is not active
