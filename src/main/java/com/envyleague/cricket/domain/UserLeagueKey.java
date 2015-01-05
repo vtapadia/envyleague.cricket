@@ -15,6 +15,12 @@ public class UserLeagueKey implements Serializable{
     @JoinColumn(name = "name")
     private League league;
 
+    public UserLeagueKey() {}
+    public UserLeagueKey(User user, League league) {
+        this.user = user;
+        this.league = league;
+    }
+
     public User getUser() {
         return user;
     }

@@ -14,6 +14,9 @@ public class LeagueDTO {
     private Status status;
     private String message;
     private List<UserLeagueDTO> players;
+    private Long memberCount;
+    //Only to be used in context with the current user
+    private UserLeagueDTO userLeague;
 
     public LeagueDTO() {}
 
@@ -25,6 +28,7 @@ public class LeagueDTO {
         this.status = league.getStatus();
         this.message = league.getMessage();
         this.players = league.getUserLeagues().stream().map(UserLeagueDTO::new).collect(Collectors.toList());
+        this.memberCount = league.getUserLeagues().stream().filter(s -> s.getStatus()==Status.ACTIVE).count();
     }
 
     public String getName() {
@@ -81,6 +85,22 @@ public class LeagueDTO {
 
     public void setPlayers(List<UserLeagueDTO> players) {
         this.players = players;
+    }
+
+    public Long getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(Long memberCount) {
+        this.memberCount = memberCount;
+    }
+
+    public UserLeagueDTO getUserLeague() {
+        return userLeague;
+    }
+
+    public void setUserLeague(UserLeagueDTO userLeague) {
+        this.userLeague = userLeague;
     }
 
     @Override

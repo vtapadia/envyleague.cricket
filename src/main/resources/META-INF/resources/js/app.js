@@ -72,7 +72,7 @@ envyLeagueApp.config(
                 templateUrl: 'views/cricket/all_leagues.html',
                 controller: 'CricAllLeaguesController',
                 access: {
-                    authorizedRoles: [USER_ROLES.users]
+                    authorizedRoles: [USER_ROLES.user]
                 }
             })
             //Admin League

@@ -19,7 +19,6 @@ envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLea
         $scope.updateVisible = false;
         $scope.error = null;
         $scope.errorMessage = null;
-        console.log(data);
         CricketLeague.save(data,
             function(data, responseHeaders) {
                 $scope.updateVisible = true;
@@ -56,7 +55,30 @@ envyLeagueApp.controller('CricNewLeagueController', function ($scope, CricketLea
     }
 });
 
-envyLeagueApp.controller('CricAllLeaguesController', function ($scope, SocialService) {
+envyLeagueApp.controller('CricAllLeaguesController', function ($scope, CricketUserLeague) {
+    $scope.registerVisible = true;
+    CricketUserLeague.query({},
+        function(data, responseHeaders) {
+            $scope.leagues = data;
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data;
+        }
+    );
+    $scope.register = function(data) {
+        CricketUserLeague.save(data,
+            function(responseData, responseHeaders) {
+                data.userLeague = {status : 'PENDING'};
+                $scope.registerVisible = true;
+            },
+            function(httpResponse) {
+                $scope.registerVisible = true;
+                $scope.error = "ERROR";
+                $scope.errorMessage = httpResponse.data;
+            }
+        );
+    };
 });
 
 //Admin Controllers
@@ -76,7 +98,6 @@ envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialServic
         $scope.updateVisible = false;
         $scope.error = null;
         $scope.errorMessage = null;
-        console.log(data);
         AdminLeague.save(data,
             function(data, responseHeaders) {
                 $scope.updateVisible = true;

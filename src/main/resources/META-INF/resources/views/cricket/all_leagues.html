@@ -1,0 +1,28 @@
+<div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error">
+            {{errorMessage}}
+        </div>
+        <div ng-show="leagues" class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th>League Name</th>
+                    <th>Owner</th>
+                    <th>Fee</th>
+                    <th>Member Count</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="league in leagues">
+                    <td>{{league.name}}</td>
+                    <td><a href="mailto:{{league.owner.email}}">{{league.owner.login}}</a></td>
+                    <td>{{league.fee}}</td>
+                    <td>{{league.memberCount}}/{{league.maxMembers}}</td>
+                    <td>
+                        <span ng-show="league.userLeague">{{league.userLeague.status}}</span>
+                        <button ng-hide="league.userLeague" type="button" class="btn btn-success" ng-show="registerVisible" ng-click="register(league)">Register</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

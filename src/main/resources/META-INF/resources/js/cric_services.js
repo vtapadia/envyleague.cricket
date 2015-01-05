@@ -7,6 +7,11 @@ envyLeagueApp.factory('Cricket', function ($resource) {
     });
 });
 
+envyLeagueApp.factory('CricketUserLeague', function ($resource) {
+    return $resource('rest/cricket/userLeague', {}, {
+    });
+});
+
 envyLeagueApp.factory('CricketLeague', function ($resource) {
     return $resource('rest/cricket/league', {}, {
         'request':   {method:'PUT'},
