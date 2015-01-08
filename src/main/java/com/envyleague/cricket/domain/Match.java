@@ -21,6 +21,11 @@ public class Match implements Serializable {
     private Integer number;
 
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "tournament")
+    private Tournament tournament;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "match_type")
     private MatchType matchType;
@@ -54,6 +59,14 @@ public class Match implements Serializable {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
     }
 
     public MatchType getMatchType() {

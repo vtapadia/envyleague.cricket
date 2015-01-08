@@ -196,4 +196,9 @@
             <column name="name" type="varchar(50)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001021" author="vtapadia">
+        <addColumn tableName="EL_CRIC_MATCH">
+            <column name="tournament" type="varchar(50)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
