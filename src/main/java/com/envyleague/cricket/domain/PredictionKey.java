@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class PredictionKey implements Serializable {
     @NotNull
     @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "`user`", nullable = false)
     private User user;
 
     @NotNull
@@ -46,5 +46,14 @@ public class PredictionKey implements Serializable {
 
     public void setLeague(League league) {
         this.league = league;
+    }
+
+    @Override
+    public String toString() {
+        return "PredictionKey{" +
+                "user=" + user +
+                ", match=" + match +
+                ", league=" + league +
+                '}';
     }
 }
