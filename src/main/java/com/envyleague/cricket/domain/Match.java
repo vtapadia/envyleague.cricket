@@ -124,4 +124,18 @@ public class Match implements Serializable {
     public void setTotalWickets(Integer totalWickets) {
         this.totalWickets = totalWickets;
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "number=" + number +
+                ", matchType=" + matchType +
+                ", startTime=" + startTime +
+                ", teamA=" + teamA +
+                ", teamB=" + teamB +
+                ", teamWinner=" + teamWinner +
+                ", totalScore=" + totalScore +
+                ", totalWickets=" + totalWickets +
+                '}';
+    }
 }

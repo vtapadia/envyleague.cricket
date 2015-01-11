@@ -116,4 +116,15 @@ public class League implements Serializable {
     public void setUserLeagues(Set<UserLeague> userLeagues) {
         this.userLeagues = userLeagues;
     }
+
+    @Override
+    public String toString() {
+        return "League{" +
+                "name='" + name + '\'' +
+                ", fee=" + fee +
+                ", tournament=" + tournament +
+                ", owner=" + owner +
+                ", status=" + status +
+                '}';
+    }
 }

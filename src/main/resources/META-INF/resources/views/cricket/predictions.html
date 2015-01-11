@@ -1,0 +1,35 @@
+<div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error">
+            {{errorMessage}}
+        </div>
+        <div ng-show="leagues" class="table-responsive">
+            <select ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+            <table class="table table-condensed">
+                <tr>
+                    <th>Team A</th>
+                    <th>Time</th>
+                    <th>Team B</th>
+                    <th>Prediction</th>
+                </tr>
+                <tr ng-repeat="match in matches">
+                    <td>{{match.teamA}}</td>
+                    <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
+                    <td>{{match.teamB}}</td>
+                    <td nowrap style="white-space: nowrap" ng-repeat="prediction in selectedPrediction =(match.predictions | filter:{league:selectedLeague})">
+                        <select ng-model="prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
+                        <input type="number" ng-model="prediction.totalScore" min="0" max="1200">
+                        <input type="number" ng-model="prediction.totalWickets" min="0" max="20">
+                        <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, prediction)">Update</button>
+                    </td>
+                    <td nowrap style="white-space: nowrap" ng-hide="selectedPrediction.length">
+                        <select ng-model="match.prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
+                        <input type="number" ng-model="match.prediction.totalScore" min="0" max="1200">
+                        <input type="number" ng-model="match.prediction.totalWickets" min="0" max="20">
+                        <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
