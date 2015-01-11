@@ -1,4 +1,4 @@
-package com.envyleague.cricket;
+package com.envyleague.cricket.config;
 
 import com.envyleague.cricket.web.rest.FacebookClient;
 import org.slf4j.Logger;

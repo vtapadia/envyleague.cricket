@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,12 +19,9 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories("com.envyleague.cricket.repository")
@@ -65,15 +60,6 @@ public class DatabaseConfig implements EnvironmentAware {
         return dataSource;
     }
 
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-//        sessionFactoryBean.setDataSource(dataSource());
-//        sessionFactoryBean.setPackagesToScan("com.envyleague.cricket.domain");
-//        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-//        return sessionFactoryBean;
-//    }
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
@@ -100,11 +86,6 @@ public class DatabaseConfig implements EnvironmentAware {
         return template;
     }
 
-//    @Bean
-//    public EntityManager entityManager() {
-//        return entityManagerFactory().createEntityManager();
-//    }
-//
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
@@ -124,13 +105,6 @@ public class DatabaseConfig implements EnvironmentAware {
         return liquibase;
     }
 
-    private Properties hibernateProperties() {
-        Properties prop = new Properties();
-        prop.setProperty("hibernate.dialect","org.hibernate.dialect.PostgreSQL9Dialect");
-        prop.setProperty("hibernate.show_sql","false");
-        prop.setProperty("hibernate.hbm2ddl.auto","validate");
-        return prop;
-    }
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = environment;
