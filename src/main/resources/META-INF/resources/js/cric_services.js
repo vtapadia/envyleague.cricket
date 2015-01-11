@@ -23,6 +23,11 @@ envyLeagueApp.factory('CricketPrediction', function ($resource) {
     });
 });
 
+envyLeagueApp.factory('CricketMatch', function ($resource) {
+    return $resource('rest/cricket/match', {}, {
+    });
+});
+
 envyLeagueApp.factory('AdminLeague', function ($resource) {
     return $resource('rest/admin/league', {}, {
     });
