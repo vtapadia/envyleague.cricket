@@ -201,4 +201,10 @@
             <column name="tournament" type="varchar(50)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001022" author="vtapadia">
+        <dropPrimaryKey tableName="EL_CRIC_PREDICTION"/>
+    </changeSet>
+    <changeSet id="001023" author="vtapadia">
+        <addPrimaryKey tableName="EL_CRIC_PREDICTION" columnNames="user,match,league"/>
+    </changeSet>
 </databaseChangeLog>
