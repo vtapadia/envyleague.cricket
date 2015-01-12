@@ -55,7 +55,6 @@ public class CricketController {
     @RequestMapping(value = "/userLeague", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> allLeagues(HttpServletRequest request, HttpServletResponse response) {
         User currentUser = userService.getUserWithAuthorities();
-//        UserDTO currentUserDTO = new UserDTO(currentUser);
         Set<UserLeagueDTO> currentUserLeagues = currentUser.getUserLeagues().stream().map(UserLeagueDTO::new).collect(Collectors.toSet());
         List<League> activeLeagues = leagueRepository.findByStatusInOrderByStatusDesc(Status.ACTIVE);
         List<LeagueDTO> allLeagues = activeLeagues.stream().map(LeagueDTO::new).collect(Collectors.toList());
@@ -67,8 +66,6 @@ public class CricketController {
                 }});
             });
 
-//        allLeagues.stream().map(s -> s.getPlayers()).forEach(s -> s.stream().filter(l -> l.getUser().equals(currentUser.getLogin())));
-//        allLeagues.stream().filter(s -> s.getPlayers().contains(currentUserDTO)).forEach(s -> s.setUserLeague(currentUserDTO));
         allLeagues.forEach(s -> s.setPlayers(null));//Not required to be passed on
 
         return new ResponseEntity<>(allLeagues, HttpStatus.OK);

@@ -53,7 +53,7 @@ public class CricketMatchController {
         }
         //matches = matchRepository.findAll();//TODO DEV CODE
         List<MatchDTO> matchDTOs = matches.stream().map(MatchDTO::new).collect(toList());
-        if (providePredictions) {
+        if (providePredictions && matches.size()>0) {
             List<Prediction> predictions = predictionRepository.findByUserAndMatchInOrderByMatch(user, matches);
             List<PredictionDTO> predictionDTOs = predictions.stream().map(PredictionDTO::new).collect(toList());
 

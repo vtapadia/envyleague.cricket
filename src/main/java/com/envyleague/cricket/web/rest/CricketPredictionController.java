@@ -56,6 +56,9 @@ public class CricketPredictionController {
             predictionDTO.setUser(user.getLogin());
         }
         Match match = matchRepository.findOne(predictionDTO.getMatch());
+        if (match.getStartTime().isBefore(LocalDateTime.now())) {
+            return new ResponseEntity<>("Match is started. update not allowed now", HttpStatus.BAD_REQUEST);
+        }
         League league = leagueRepository.findOneByName(predictionDTO.getLeague());
         predictionService.saveOrUpdate(user, match, league, predictionDTO);
         return new ResponseEntity<>(HttpStatus.OK);

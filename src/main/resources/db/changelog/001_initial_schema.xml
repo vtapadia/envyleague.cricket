@@ -229,4 +229,17 @@
             <column name="point_scorer" type="varchar(60)"></column>
         </addColumn>
     </changeSet>
+    <changeSet id="001027" author="vtapadia">
+        <createIndex tableName="EL_CRIC_PREDICTION" indexName="IDX_CRIC_PREDICTION_MATCH">
+            <column name="match"></column>
+        </createIndex>
+        <createIndex tableName="EL_CRIC_PREDICTION" indexName="IDX_CRIC_PREDICTION_LEAGUE_MATCH">
+            <column name="league"></column>
+            <column name="match"></column>
+        </createIndex>
+        <createIndex tableName="EL_CRIC_PREDICTION" indexName="IDX_CRIC_PREDICTION_USER_MATCH">
+            <column name="user"></column>
+            <column name="match"></column>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>
