@@ -10,22 +10,35 @@
                     <th>Team A</th>
                     <th>Time</th>
                     <th>Team B</th>
-                    <th>Prediction</th>
+                    <th>Match Winner</th>
+                    <th>Total Runs</th>
+                    <th>Total Wickets</th>
+                    <th>Total Fours</th>
+                    <th>Total Sixes</th>
+                    <th></th>
                 </tr>
                 <tr ng-repeat="match in matches">
                     <td>{{match.teamA}}</td>
                     <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
                     <td>{{match.teamB}}</td>
-                    <td nowrap style="white-space: nowrap" ng-repeat="prediction in selectedPrediction =(match.predictions | filter:{league:selectedLeague})">
+                    <td nowrap style="white-space: nowrap" ng-repeat-start="prediction in selectedPrediction =(match.predictions | filter:{league:selectedLeague})">
                         <select ng-model="prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
-                        <input type="number" ng-model="prediction.totalScore" min="0" max="1200">
-                        <input type="number" ng-model="prediction.totalWickets" min="0" max="20">
+                    </td>
+                    <td><input type="number" ng-model="prediction.totalRuns" min="0" max="1200"></td>
+                    <td><input type="number" ng-model="prediction.totalWickets" min="0" max="20"></td>
+                    <td><input type="number" ng-model="prediction.totalFours" min="0" max="600"></td>
+                    <td><input type="number" ng-model="prediction.totalSixes" min="0" max="600"></td>
+                    <td ng-repeat-end>
                         <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, prediction)">Update</button>
                     </td>
                     <td nowrap style="white-space: nowrap" ng-hide="selectedPrediction.length">
                         <select ng-model="match.prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
-                        <input type="number" ng-model="match.prediction.totalScore" min="0" max="1200">
-                        <input type="number" ng-model="match.prediction.totalWickets" min="0" max="20">
+                    </td>
+                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalRuns" min="0" max="1200"></td>
+                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalWickets" min="0" max="20"></td>
+                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalFours" min="0" max="600"></td>
+                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalSixes" min="0" max="600"></td>
+                    <td ng-hide="selectedPrediction.length">
                         <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
                     </td>
                 </tr>

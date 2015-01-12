@@ -24,6 +24,14 @@ public class PredictionKey implements Serializable {
     @JoinColumn(name = "league", nullable = false)
     private League league;
 
+    public PredictionKey() {}
+    public PredictionKey(User user, League league, Match match) {
+        this();
+        this.league = league;
+        this.match = match;
+        this.user = user;
+    }
+
     public User getUser() {
         return user;
     }

@@ -56,6 +56,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="#/admin/league"><span class="glyphicon glyphicon-dashboard"></span>
                             &nbsp;<span>League</span></a></li>
+                        <li><a href="#/admin/match"><span class="glyphicon glyphicon-record"></span>
+                            &nbsp;<span>Matches</span></a></li>
                     </ul>
                 </li>
                 <li ng-switch-when="true" class="dropdown pointer" dropdown>
@@ -93,6 +95,12 @@
                                 &nbsp;<span>All Leagues</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="#/cricket/leaders">
+                                <span class="glyphicon glyphicon-star"></span>
+                                &nbsp;<span>Leaders</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown pointer" dropdown>
@@ -106,17 +114,9 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController" role="menu">
-                        <li ng-switch-when="true"><a href="#/settings">
-                            <span class="glyphicon glyphicon-wrench"></span>
-                            &nbsp;<span>Settings</span></a>
-                        </li>
                         <li ng-switch-when="true"><a href="#/password">
                             <span class="glyphicon glyphicon-lock"></span>
                             &nbsp;<span>Password</span></a>
-                        </li>
-                        <li ng-switch-when="true"><a href="#/sessions">
-                            <span class="glyphicon glyphicon-cloud"></span>
-                            &nbsp;<span>Sessions</span></a>
                         </li>
                         <li ng-switch-when="true"><a href="#/logout">
                             <span class="glyphicon glyphicon-log-out"></span>
@@ -124,7 +124,7 @@
                         </li>
                         <li ng-switch-when="false"><a href="#/login">
                             <span class="glyphicon glyphicon-log-in"></span>
-                            &nbsp;<span>Authenticate</span></a>
+                            &nbsp;<span>Login</span></a>
                         </li>
                         <li ng-switch-when="false"><a href="#/register">
                             <span class="glyphicon glyphicon-plus-sign"></span>

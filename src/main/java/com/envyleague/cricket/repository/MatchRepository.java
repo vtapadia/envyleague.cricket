@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<Match, Integer> {
     public List<Match> findByStartTimeAfter(LocalDateTime startDate);
+    public List<Match> findByStartTimeBefore(LocalDateTime startDate);
+    public List<Match> findByFinalizedTrue();
 }

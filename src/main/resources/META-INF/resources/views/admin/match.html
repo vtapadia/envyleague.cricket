@@ -1,0 +1,39 @@
+<div>
+    <div class="row">
+        <div class="alert alert-danger" ng-show="error">
+            {{errorMessage}}
+        </div>
+        <div ng-show="matches" class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th colspan="2">Match</th>
+                    <th>Winner</th>
+                    <th>Total Runs</th>
+                    <th>Total Wickets</th>
+                    <th>Total Fours</th>
+                    <th>Total Sixes</th>
+                </tr>
+                <tr ng-repeat="match in matches | filter:{finalized: false}">
+                    <td nowrap style="white-space: nowrap">{{match.teamA}} vs {{match.teamB}}</td>
+                    <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
+                    <td><select ng-model="match.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select></td>
+                    <td><input type="number" ng-model="match.totalRuns" min="0" max="1200"></td>
+                    <td><input type="number" ng-model="match.totalWickets" min="0" max="20"></td>
+                    <td><input type="number" ng-model="match.totalFours" min="0" max="600"></td>
+                    <td><input type="number" ng-model="match.totalSixes" min="0" max="600"></td>
+                    <td><button type="button" class="btn btn-primary" ng-show="updateVisible" ng-click="finalize(match)">Finalize</button></td>
+                </tr>
+                <tr ng-repeat="match in matches | filter:{finalized: true}">
+                    <td nowrap style="white-space: nowrap">{{match.teamA}} vs {{match.teamB}}</td>
+                    <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
+                    <td>{{match.teamWinner}}</td>
+                    <td>{{match.totalRuns}}</td>
+                    <td>{{match.totalWickets}}</td>
+                    <td>{{match.totalFours}}</td>
+                    <td>{{match.totalSixes}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

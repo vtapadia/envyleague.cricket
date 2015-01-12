@@ -68,6 +68,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.user]
                 }
             })
+            .when('/cricket/leaders', {
+                templateUrl: 'views/cricket/leaders.html',
+                controller: 'CricLeadersController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
+            })
             .when('/cricket/all/leagues', {
                 templateUrl: 'views/cricket/all_leagues.html',
                 controller: 'CricAllLeaguesController',
@@ -79,6 +86,13 @@ envyLeagueApp.config(
             .when('/admin/league', {
                 templateUrl: 'views/admin/league.html',
                 controller: 'AdminLeagueController',
+                access: {
+                    authorizedRoles: [USER_ROLES.admin]
+                }
+            })
+            .when('/admin/match', {
+                templateUrl: 'views/admin/match.html',
+                controller: 'AdminMatchController',
                 access: {
                     authorizedRoles: [USER_ROLES.admin]
                 }

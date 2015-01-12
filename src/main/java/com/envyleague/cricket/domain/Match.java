@@ -43,15 +43,24 @@ public class Match implements Serializable {
     @JoinColumn(name = "team_b")
     private Team teamB;
 
+    @Column(name = "finalized")
+    private boolean finalized;
+
     @ManyToOne
     @JoinColumn(name = "team_winner")
     private Team teamWinner;
 
-    @Column(name="total_score")
-    private Integer totalScore;
+    @Column(name="total_runs")
+    private Integer totalRuns;
 
     @Column(name="total_wickets")
     private Integer totalWickets;
+
+    @Column(name="total_fours")
+    private Integer totalFours;
+
+    @Column(name="total_sixes")
+    private Integer totalSixes;
 
     public Integer getNumber() {
         return number;
@@ -109,12 +118,12 @@ public class Match implements Serializable {
         this.teamWinner = teamWinner;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getTotalRuns() {
+        return totalRuns;
     }
 
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
+    public void setTotalRuns(Integer totalRuns) {
+        this.totalRuns = totalRuns;
     }
 
     public Integer getTotalWickets() {
@@ -123,6 +132,30 @@ public class Match implements Serializable {
 
     public void setTotalWickets(Integer totalWickets) {
         this.totalWickets = totalWickets;
+    }
+
+    public boolean isFinalized() {
+        return finalized;
+    }
+
+    public void setFinalized(boolean finalized) {
+        this.finalized = finalized;
+    }
+
+    public Integer getTotalFours() {
+        return totalFours;
+    }
+
+    public void setTotalFours(Integer totalFours) {
+        this.totalFours = totalFours;
+    }
+
+    public Integer getTotalSixes() {
+        return totalSixes;
+    }
+
+    public void setTotalSixes(Integer totalSixes) {
+        this.totalSixes = totalSixes;
     }
 
     @Override
@@ -134,7 +167,7 @@ public class Match implements Serializable {
                 ", teamA=" + teamA +
                 ", teamB=" + teamB +
                 ", teamWinner=" + teamWinner +
-                ", totalScore=" + totalScore +
+                ", totalRuns=" + totalRuns +
                 ", totalWickets=" + totalWickets +
                 '}';
     }

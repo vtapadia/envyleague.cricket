@@ -18,12 +18,19 @@ public class Prediction implements Serializable {
     @JoinColumn(name = "team_winner")
     private Team teamWinner;
 
-    @Column(name = "total_score")
-    private Integer totalScore;
+    @Column(name = "total_runs")
+    private Integer totalRuns;
     @Column(name = "total_wickets")
     private Integer totalWickets;
+    @Column(name="total_fours")
+    private Integer totalFours;
+    @Column(name="total_sixes")
+    private Integer totalSixes;
 
     private Integer points;
+
+    @Column(name="point_scorer")
+    private String pointScorer;
 
     public Prediction() {
     }
@@ -48,12 +55,12 @@ public class Prediction implements Serializable {
         this.teamWinner = teamWinner;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getTotalRuns() {
+        return totalRuns;
     }
 
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
+    public void setTotalRuns(Integer totalRuns) {
+        this.totalRuns = totalRuns;
     }
 
     public Integer getTotalWickets() {
@@ -64,6 +71,22 @@ public class Prediction implements Serializable {
         this.totalWickets = totalWickets;
     }
 
+    public Integer getTotalFours() {
+        return totalFours;
+    }
+
+    public void setTotalFours(Integer totalFours) {
+        this.totalFours = totalFours;
+    }
+
+    public Integer getTotalSixes() {
+        return totalSixes;
+    }
+
+    public void setTotalSixes(Integer totalSixes) {
+        this.totalSixes = totalSixes;
+    }
+
     public Integer getPoints() {
         return points;
     }
@@ -72,12 +95,35 @@ public class Prediction implements Serializable {
         this.points = points;
     }
 
+    public void addPoints(int point) {
+        if (this.points == null) {
+            this.points = point;
+        } else {
+            this.points += point;
+        }
+    }
+
+    public String getPointScorer() {
+        return pointScorer;
+    }
+
+    public void setPointScorer(String pointScorer) {
+        this.pointScorer = pointScorer;
+    }
+
+    public void addPointScorer(String pointScorer) {
+        if (this.pointScorer == null) {
+            this.pointScorer = "";
+        }
+        this.pointScorer += pointScorer;
+    }
+
     @Override
     public String toString() {
         return "Prediction{" +
                 "predictionKey=" + predictionKey +
                 ", teamWinner=" + teamWinner +
-                ", totalScore=" + totalScore +
+                ", totalRuns=" + totalRuns +
                 ", totalWickets=" + totalWickets +
                 ", points=" + points +
                 '}';

@@ -42,14 +42,14 @@ envyLeagueApp.controller('CricPredictionController',
             $scope.errorMessage = null;
             $scope.leagues = $filter('filter')(data, {userLeague: {status: 'ACTIVE'}});
             if ($cookies.preferredLeague == 'undefined') {
-                $scope.selectedLeague = $cookies.preferredLeague;
-            } else {
                 if ($scope.leagues.length > 1) {
                     $cookies.preferredLeague = $scope.leagues[0].name;
                     $scope.selectedLeague = $cookies.preferredLeague;
                 }
+            } else {
+                $scope.selectedLeague = $cookies.preferredLeague;
             }
-            CricketMatch.query({},
+            CricketMatch.query({predictions:'true', future:'true'},
                 function(data, responseHeaders) {
                     $scope.matches = data;
                     for (var i=0;i<$scope.matches.length;i++) {
@@ -71,6 +71,10 @@ envyLeagueApp.controller('CricPredictionController',
             $scope.errorMessage = httpResponse.data;
         }
     );
+
+    $scope.changeLeague = function() {
+        $cookies.preferredLeague = $scope.selectedLeague;
+    }
 
     $scope.saveOrUpdate = function(match, prediction) {
         $scope.saveOrUpdateVisible = false;
@@ -152,6 +156,71 @@ envyLeagueApp.controller('CricAllLeaguesController', function ($scope, CricketUs
     };
 });
 
+
+envyLeagueApp.controller('CricLeadersController',
+    function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, CricketLeaders, $filter) {
+    $scope.error = null;
+    CricketUserLeague.query({},
+        function(data, responseHeaders) {
+            $scope.error = null;
+            $scope.errorMessage = null;
+            $scope.leagues = $filter('filter')(data, {userLeague: {status: 'ACTIVE'}});
+            if ($cookies.preferredLeague == 'undefined') {
+                if ($scope.leagues.length > 0) {
+                    $cookies.preferredLeague = $scope.leagues[0].name;
+                    $scope.selectedLeague = $cookies.preferredLeague;
+                }
+            } else {
+                $scope.selectedLeague = $cookies.preferredLeague;
+            }
+            CricketLeaders.query({'league': $scope.selectedLeague},
+                function(data, responseHeaders) {
+                    $scope.users = data;
+                },
+                function(httpResponse) {
+                    $scope.error = "ERROR";
+                    $scope.errorMessage = httpResponse.data;
+                }
+            );
+//            CricketMatch.query({predictions:'true', future:'true'},
+//                function(data, responseHeaders) {
+//                    $scope.matches = data;
+//                    for (var i=0;i<$scope.matches.length;i++) {
+//                        $scope.matches[i].winnerOptions= [
+//                            {value:$scope.matches[i].teamA,display:$scope.matches[i].teamA + ' Winner'},
+//                            {value:"",display:"Draw"},
+//                            {value:$scope.matches[i].teamB,display:$scope.matches[i].teamB + ' Winner'}
+//                        ];
+//                    }
+//                },
+//                function(httpResponse) {
+//                    $scope.error = "ERROR";
+//                    $scope.errorMessage = httpResponse.data;
+//                }
+//            );
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data;
+        }
+    );
+    $scope.changeLeague = function() {
+        $scope.error = null;
+        $scope.users = null;
+        $cookies.preferredLeague = $scope.selectedLeague;
+        CricketLeaders.query({'league': $scope.selectedLeague},
+            function(data, responseHeaders) {
+                $scope.users = data;
+            },
+            function(httpResponse) {
+                $scope.error = "ERROR";
+                $scope.errorMessage = httpResponse.data;
+            }
+        );
+    }
+
+});
+
 //Admin Controllers
 envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialService, AdminLeague) {
     $scope.updateVisible = true;
@@ -180,4 +249,38 @@ envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialServic
             }
         );
     };
+});
+
+envyLeagueApp.controller('AdminMatchController', function ($scope, CricketMatch, AdminMatch) {
+    $scope.updateVisible = true;
+    CricketMatch.query({predictions:'false', future:'false'},
+        function(data, responseHeaders) {
+            $scope.matches = data;
+            for (var i=0;i<$scope.matches.length;i++) {
+                $scope.matches[i].winnerOptions= [
+                    {value:$scope.matches[i].teamA,display:$scope.matches[i].teamA + ' Winner'},
+                    {value:"",display:"Draw"},
+                    {value:$scope.matches[i].teamB,display:$scope.matches[i].teamB + ' Winner'}
+                ];
+            }
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data;
+        }
+    );
+    $scope.finalize = function(match) {
+        $scope.updateVisible = false;
+        AdminMatch.save(match,
+            function(data, responseHeaders) {
+                $scope.updateVisible = true;
+                match.finalized = true;
+            },
+            function(httpResponse) {
+                $scope.updateVisible = true;
+                $scope.error = "ERROR";
+                $scope.errorMessage = httpResponse.data;
+            }
+        );
+    }
 });

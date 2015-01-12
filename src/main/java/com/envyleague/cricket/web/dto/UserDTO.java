@@ -23,6 +23,10 @@ public class UserDTO {
 
     private Set<Authority> roles;
 
+    private int points;
+    private Integer rank;
+    private int prize;
+
     public UserDTO() {
     }
 
@@ -83,6 +87,30 @@ public class UserDTO {
 
     public Set<Authority> getRoles() {
         return roles;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public int getPrize() {
+        return prize;
+    }
+
+    public void setPrize(int prize) {
+        this.prize = prize;
     }
 
     @Override

@@ -20,7 +20,7 @@
                         {{league.status}}
                     </td>
                     <td>
-                        <ul ng-repeat="player in league.players">
+                        <ul ng-repeat="player in league.players | orderBy:status:true">
                             <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
                         </ul>
                     </td>

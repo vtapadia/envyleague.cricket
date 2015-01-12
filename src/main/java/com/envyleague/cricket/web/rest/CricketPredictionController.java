@@ -57,7 +57,7 @@ public class CricketPredictionController {
         }
         Match match = matchRepository.findOne(predictionDTO.getMatch());
         League league = leagueRepository.findOneByName(predictionDTO.getLeague());
-        predictionService.saveOrUpdate(user, match, league, predictionDTO.getTeamWinner(), predictionDTO.getTotalScore(), predictionDTO.getTotalWickets());
+        predictionService.saveOrUpdate(user, match, league, predictionDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

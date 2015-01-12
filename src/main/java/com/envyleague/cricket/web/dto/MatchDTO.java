@@ -14,8 +14,11 @@ public class MatchDTO {
     private String teamA;
     private String teamB;
     private String teamWinner;
-    private Integer totalScore;
+    private Integer totalRuns;
     private Integer totalWickets;
+    private Integer totalFours;
+    private Integer totalSixes;
+    private boolean finalized;
     private List<PredictionDTO> predictions;
 
     public MatchDTO() {}
@@ -28,8 +31,11 @@ public class MatchDTO {
         this.teamA = (match.getTeamA() == null)?null:match.getTeamA().getName();
         this.teamB = (match.getTeamB() == null)?null:match.getTeamB().getName();
         this.teamWinner = (match.getTeamWinner() == null) ? null:match.getTeamWinner().getName();
-        this.totalScore = match.getTotalScore();
+        this.totalRuns = match.getTotalRuns();
         this.totalWickets = match.getTotalWickets();
+        this.totalFours = match.getTotalFours();
+        this.totalSixes = match.getTotalSixes();
+        this.finalized = match.isFinalized();
     }
 
     public Integer getNumber() {
@@ -88,12 +94,12 @@ public class MatchDTO {
         this.teamWinner = teamWinner;
     }
 
-    public Integer getTotalScore() {
-        return totalScore;
+    public Integer getTotalRuns() {
+        return totalRuns;
     }
 
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
+    public void setTotalRuns(Integer totalRuns) {
+        this.totalRuns = totalRuns;
     }
 
     public Integer getTotalWickets() {
@@ -104,11 +110,53 @@ public class MatchDTO {
         this.totalWickets = totalWickets;
     }
 
+    public boolean isFinalized() {
+        return finalized;
+    }
+
+    public void setFinalized(boolean finalized) {
+        this.finalized = finalized;
+    }
+
+    public Integer getTotalFours() {
+        return totalFours;
+    }
+
+    public void setTotalFours(Integer totalFours) {
+        this.totalFours = totalFours;
+    }
+
+    public Integer getTotalSixes() {
+        return totalSixes;
+    }
+
+    public void setTotalSixes(Integer totalSixes) {
+        this.totalSixes = totalSixes;
+    }
+
     public List<PredictionDTO> getPredictions() {
         return predictions;
     }
 
     public void setPredictions(List<PredictionDTO> predictions) {
         this.predictions = predictions;
+    }
+
+    @Override
+    public String toString() {
+        return "MatchDTO{" +
+                "number=" + number +
+                ", tournament='" + tournament + '\'' +
+                ", matchType=" + matchType +
+                ", startTime=" + startTime +
+                ", teamA='" + teamA + '\'' +
+                ", teamB='" + teamB + '\'' +
+                ", teamWinner='" + teamWinner + '\'' +
+                ", totalRuns=" + totalRuns +
+                ", totalWickets=" + totalWickets +
+                ", totalFours=" + totalFours +
+                ", totalSixes=" + totalSixes +
+                ", finalized=" + finalized +
+                '}';
     }
 }

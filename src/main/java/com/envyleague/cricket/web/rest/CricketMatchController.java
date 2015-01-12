@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
@@ -39,23 +40,28 @@ public class CricketMatchController {
     PredictionRepository predictionRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getMatchesWithPredictions() {
+    public ResponseEntity<?> getMatchesWithPredictions(
+            @RequestParam("predictions") boolean providePredictions,
+            @RequestParam("future") boolean future) {
         User user = userService.getUserWithAuthorities();
         //TODO May be I can pass for all the matches
-        List<Match> matches = matchRepository.findByStartTimeAfter(LocalDateTime.now());
-        matches = matchRepository.findAll();
-        List<Prediction> predictions = predictionRepository.findByUserAndMatchInOrderByMatch(user, matches);
-        predictions.forEach(p->{
-            log.info("total score " + p.getTotalScore());
-        });
-        List<PredictionDTO> predictionDTOs = predictions.stream().map(PredictionDTO::new).collect(toList());
-
+        List<Match> matches = null;
+        if (future) {
+            matches = matchRepository.findByStartTimeAfter(LocalDateTime.now());
+        } else {
+            matches = matchRepository.findByStartTimeBefore(LocalDateTime.now());
+        }
+        //matches = matchRepository.findAll();//TODO DEV CODE
         List<MatchDTO> matchDTOs = matches.stream().map(MatchDTO::new).collect(toList());
+        if (providePredictions) {
+            List<Prediction> predictions = predictionRepository.findByUserAndMatchInOrderByMatch(user, matches);
+            List<PredictionDTO> predictionDTOs = predictions.stream().map(PredictionDTO::new).collect(toList());
 
-        matchDTOs.forEach(
-                m->m.setPredictions(
-                        predictionDTOs.stream().filter(
-                                p -> p.getMatch().intValue() == m.getNumber().intValue()).collect(toList())));
+            matchDTOs.forEach(
+                    m->m.setPredictions(
+                            predictionDTOs.stream().filter(
+                                    p -> p.getMatch().intValue() == m.getNumber().intValue()).collect(toList())));
+        }
         return new ResponseEntity(matchDTOs, HttpStatus.OK);
     }
 

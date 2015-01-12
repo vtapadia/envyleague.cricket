@@ -18,6 +18,11 @@ envyLeagueApp.factory('CricketLeague', function ($resource) {
     });
 });
 
+envyLeagueApp.factory('CricketLeaders', function ($resource) {
+    return $resource('rest/cricket/leaders', {}, {
+    });
+});
+
 envyLeagueApp.factory('CricketPrediction', function ($resource) {
     return $resource('rest/cricket/prediction', {}, {
     });
@@ -30,5 +35,10 @@ envyLeagueApp.factory('CricketMatch', function ($resource) {
 
 envyLeagueApp.factory('AdminLeague', function ($resource) {
     return $resource('rest/admin/league', {}, {
+    });
+});
+
+envyLeagueApp.factory('AdminMatch', function ($resource) {
+    return $resource('rest/admin/match', {}, {
     });
 });

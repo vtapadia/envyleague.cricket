@@ -8,6 +8,7 @@ import com.envyleague.cricket.domain.Team;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.PredictionRepository;
 import com.envyleague.cricket.repository.TeamRepository;
+import com.envyleague.cricket.web.dto.PredictionDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,26 +30,22 @@ public class PredictionService {
     TeamRepository teamRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveOrUpdate(User user, Match match, League league,
-                             String teamWinner, Integer totalScore, Integer totalWickets) {
+    public void saveOrUpdate(User user, Match match, League league, PredictionDTO predictionDTO) {
         Prediction prediction = predictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
         if (prediction == null) {
-            PredictionKey key = new PredictionKey();
-            key.setUser(user);
-            key.setMatch(match);
-            key.setLeague(league);
-            prediction = new Prediction(key);
+            prediction = new Prediction(new PredictionKey(user, league, match));
         }
 
-        if (StringUtils.isNotBlank(teamWinner)) {
-            Team team = teamRepository.findOne(teamWinner);
+        if (StringUtils.isNotBlank(predictionDTO.getTeamWinner())) {
+            Team team = teamRepository.findOne(predictionDTO.getTeamWinner());
             prediction.setTeamWinner(team);
         } else {
             prediction.setTeamWinner(null);
         }
-        prediction.setTotalScore(totalScore);
-        prediction.setTotalWickets(totalWickets);
+        prediction.setTotalRuns(predictionDTO.getTotalRuns());
+        prediction.setTotalWickets(predictionDTO.getTotalWickets());
+        prediction.setTotalFours(predictionDTO.getTotalFours());
+        prediction.setTotalSixes(predictionDTO.getTotalSixes());
         predictionRepository.save(prediction);
-        log.info("prediction " + prediction);
     }
 }

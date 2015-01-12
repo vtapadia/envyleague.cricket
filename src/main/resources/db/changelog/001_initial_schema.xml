@@ -207,4 +207,26 @@
     <changeSet id="001023" author="vtapadia">
         <addPrimaryKey tableName="EL_CRIC_PREDICTION" columnNames="user,match,league"/>
     </changeSet>
+    <changeSet id="001024" author="vtapadia">
+        <addColumn tableName="EL_CRIC_MATCH">
+            <column name="finalized" type="boolean" defaultValueBoolean="false" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="total_fours" type="int"></column>
+            <column name="total_sixes" type="int"></column>
+        </addColumn>
+        <addColumn tableName="EL_CRIC_PREDICTION">
+            <column name="total_fours" type="int"></column>
+            <column name="total_sixes" type="int"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="001025" author="vtapadia">
+        <renameColumn tableName="EL_CRIC_MATCH" oldColumnName="total_score" newColumnName="total_runs"></renameColumn>
+        <renameColumn tableName="EL_CRIC_PREDICTION" oldColumnName="total_score" newColumnName="total_runs"></renameColumn>
+    </changeSet>
+    <changeSet id="001026" author="vtapadia">
+        <addColumn tableName="EL_CRIC_PREDICTION">
+            <column name="point_scorer" type="varchar(60)"></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
