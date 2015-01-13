@@ -82,6 +82,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.user]
                 }
             })
+            .when('/cricket/rules', {
+                templateUrl: 'views/cricket/rules.html',
+                controller: 'CricRulesController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
+            })
             //Admin League
             .when('/admin/league', {
                 templateUrl: 'views/admin/league.html',

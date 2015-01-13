@@ -182,22 +182,6 @@ envyLeagueApp.controller('CricLeadersController',
                     $scope.errorMessage = httpResponse.data;
                 }
             );
-//            CricketMatch.query({predictions:'true', future:'true'},
-//                function(data, responseHeaders) {
-//                    $scope.matches = data;
-//                    for (var i=0;i<$scope.matches.length;i++) {
-//                        $scope.matches[i].winnerOptions= [
-//                            {value:$scope.matches[i].teamA,display:$scope.matches[i].teamA + ' Winner'},
-//                            {value:"",display:"Draw"},
-//                            {value:$scope.matches[i].teamB,display:$scope.matches[i].teamB + ' Winner'}
-//                        ];
-//                    }
-//                },
-//                function(httpResponse) {
-//                    $scope.error = "ERROR";
-//                    $scope.errorMessage = httpResponse.data;
-//                }
-//            );
         },
         function(httpResponse) {
             $scope.error = "ERROR";
@@ -219,6 +203,9 @@ envyLeagueApp.controller('CricLeadersController',
         );
     }
 
+});
+
+envyLeagueApp.controller('CricRulesController', function ($scope) {
 });
 
 //Admin Controllers
