@@ -46,6 +46,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
+            .when('/password', {
+                templateUrl: 'views/password.html',
+                controller: 'PasswordController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
             //Cricket Leagues
             .when('/cricket/myleagues', {
                 templateUrl: 'views/cricket/my_leagues.html',

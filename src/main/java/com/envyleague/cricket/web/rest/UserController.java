@@ -5,6 +5,7 @@ import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.service.MailService;
 import com.envyleague.cricket.service.UserService;
 import com.envyleague.cricket.web.dto.UserDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -73,5 +74,15 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @RequestMapping(value = "/change_password",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changePassword(@RequestBody String password) {
+        if (StringUtils.isEmpty(password)) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        userService.changePassword(password);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

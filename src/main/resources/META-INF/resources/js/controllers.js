@@ -14,6 +14,30 @@ envyLeagueApp.controller('AdminController', function ($scope) {
 envyLeagueApp.controller('MenuController', function ($scope) {
 });
 
+envyLeagueApp.controller('PasswordController', function ($scope, Password) {
+    $scope.success = null;
+    $scope.error = null;
+    $scope.doNotMatch = null;
+    $scope.changePassword = function () {
+        if ($scope.password != $scope.confirmPassword) {
+            $scope.doNotMatch = "ERROR";
+        } else {
+            $scope.doNotMatch = null;
+            Password.save($scope.password,
+                function (value, responseHeaders) {
+                    $scope.error = null;
+                    $scope.success = 'OK';
+                    $scope.password = null;
+                    $scope.confirmPassword = null;
+                },
+                function (httpResponse) {
+                    $scope.success = null;
+                    $scope.error = "ERROR";
+                });
+        }
+    };
+});
+
 envyLeagueApp.controller('RegisterController', function ($scope, Register) {
     $scope.success = null;
     $scope.doNotMatch = null;

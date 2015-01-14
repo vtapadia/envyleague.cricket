@@ -6,6 +6,10 @@ envyLeagueApp.factory('Register', function ($resource) {
     return $resource('rest/user/register', {}, {});
 });
 
+envyLeagueApp.factory('Password', function ($resource) {
+    return $resource('rest/user/change_password', {}, {});
+});
+
 envyLeagueApp.factory('Activate', function ($resource) {
     return $resource('rest/user/activate', {}, {
         'get': { method: 'GET', params: {}, isArray: false}

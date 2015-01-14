@@ -62,6 +62,14 @@ public class UserService {
         return user;
     }
 
+    public void changePassword(String password) {
+        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        String encryptedPassword = passwordEncoder.encode(password);
+        currentUser.setPassword(encryptedPassword);
+        userRepository.save(currentUser);
+        log.debug("Changed password for User: {}", currentUser);
+    }
+
     public User getUserWithAuthorities() {
         User currentUser = null;
         if (SecurityUtils.getCurrentLogin() != null) {
