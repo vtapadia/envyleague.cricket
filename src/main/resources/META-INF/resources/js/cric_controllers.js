@@ -58,6 +58,7 @@ envyLeagueApp.controller('CricPredictionController',
                             {value:"",display:"Draw"},
                             {value:$scope.matches[i].teamB,display:$scope.matches[i].teamB + ' Winner'}
                         ];
+                        $scope.matches[i].prediction = {};
                     }
                 },
                 function(httpResponse) {
@@ -209,7 +210,7 @@ envyLeagueApp.controller('CricRulesController', function ($scope) {
 });
 
 //Admin Controllers
-envyLeagueApp.controller('AdminLeagueController', function ($scope, SocialService, AdminLeague) {
+envyLeagueApp.controller('AdminLeagueController', function ($scope, AdminLeague) {
     $scope.updateVisible = true;
     AdminLeague.query({},
         function(data, responseHeaders) {

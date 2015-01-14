@@ -4,7 +4,7 @@
             {{errorMessage}}
         </div>
         <div ng-show="leagues" class="table-responsive">
-            <select ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+            <select class="form-control" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
             <table class="table table-condensed">
                 <tr>
                     <th>Team A</th>
@@ -17,29 +17,29 @@
                     <th>Total Sixes</th>
                     <th></th>
                 </tr>
-                <tr ng-repeat="match in matches">
+                <tr ng-if="match.teamA && match.teamB" ng-repeat="match in matches | orderBy:'number'">
                     <td>{{match.teamA}}</td>
                     <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
                     <td>{{match.teamB}}</td>
-                    <td nowrap style="white-space: nowrap" ng-repeat-start="prediction in selectedPrediction =(match.predictions | filter:{league:selectedLeague})">
-                        <select ng-model="prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
+                    <td nowrap style="white-space: nowrap" ng-repeat-start="sp in selectedPrediction =(match.predictions | filter:{league:selectedLeague})">
+                        <select class="form-control" ng-model="sp.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
                     </td>
-                    <td><input type="number" ng-model="prediction.totalRuns" min="0" max="1200"></td>
-                    <td><input type="number" ng-model="prediction.totalWickets" min="0" max="20"></td>
-                    <td><input type="number" ng-model="prediction.totalFours" min="0" max="600"></td>
-                    <td><input type="number" ng-model="prediction.totalSixes" min="0" max="600"></td>
+                    <td><input class="form-control" type="number" ng-model="sp.totalRuns" min="0" max="1200"></td>
+                    <td><input class="form-control" type="number" ng-model="sp.totalWickets" min="0" max="20"></td>
+                    <td><input class="form-control" type="number" ng-model="sp.totalFours" min="0" max="600"></td>
+                    <td><input class="form-control" type="number" ng-model="sp.totalSixes" min="0" max="600"></td>
                     <td ng-repeat-end>
-                        <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, prediction)">Update</button>
+                        <button type="button" class="form-control btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, sp)">Update</button>
                     </td>
                     <td nowrap style="white-space: nowrap" ng-hide="selectedPrediction.length">
-                        <select ng-model="match.prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
+                        <select class="form-control" ng-model="match.prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
                     </td>
-                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalRuns" min="0" max="1200"></td>
-                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalWickets" min="0" max="20"></td>
-                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalFours" min="0" max="600"></td>
-                    <td ng-hide="selectedPrediction.length"><input type="number" ng-model="match.prediction.totalSixes" min="0" max="600"></td>
+                    <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalRuns" min="0" max="1200"></td>
+                    <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalWickets" min="0" max="20"></td>
+                    <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalFours" min="0" max="600"></td>
+                    <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalSixes" min="0" max="600"></td>
                     <td ng-hide="selectedPrediction.length">
-                        <button type="button" class="btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
+                        <button type="button" class="form-control btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
                     </td>
                 </tr>
             </table>

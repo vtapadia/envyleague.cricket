@@ -21,11 +21,11 @@
                     </td>
                     <td>
                         <ul ng-repeat="player in league.players | orderBy:status:true">
-                            <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
+                            <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select class="form-control" ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
                         </ul>
                     </td>
                     <td ng-show="league.status == 'ACTIVE'">
-                        <button type="button" class="btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
+                        <button type="button" class="form-control btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
                     </td>
                 </tr>
             </table>
