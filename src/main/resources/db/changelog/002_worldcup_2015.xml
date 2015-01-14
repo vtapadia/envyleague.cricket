@@ -77,4 +77,384 @@
             <column name="status">ACTIVE</column>
         </update>
     </changeSet>
+    <changeSet id="002004" author="vtapadia" dbms="postgresql">
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">1</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-13T22:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">2</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-14T03:30:00</column>
+            <column name="team_a">Australia</column>
+            <column name="team_b">England</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">3</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-15T01:00:00</column>
+            <column name="team_a">South Africa</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">4</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-15T03:30:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">Pakistan</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">5</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-15T22:00:00</column>
+            <column name="team_a">Ireland</column>
+            <column name="team_b">West Indies</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">6</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-16T22:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">Scotland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">7</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-18T03:30:00</column>
+            <column name="team_a">Afganistan</column>
+            <column name="team_b">Bangladesh</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">8</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-18T22:00:00</column>
+            <column name="team_a">UAE</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">9</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-20T01:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">England</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">10</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-20T22:00:00</column>
+            <column name="team_a">Pakistan</column>
+            <column name="team_b">West Indies</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">11</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-21T03:30:00</column>
+            <column name="team_a">Australia</column>
+            <column name="team_b">Bangladesh</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">12</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-21T22:00:00</column>
+            <column name="team_a">Afganistan</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">13</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-22T03:30:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">South Africa</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">14</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-22T22:00:00</column>
+            <column name="team_a">England</column>
+            <column name="team_b">Scotland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">15</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-24T03:30:00</column>
+            <column name="team_a">West Indies</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">16</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-25T03:30:00</column>
+            <column name="team_a">Ireland</column>
+            <column name="team_b">UAE</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">17</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-25T22:00:00</column>
+            <column name="team_a">Afganistan</column>
+            <column name="team_b">Scotland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">18</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-26T03:30:00</column>
+            <column name="team_a">Bangladesh</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">19</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-27T03:30:00</column>
+            <column name="team_a">South Africa</column>
+            <column name="team_b">West Indies</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">20</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-28T01:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">Australia</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">21</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-28T06:30:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">UAE</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">22</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-02-28T22:00:00</column>
+            <column name="team_a">England</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">23</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-01T03:30:00</column>
+            <column name="team_a">Pakistan</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">24</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-03T03:30:00</column>
+            <column name="team_a">Ireland</column>
+            <column name="team_b">South Africa</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">25</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-04T01:00:00</column>
+            <column name="team_a">Pakistan</column>
+            <column name="team_b">UAE</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">26</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-04T06:30:00</column>
+            <column name="team_a">Australia</column>
+            <column name="team_b">Afganistan</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">27</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-04T22:00:00</column>
+            <column name="team_a">Bangladesh</column>
+            <column name="team_b">Scotland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">28</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-06T06:30:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">West Indies</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">29</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-07T01:00:00</column>
+            <column name="team_a">Pakistan</column>
+            <column name="team_b">South Africa</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">30</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-07T03:30:00</column>
+            <column name="team_a">Ireland</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">31</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-07T22:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">Afganistan</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">32</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-08T03:30:00</column>
+            <column name="team_a">Australia</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">33</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-09T03:30:00</column>
+            <column name="team_a">England</column>
+            <column name="team_b">Bangladesh</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">34</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-10T01:00:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">Ireland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">35</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-11T03:30:00</column>
+            <column name="team_a">Scotland</column>
+            <column name="team_b">Sri Lanka</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">36</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-12T01:00:00</column>
+            <column name="team_a">South Africa</column>
+            <column name="team_b">UAE</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">37</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-13T01:00:00</column>
+            <column name="team_a">New Zealand</column>
+            <column name="team_b">Bangladesh</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">38</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-13T03:30:00</column>
+            <column name="team_a">Afganistan</column>
+            <column name="team_b">England</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">39</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-14T01:00:00</column>
+            <column name="team_a">India</column>
+            <column name="team_b">Zimbabwe</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">40</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-14T03:30:00</column>
+            <column name="team_a">Australia</column>
+            <column name="team_b">Scotland</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">41</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-14T22:00:00</column>
+            <column name="team_a">UAE</column>
+            <column name="team_b">West Indies</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">42</column>
+            <column name="match_type">LEAGUE</column>
+            <column name="start_time">2015-03-15T03:30:00</column>
+            <column name="team_a">Ireland</column>
+            <column name="team_b">Pakistan</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">43</column>
+            <column name="match_type">QUARTER_FINAL</column>
+            <column name="start_time">2015-03-18T03:30:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">44</column>
+            <column name="match_type">QUARTER_FINAL</column>
+            <column name="start_time">2015-03-19T03:30:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">45</column>
+            <column name="match_type">QUARTER_FINAL</column>
+            <column name="start_time">2015-03-20T03:30:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">46</column>
+            <column name="match_type">QUARTER_FINAL</column>
+            <column name="start_time">2015-03-21T01:00:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">47</column>
+            <column name="match_type">SEMI_FINAL</column>
+            <column name="start_time">2015-03-24T01:00:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">48</column>
+            <column name="match_type">SEMI_FINAL</column>
+            <column name="start_time">2015-03-26T03:30:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+        <insert tableName="EL_CRIC_MATCH">
+            <column name="number">49</column>
+            <column name="match_type">FINAL</column>
+            <column name="start_time">2015-03-29T03:30:00</column>
+            <column name="tournament">World Cup 2015</column>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
