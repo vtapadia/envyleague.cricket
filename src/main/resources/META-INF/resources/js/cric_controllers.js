@@ -172,7 +172,15 @@ envyLeagueApp.controller('CricLeadersController',
                     $scope.selectedLeague = $cookies.preferredLeague;
                 }
             } else {
-                $scope.selectedLeague = $cookies.preferredLeague;
+                for (var i=0;i<$scope.leagues.length; i++) {
+                    if ($scope.leagues[i].name == $cookies.preferredLeague) {
+                        $scope.selectedLeague = $cookies.preferredLeague;
+                    }
+                }
+                if ($scope.selectedLeague == undefined && $scope.leagues.length > 0) {
+                    $cookies.preferredLeague = $scope.leagues[0].name;
+                    $scope.selectedLeague = $cookies.preferredLeague;
+                }
             }
             if ($scope.selectedLeague != undefined) {
                 CricketLeaders.query({'league': $scope.selectedLeague},
