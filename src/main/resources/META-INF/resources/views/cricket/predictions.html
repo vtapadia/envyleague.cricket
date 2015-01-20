@@ -4,8 +4,8 @@
             {{errorMessage}}
         </div>
         <div ng-show="leagues" class="table-responsive">
-            <select class="form-control" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
-            <table class="table table-condensed">
+            <select class="form-control form-control-condensed" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+            <table class="table table-condensed table-hover">
                 <tr>
                     <th>Team A</th>
                     <th>Time</th>

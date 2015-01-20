@@ -6,7 +6,7 @@
     <meta name="description" content="Cricket unofficial league">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" href="webjars/bootswatch/3.3.1+2/cerulean/bootstrap.css" />
+    <link rel="stylesheet" href="webjars/bootswatch/3.3.1+2/flatly/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="webjars/jquery/2.1.1/jquery.js"></script>
     <script src="webjars/angularjs/1.2.27/angular.js"></script>
@@ -23,7 +23,7 @@
     <script src="js/directives.js"></script>
 </head>
 <body ng-app="envyLeagueApp" ng-controller="HomeController">
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse navbar-envy" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -142,12 +142,8 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <div class="well" ng-view=""></div>
-
-    <div class="footer">
-        <p>Nidhi and Varesh initiative. Contact: support@envyleague.com</p>
-    </div>
+<div class="container container-envy">
+    <div class="well well-envy" ng-view=""></div>
 </div>
 </body>
 </html>

@@ -1,4 +1,30 @@
+.navbar-envy {
+    margin-bottom: 0px;
+}
 
+.container-envy {
+    background-image: url(/images/background-1.jpg);
+    background-repeat: no-repeat;
+    height: 90%;
+    width: 100%;
+}
+
+.well-envy {
+    padding-top:20px;
+    margin-bottom:0px;
+    padding-bottom: 0px;
+    background-color: rgba(248, 245, 240, 0.3);
+    overflow: auto;
+    height: 100%;
+}
+
+.text-info, .text-info:hover {
+    color:#18bc9c;
+}
+
+.form-control-condensed {
+    width:initial;
+}
 /*
 Referenced from ui.bootstrap
 */

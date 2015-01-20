@@ -4,7 +4,7 @@
             {{errorMessage}}
         </div>
         <div ng-show="leagues" class="table-responsive">
-            <table class="table table-condensed">
+            <table class="table table-condensed table-hover">
                 <caption>My Owned Leagues</caption>
                 <tr>
                     <th>League Name</th>
@@ -21,7 +21,7 @@
                     </td>
                     <td>
                         <ul ng-repeat="player in league.players | orderBy:status:true">
-                            <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select class="form-control" ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
+                            <li><a href="mailto:{{player.email}}">{{player.user}}</a> - <select class="form-control form-control-condensed" ng-model="player.status" ng-options="status as status for status in STATUS"></select></li>
                         </ul>
                     </td>
                     <td ng-show="league.status == 'ACTIVE'">

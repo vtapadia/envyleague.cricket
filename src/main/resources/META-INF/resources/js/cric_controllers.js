@@ -12,7 +12,7 @@ envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLea
         },
         function(httpResponse) {
             $scope.error = "ERROR";
-            $scope.errorMessage = httpResponse.data;
+            $scope.errorMessage = httpResponse.data.message;
         }
     );
     $scope.update = function(data) {
@@ -26,7 +26,7 @@ envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLea
             function(httpResponse) {
                 $scope.updateVisible = true;
                 $scope.error = "ERROR";
-                $scope.errorMessage = httpResponse.data;
+                $scope.errorMessage = httpResponse.data.message;
             }
         );
     };});
@@ -63,13 +63,13 @@ envyLeagueApp.controller('CricPredictionController',
                 },
                 function(httpResponse) {
                     $scope.error = "ERROR";
-                    $scope.errorMessage = httpResponse.data;
+                    $scope.errorMessage = httpResponse.data.message;
                 }
             );
         },
         function(httpResponse) {
             $scope.error = "ERROR";
-            $scope.errorMessage = httpResponse.data;
+            $scope.errorMessage = httpResponse.data.message;
         }
     );
 
@@ -92,7 +92,7 @@ envyLeagueApp.controller('CricPredictionController',
                 function(httpResponse) {
                     $scope.saveOrUpdateVisible = true;
                     $scope.error = "ERROR";
-                    $scope.errorMessage = httpResponse.data;
+                    $scope.errorMessage = httpResponse.data.message;
                 }
             );
         } else {
@@ -174,15 +174,17 @@ envyLeagueApp.controller('CricLeadersController',
             } else {
                 $scope.selectedLeague = $cookies.preferredLeague;
             }
-            CricketLeaders.query({'league': $scope.selectedLeague},
-                function(data, responseHeaders) {
-                    $scope.users = data;
-                },
-                function(httpResponse) {
-                    $scope.error = "ERROR";
-                    $scope.errorMessage = httpResponse.data;
-                }
-            );
+            if ($scope.selectedLeague != undefined) {
+                CricketLeaders.query({'league': $scope.selectedLeague},
+                    function(data, responseHeaders) {
+                        $scope.users = data;
+                    },
+                    function(httpResponse) {
+                        $scope.error = "ERROR";
+                        $scope.errorMessage = httpResponse.data.message;
+                    }
+                );
+            }
         },
         function(httpResponse) {
             $scope.error = "ERROR";
