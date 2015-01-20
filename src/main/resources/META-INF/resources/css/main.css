@@ -21,7 +21,7 @@
 }
 
 .text-info, .text-info:hover {
-    color:#18bc9c;
+    color:#66efd4;
 }
 
 .table-hover-envy > tbody:hover{
@@ -30,6 +30,16 @@
 
 .form-control-condensed {
     width:initial;
+}
+
+.table caption {
+    font-weight: bold;
+    color:#66efd4;
+    text-align: center;
+}
+
+.marginRight {
+    margin-right: 30px;
 }
 /*
 Referenced from ui.bootstrap

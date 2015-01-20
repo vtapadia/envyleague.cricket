@@ -11,6 +11,8 @@ public class PredictionDTO {
     private Integer totalWickets;
     private Integer totalFours;
     private Integer totalSixes;
+    private Integer points;
+    private String pointScorer;
     private boolean allLeague = false;
 
     public PredictionDTO() {}
@@ -24,6 +26,8 @@ public class PredictionDTO {
         this.totalWickets = prediction.getTotalWickets();
         this.totalFours = prediction.getTotalFours();
         this.totalSixes = prediction.getTotalSixes();
+        this.points = prediction.getPoints();
+        this.pointScorer = prediction.getPointScorer();
     }
 
     public String getUser() {
@@ -88,6 +92,22 @@ public class PredictionDTO {
 
     public void setTotalSixes(Integer totalSixes) {
         this.totalSixes = totalSixes;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public String getPointScorer() {
+        return pointScorer;
+    }
+
+    public void setPointScorer(String pointScorer) {
+        this.pointScorer = pointScorer;
     }
 
     public boolean isAllLeague() {

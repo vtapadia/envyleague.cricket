@@ -47,7 +47,15 @@ envyLeagueApp.controller('CricPredictionController',
                     $scope.selectedLeague = $cookies.preferredLeague;
                 }
             } else {
-                $scope.selectedLeague = $cookies.preferredLeague;
+                for (var i=0;i<$scope.leagues.length; i++) {
+                    if ($scope.leagues[i].name == $cookies.preferredLeague) {
+                        $scope.selectedLeague = $cookies.preferredLeague;
+                    }
+                }
+                if ($scope.selectedLeague == undefined && $scope.leagues.length > 0) {
+                    $cookies.preferredLeague = $scope.leagues[0].name;
+                    $scope.selectedLeague = $cookies.preferredLeague;
+                }
             }
             CricketMatch.query({predictions:'true', future:'true'},
                 function(data, responseHeaders) {
@@ -107,6 +115,52 @@ envyLeagueApp.controller('CricPredictionController',
                 }
             );
         }
+    }
+});
+
+envyLeagueApp.controller('CricPerformanceController',
+    function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, $filter) {
+
+    $scope.error = null;
+    CricketUserLeague.query({},
+        function(data, responseHeaders) {
+            $scope.error = null;
+            $scope.errorMessage = null;
+            $scope.leagues = $filter('filter')(data, {userLeague: {status: 'ACTIVE'}});
+            if ($cookies.preferredLeague == 'undefined') {
+                if ($scope.leagues.length > 1) {
+                    $cookies.preferredLeague = $scope.leagues[0].name;
+                    $scope.selectedLeague = $cookies.preferredLeague;
+                }
+            } else {
+                for (var i=0;i<$scope.leagues.length; i++) {
+                    if ($scope.leagues[i].name == $cookies.preferredLeague) {
+                        $scope.selectedLeague = $cookies.preferredLeague;
+                    }
+                }
+                if ($scope.selectedLeague == undefined && $scope.leagues.length > 0) {
+                    $cookies.preferredLeague = $scope.leagues[0].name;
+                    $scope.selectedLeague = $cookies.preferredLeague;
+                }
+            }
+            CricketMatch.query({predictions:'true', future:'false'},
+                function(data, responseHeaders) {
+                    $scope.matches = data;
+                },
+                function(httpResponse) {
+                    $scope.error = "ERROR";
+                    $scope.errorMessage = httpResponse.data.message;
+                }
+            );
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data.message;
+        }
+    );
+
+    $scope.changeLeague = function() {
+        $cookies.preferredLeague = $scope.selectedLeague;
     }
 });
 

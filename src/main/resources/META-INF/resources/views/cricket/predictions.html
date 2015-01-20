@@ -4,7 +4,7 @@
             {{errorMessage}}
         </div>
         <div ng-show="leagues" class="table-responsive">
-            <select class="form-control form-control-condensed" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+            <select class="form-control form-control-condensed pull-right marginRight" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
             <table class="table table-condensed table-hover">
                 <tr>
                     <th>Team A</th>
@@ -29,7 +29,7 @@
                     <td><input class="form-control" type="number" ng-model="sp.totalFours" min="0" max="600"></td>
                     <td><input class="form-control" type="number" ng-model="sp.totalSixes" min="0" max="600"></td>
                     <td ng-repeat-end>
-                        <button type="button" class="form-control btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, sp)">Update</button>
+                        <button type="button" class="form-control btn btn-success" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, sp)">Update</button>
                     </td>
                     <td nowrap style="white-space: nowrap" ng-hide="selectedPrediction.length">
                         <select class="form-control" ng-model="match.prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select>
@@ -39,7 +39,7 @@
                     <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalFours" min="0" max="600"></td>
                     <td ng-hide="selectedPrediction.length"><input class="form-control" type="number" ng-model="match.prediction.totalSixes" min="0" max="600"></td>
                     <td ng-hide="selectedPrediction.length">
-                        <button type="button" class="form-control btn btn-primary" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
+                        <button type="button" class="form-control btn btn-warning" ng-show="saveOrUpdateVisible" ng-click="saveOrUpdate(match, match.prediction)">Save</button>
                     </td>
                 </tr>
             </table>

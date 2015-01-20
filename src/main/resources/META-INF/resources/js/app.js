@@ -68,6 +68,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.user]
                 }
             })
+            .when('/cricket/performance', {
+                templateUrl: 'views/cricket/performance.html',
+                controller: 'CricPerformanceController',
+                access: {
+                    authorizedRoles: [USER_ROLES.user]
+                }
+            })
             .when('/cricket/league', {
                 templateUrl: 'views/cricket/new_league.html',
                 controller: 'CricNewLeagueController',

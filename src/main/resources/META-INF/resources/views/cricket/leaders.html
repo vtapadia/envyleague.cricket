@@ -4,7 +4,7 @@
             {{errorMessage}}
         </div>
         <div ng-show="leagues" class="table-responsive">
-            <select ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+            <select class="form-control form-control-condensed pull-right marginRight" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
             <table class="table table-condensed table-hover" ng-show="users">
                 <tr>
                     <th>Rank</th>
