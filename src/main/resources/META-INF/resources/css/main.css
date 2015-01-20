@@ -24,6 +24,10 @@
     color:#18bc9c;
 }
 
+.table-hover-envy > tbody:hover{
+    background-color: #ecf0f1;
+}
+
 .form-control-condensed {
     width:initial;
 }
