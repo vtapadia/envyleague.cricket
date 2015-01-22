@@ -6,4 +6,5 @@
 
     <include file="classpath:db/changelog/001_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="classpath:db/changelog/002_worldcup_2015.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/003_admin_configuration.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
