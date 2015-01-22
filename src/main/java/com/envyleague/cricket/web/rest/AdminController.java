@@ -6,10 +6,12 @@ import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.repository.LeagueRepository;
 import com.envyleague.cricket.repository.MatchRepository;
 import com.envyleague.cricket.repository.TeamRepository;
+import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.service.LeagueService;
 import com.envyleague.cricket.service.MatchService;
 import com.envyleague.cricket.web.dto.LeagueDTO;
 import com.envyleague.cricket.web.dto.MatchDTO;
+import com.envyleague.cricket.web.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,6 +45,9 @@ public class AdminController {
 
     @Inject
     MatchService matchService;
+
+    @Inject
+    UserRepository userRepository;
 
     @Inject
     TeamRepository teamRepository;
@@ -84,5 +89,11 @@ public class AdminController {
         matchService.finalizeMatch(match);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> allUsers(HttpServletRequest request, HttpServletResponse response) {
+        List<UserDTO> users = userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
+        return  new ResponseEntity<>(users,HttpStatus.OK);
     }
 }
