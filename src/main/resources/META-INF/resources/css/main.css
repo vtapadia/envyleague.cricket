@@ -1,23 +1,45 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
 .navbar-envy {
     margin-bottom: 0px;
     height: 10%;
+    max-height: 55px;
 }
 
 .container-envy {
-    background-image: url(/images/background-1.jpg);
+    background-image: url(/images/mcg-bg1.jpg);
     background-repeat: no-repeat;
-    height: 90%;
+    height: 100%;
     width: 100%;
     background-size: cover;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 .well-envy {
-    padding-top:20px;
+    padding-top:60px;
     margin-bottom:0px;
     padding-bottom: 0px;
     background-color: rgba(248, 245, 240, 0.3);
     overflow: auto;
     height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background-color: rgba(233, 247, 248, 0.99);
+  text-align: center;
 }
 
 .text-info, .text-info:hover {
@@ -52,14 +74,6 @@ Referenced from ui.bootstrap
     max-width:70px;
 }
 
-.footer {
-   position:fixed;
-   left:0px;
-   bottom:0px;
-   height:30px;
-   width:100%;
-}
-
 /* start Password strength bar style */
 ul#strength {
     display:inline;
@@ -82,3 +96,57 @@ ul#strength {
     width:20px;
 }
 /* end Password strength bar style */
+
+.flag {
+  display: inline-block;
+  width: 25px;
+  height: 22px;
+  line-height: 22px;
+  /* vertical-align: text-top; */
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 7px;
+}
+.flag-afganistan {
+  background-image: url(/images/afganistan.png);
+}
+.flag-australia {
+  background-image: url(/images/australia.png);
+}
+.flag-bangladesh {
+  background-image: url(/images/bangladesh.png);
+}
+.flag-england {
+  background-image: url(/images/england.png);
+}
+.flag-india {
+  background-image: url(/images/india.png);
+}
+.flag-ireland {
+  background-image: url(/images/ireland.png);
+}
+.flag-newzealand {
+  background-image: url(/images/newzealand.png);
+}
+.flag-pakistan {
+  background-image: url(/images/pakistan.png);
+}
+.flag-scotland {
+  background-image: url(/images/scotland.png);
+}
+.flag-southafrica {
+  background-image: url(/images/southafrica.png);
+}
+.flag-srilanka {
+  background-image: url(/images/srilanka.png);
+}
+.flag-uae {
+  background-image: url(/images/uae.png);
+}
+.flag-westindies {
+  background-image: url(/images/westindies.png);
+}
+.flag-zimbabwe {
+  background-image: url(/images/zimbabwe.png);
+}

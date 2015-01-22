@@ -6,7 +6,7 @@
     <meta name="description" content="Cricket unofficial league">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" href="webjars/bootswatch/3.3.1+2/flatly/bootstrap.css" />
+    <link rel="stylesheet" href="webjars/bootswatch/3.3.1+2/cerulean/bootstrap.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="webjars/jquery/2.1.1/jquery.js"></script>
     <script src="webjars/angularjs/1.2.27/angular.js"></script>
@@ -23,7 +23,7 @@
     <script src="js/directives.js"></script>
 </head>
 <body ng-app="envyLeagueApp" ng-controller="HomeController">
-<nav class="navbar navbar-inverse navbar-envy" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-envy" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
@@ -71,24 +71,7 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController" role="menu">
-                        <li>
-                            <a href="#/cricket/myleagues">
-                                <span class="glyphicon glyphicon-list"></span>
-                                &nbsp;<span>My Leagues</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/cricket/predictions">
-                                <span class="glyphicon glyphicon-question-sign"></span>
-                                &nbsp;<span>Predictions</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/cricket/performance">
-                                <span class="glyphicon glyphicon-signal"></span>
-                                &nbsp;<span>My Performance</span>
-                            </a>
-                        </li>
+                        <li role="presentation" class="dropdown-header">Leagues</li>
                         <li>
                             <a href="#/cricket/league">
                                 <span class="glyphicon glyphicon-plus-sign"></span>
@@ -96,17 +79,38 @@
                             </a>
                         </li>
                         <li>
+                            <a href="#/cricket/myleagues">
+                                <span class="glyphicon glyphicon-check"></span>
+                                &nbsp;<span>My Leagues</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#/cricket/all/leagues">
-                                <span class="glyphicon glyphicon-list"></span>
+                                <span class="glyphicon glyphicon-sort-by-alphabet"></span>
                                 &nbsp;<span>All Leagues</span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" class="dropdown-header">ICC World Cup 2015</li>
+                        <li>
+                            <a href="#/cricket/predictions">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                                &nbsp;<span>My Predictions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/cricket/performance">
+                                <span class="glyphicon glyphicon-signal"></span>
+                                &nbsp;<span>Performance</span>
                             </a>
                         </li>
                         <li>
                             <a href="#/cricket/leaders">
                                 <span class="glyphicon glyphicon-flag"></span>
-                                &nbsp;<span>Leaders</span>
+                                &nbsp;<span>Leader Board</span>
                             </a>
                         </li>
+                        <li role="presentation" class="divider"></li>
                         <li>
                             <a href="#/cricket/rules">
                                 <span class="glyphicon glyphicon-info-sign"></span>
@@ -150,6 +154,22 @@
 </nav>
 <div class="container container-envy">
     <div class="well well-envy" ng-view=""></div>
+    <div class="footer">
+        <i class="flag flag-afganistan"></i>
+        <i class="flag flag-australia"></i>
+        <i class="flag flag-bangladesh"></i>
+        <i class="flag flag-england"></i>
+        <i class="flag flag-india"></i>
+        <i class="flag flag-ireland"></i>
+        <i class="flag flag-newzealand"></i>
+        <i class="flag flag-pakistan"></i>
+        <i class="flag flag-scotland"></i>
+        <i class="flag flag-southafrica"></i>
+        <i class="flag flag-srilanka"></i>
+        <i class="flag flag-uae"></i>
+        <i class="flag flag-westindies"></i>
+        <i class="flag flag-zimbabwe"></i>
+    </div>
 </div>
 </body>
 </html>
