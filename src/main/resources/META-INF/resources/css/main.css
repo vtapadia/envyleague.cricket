@@ -88,8 +88,14 @@ body {
 
 .table caption {
     font-weight: bold;
-    color:#66efd4;
+    font-size: x-large;
+    color:#3B70A1;
     text-align: center;
+}
+
+.table tr th {
+    background-color: #fcf8e3;
+    color: #BD7801;
 }
 
 .marginRight {

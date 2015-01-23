@@ -57,6 +57,10 @@ public class UserLeagueDTO {
         return status;
     }
 
+    public String getStatusDescription() {
+        return status.getDescription();
+    }
+
     public void setStatus(Status status) {
         this.status = status;
     }

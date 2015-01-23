@@ -200,6 +200,7 @@ envyLeagueApp.controller('CricAllLeaguesController', function ($scope, CricketUs
         CricketUserLeague.save(data,
             function(responseData, responseHeaders) {
                 data.userLeague = {status : 'PENDING'};
+                data.userLeague = {statusDescription : 'Pending Approval'};
                 $scope.registerVisible = true;
             },
             function(httpResponse) {
