@@ -1,19 +1,17 @@
 <div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h1>Authentication</h1>
+    <div class="row row-envy">
+        <div class="col-md-4 col-md-offset-4 working-area-envy vcenter">
+            <h1>Login</h1>
 
             <div class="alert alert-danger" ng-show="authenticationError">
                 <strong>Authentication failed!</strong> Please check your credentials and try again.
             </div>
             <form class="form" role="form">
                 <div class="form-group">
-                    <label for="username">Login</label>
-                    <input type="text" class="form-control" id="username" ng-model="username">
+                    <input type="text" placeholder="Username" class="form-control" id="username" ng-model="username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password"
+                    <input type="password" placeholder="Password" class="form-control" id="password"
                            ng-model="password">
                 </div>
                 <!--<div class="form-group">
@@ -22,12 +20,12 @@
                                ng-model="rememberMe" checked>Remember Me</input>
                     </label>
                 </div>--><!-- TODO Need to revisit rememberme -->
-                <button type="submit" class="btn btn-primary" ng-click="login()">Authenticate</button>
+                <button type="submit" class="form-control btn btn-primary" ng-click="login()">Sign In</button>
             </form>
             <p></p>
             <div class="alert alert-warning">
                 You don't have an account yet? <a href="#/register">Register a new account</a>
             </div>
         </div>
-    </div>
+    <!--</div>-->
 </div>
