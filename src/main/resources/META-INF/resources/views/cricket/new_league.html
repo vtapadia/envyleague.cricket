@@ -1,6 +1,7 @@
 <div>
     <div class="row row-envy">
-        <div class="col-md-4 col-md-offset-4 working-area-envy">
+        <div class="col-md-4 col-md-offset-4 working-area-envy vcenter">
+
             <div class="alert alert-success" ng-show="success">
                 <strong>League requested!</strong> Once Admin approves, you will receive a notification/email.
             </div>
@@ -11,6 +12,7 @@
                 <strong>League name already used!</strong> Please choose another one.
             </div>
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="request()" show-validation>
+                <h2>Register New League</h2>
                 <div class="form-group">
                     <input type="text" class="form-control" id="name" ng-model="league.name"
                            placeholder="League Name" ng-minlength=1 ng-maxlength=50 required>
@@ -30,7 +32,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="fee">Fee per member (0 can be also be set)</label>
                     <input type="number" class="form-control" name="fee" id="fee" ng-model="league.fee"
                            placeholder="MemberShip Fee (0-1000)" min="0" max="1000" required integer>
                     <div ng-show="form.fee.$dirty && form.fee.$invalid">
@@ -52,7 +53,7 @@
                         </p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Request</button>
+                <button type="submit" class="form-control btn btn-primary" ng-disabled="form.$invalid">Request</button>
             </form>
         </div>
     </div>
