@@ -1,6 +1,6 @@
 <div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="row row-envy">
+        <div class="col-md-4 col-md-offset-4 working-area-envy">
             <div class="alert alert-success" ng-show="success">
                 <strong>League requested!</strong> Once Admin approves, you will receive a notification/email.
             </div>
@@ -12,8 +12,8 @@
             </div>
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="request()" show-validation>
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" ng-model="league.name" ng-minlength=1 ng-maxlength=50 required>
+                    <input type="text" class="form-control" id="name" ng-model="league.name"
+                           placeholder="League Name" ng-minlength=1 ng-maxlength=50 required>
                     <div ng-show="form.name.$dirty && form.name.$invalid">
                         <p class="help-block"
                            ng-show="form.name.$error.required">
@@ -31,7 +31,8 @@
                 </div>
                 <div class="form-group">
                     <label for="fee">Fee per member (0 can be also be set)</label>
-                    <input type="number" class="form-control" name="fee" id="fee" ng-model="league.fee" min="0" max="1000" required integer>
+                    <input type="number" class="form-control" name="fee" id="fee" ng-model="league.fee"
+                           placeholder="MemberShip Fee (0-1000)" min="0" max="1000" required integer>
                     <div ng-show="form.fee.$dirty && form.fee.$invalid">
                         <p class="help-block"
                            ng-show="form.fee.$error.number">

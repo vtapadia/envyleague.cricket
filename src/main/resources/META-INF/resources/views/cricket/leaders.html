@@ -1,24 +1,26 @@
 <div>
-    <div class="row">
-        <div class="alert alert-danger" ng-show="error">
-            {{errorMessage}}
-        </div>
-        <div ng-show="leagues" class="table-responsive">
-            <select class="form-control form-control-condensed pull-right marginRight" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
-            <table class="table table-condensed table-hover" ng-show="users">
-                <tr>
-                    <th>Rank</th>
-                    <th>User</th>
-                    <th>Points</th>
-                    <th ng-if="selectedLeague.fee!=0">Prize</th>
-                </tr>
-                <tr ng-repeat="user in users">
-                    <td>{{user.rank}}</td>
-                    <td>{{user.login}}</td>
-                    <td>{{user.points}}</td>
-                    <td ng-if="selectedLeague.fee!=0">{{user.prize}}</td>
-                </tr>
-            </table>
+    <div class="row row-envy">
+        <div class="col-md-6 col-md-offset-3 working-area-envy">
+            <div class="alert alert-danger" ng-show="error">
+                {{errorMessage}}
+            </div>
+            <div ng-show="leagues" class="table-responsive">
+                <select class="form-control form-control-condensed pull-right marginRight" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
+                <table class="table table-condensed table-hover" ng-show="users">
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Points</th>
+                        <th ng-if="selectedLeague.fee!=0">Prize</th>
+                    </tr>
+                    <tr ng-repeat="user in users">
+                        <td>{{user.rank}}</td>
+                        <td>{{user.login}}</td>
+                        <td>{{user.points}}</td>
+                        <td ng-if="selectedLeague.fee!=0">{{user.prize}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

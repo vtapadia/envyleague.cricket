@@ -1,37 +1,39 @@
 <div>
-    <div class="row">
-        <div class="alert alert-danger" ng-show="error">
-            {{errorMessage}}
-        </div>
-        <div ng-show="leagues" class="table-responsive">
-            <table class="table table-condensed table-hover table-hover-envy">
-                <caption>My Owned Leagues</caption>
-                <tr>
-                    <th>League Name</th>
-                    <th>Fee per member</th>
-                    <th colspan="2">Players</th>
-                    <th></th>
-                </tr>
-                <tbody ng-repeat="league in leagues">
+    <div class="row row-envy">
+        <div class="col-md-8 col-md-offset-2 working-area-envy">
+            <div class="alert alert-danger" ng-show="error">
+                {{errorMessage}}
+            </div>
+            <div ng-show="leagues" class="table-responsive">
+                <table class="table table-condensed table-hover table-hover-envy">
+                    <caption>My Owned Leagues</caption>
                     <tr>
-                        <td rowspan="{{league.players.length+1}}">
-                            {{league.name}} (Fee:{{league.fee}})
-                        </td>
-                        <td rowspan="{{league.players.length+1}}">
-                            {{league.status}}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td rowspan="{{league.players.length+1}}" ng-show="league.status == 'ACTIVE'">
-                            <button type="button" class="form-control btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
-                        </td>
+                        <th>League Name</th>
+                        <th>Fee per member</th>
+                        <th colspan="2">Players</th>
+                        <th></th>
                     </tr>
-                    <tr ng-repeat="player in league.players | orderBy:status:true">
-                        <td><a href="mailto:{{player.email}}">{{player.user}}</a></td>
-                        <td><select class="form-control form-control-condensed" ng-model="player.status" ng-options="status as status for status in STATUS"></select></td>
-                    </tr>
-                </tbody>
-            </table>
+                    <tbody ng-repeat="league in leagues">
+                        <tr>
+                            <td rowspan="{{league.players.length+1}}">
+                                {{league.name}} (Fee:{{league.fee}})
+                            </td>
+                            <td rowspan="{{league.players.length+1}}">
+                                {{league.status}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td rowspan="{{league.players.length+1}}" ng-show="league.status == 'ACTIVE'">
+                                <button type="button" class="form-control btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="player in league.players | orderBy:status:true">
+                            <td><a href="mailto:{{player.email}}">{{player.user}}</a></td>
+                            <td><select class="form-control form-control-condensed" ng-model="player.status" ng-options="status as status for status in STATUS"></select></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
