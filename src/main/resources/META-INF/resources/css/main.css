@@ -43,7 +43,7 @@ body {
   height:100%;
   margin-bottom: 30px;
   background: initial;
-  overlay: scroll;
+  overflow: scroll;
 }
 
 .row-envy:before {    /* create a full-height inline block pseudo=element */
