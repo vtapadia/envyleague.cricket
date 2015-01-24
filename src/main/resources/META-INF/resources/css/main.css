@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  margin-top: 55px;
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
@@ -32,18 +33,18 @@ body {
 }
 
 .well-envy {
-    padding-top:60px;
+    padding-top:10px;
     margin-bottom:0px;
     padding-bottom: 0px;
     background-color: rgba(248, 245, 240, 0.3);
     height: 100%;
+    overflow: auto;
 }
 
 .row-envy {
   height:100%;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   background: initial;
-  overflow: scroll;
 }
 
 .row-envy:before {    /* create a full-height inline block pseudo=element */
@@ -70,7 +71,7 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 80px;
+  height: 60px;
   background-color: rgba(233, 247, 248, 0.99);
   text-align: center;
   /*display: inline-block;*/
