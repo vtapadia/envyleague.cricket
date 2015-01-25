@@ -5,6 +5,12 @@ var envyLeagueApp = angular.module('envyLeagueApp', ['http-auth-interceptor',
     'ngResource', 'ngRoute', 'ngCookies', 'ui.bootstrap']);
 
 
+envyLeagueApp.filter('unsafe', ['$sce', function ($sce) {
+     return function (val) {
+         return $sce.trustAsHtml(val);
+     };
+ }]);
+
 envyLeagueApp.constant('USER_ROLES', {
         'all': '*',
         'admin': 'ADMIN',
@@ -143,8 +149,18 @@ envyLeagueApp.config(
       }
       ]);
     }
-).run(function($rootScope, $location, $http, AuthenticationSharedService, USER_ROLES, STATUS, Session) {
+).run(function($rootScope, $location, $templateCache, $http, AuthenticationSharedService, USER_ROLES, STATUS, Session) {
     $rootScope.authenticated = false;
+    $templateCache.put("template/popover/popover.html",
+      "<div class=\"popover popover-envy {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+      "  <div class=\"arrow\"></div>\n" +
+      "\n" +
+      "  <div class=\"popover-inner\">\n" +
+      "      <h3 class=\"popover-title\" ng-bind-html=\"title | unsafe\" ng-show=\"title\"></h3>\n" +
+      "      <div class=\"popover-content\"ng-bind-html=\"content | unsafe\"></div>\n" +
+      "  </div>\n" +
+      "</div>\n" +
+      "");
     $rootScope.$on('$routeChangeStart', function (event, next) {
         $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
         $rootScope.userRoles = USER_ROLES;
