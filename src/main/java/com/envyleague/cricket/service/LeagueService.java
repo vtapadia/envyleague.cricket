@@ -8,6 +8,7 @@ import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.domain.UserLeague;
 import com.envyleague.cricket.repository.LeagueRepository;
 import com.envyleague.cricket.repository.TournamentRepository;
+import com.envyleague.cricket.repository.UserLeagueRepository;
 import com.envyleague.cricket.repository.UserRepository;
 import com.envyleague.cricket.security.SecurityUtils;
 import com.envyleague.cricket.web.dto.LeagueDTO;
@@ -32,6 +33,9 @@ public class LeagueService {
     UserRepository userRepository;
 
     @Inject
+    UserLeagueRepository userLeagueRepository;
+
+    @Inject
     TournamentRepository tournamentRepository;
 
     @Inject
@@ -54,6 +58,11 @@ public class LeagueService {
             league.setFee(fee);
             league.setName(leagueName);
             leagueRepository.save(league);
+            UserLeague userLeague = new UserLeague(currentUser, league);
+            userLeague.setStatus(Status.ACTIVE);
+            userLeagueRepository.save(userLeague);
+            currentUser.getUserLeagues().add(userLeague);
+            userRepository.save(currentUser);
         } else {
             throw new ServiceException("Tournament not started for league registration.");
         }

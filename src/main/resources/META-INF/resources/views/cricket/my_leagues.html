@@ -1,37 +1,80 @@
 <div>
     <div class="row row-envy">
-        <div class="col-md-8 col-md-offset-2 working-area-envy">
+        <div class="col-md-8 col-md-offset-2 working-area-envy full-height">
+            <tabset justified="true">
+                <tab ng-repeat="tab in tabs|filter:{hidden:false}" disabled="tab.disabled" hidden="tab.hidden" heading="{{tab.name}}" select="setActive(tab.name)" />
+            </tabset>
+            <br>
             <div class="alert alert-danger" ng-show="error">
                 {{errorMessage}}
             </div>
-            <div ng-show="leagues" class="table-responsive">
-                <table class="table table-condensed table-hover table-hover-envy">
-                    <caption>My Owned Leagues</caption>
+            <div ng-show="activeTab == 'Registered'" class="table-responsive full-height">
+                <h3 ng-show="registeredLeagues.length == 0">You have no Active Leagues</h3>
+                <h3 ng-show="registeredLeagues.length == 0">Kindly <a href="#/cricket/all/leagues">Register</a> of <a href="#/cricket/league">create a new</a> one.</h3>
+                <table ng-show="registeredLeagues.length > 0" class="table table-condensed table-hover">
                     <tr>
-                        <th>League Name</th>
-                        <th>Fee per member</th>
-                        <th colspan="2">Players</th>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th style="width: 170px;">Registration Amount</th>
+                        <th>Members</th>
                         <th></th>
                     </tr>
-                    <tbody ng-repeat="league in leagues">
-                        <tr>
-                            <td rowspan="{{league.players.length+1}}">
-                                {{league.name}} (Fee:{{league.fee}})
-                            </td>
-                            <td rowspan="{{league.players.length+1}}">
-                                {{league.status}}
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td rowspan="{{league.players.length+1}}" ng-show="league.status == 'ACTIVE'">
-                                <button type="button" class="form-control btn btn-success" ng-show="updateVisible" ng-click="update(league)">Update</button>
-                            </td>
-                        </tr>
-                        <tr ng-repeat="player in league.players | orderBy:status:true">
-                            <td><a href="mailto:{{player.email}}">{{player.user}}</a></td>
-                            <td><select class="form-control form-control-condensed" ng-model="player.status" ng-options="status as status for status in STATUS"></select></td>
-                        </tr>
-                    </tbody>
+                    <tr ng-repeat="league in registeredLeagues">
+                        <td>{{league.name}}</td>
+                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.login}}</a></td>
+                        <td>{{league.fee}}</td>
+                        <td>{{league.memberCount}}</td>
+                        <td>
+                            <div class="btn-grp dropdown pointer" dropdown>
+                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false" dropdown-toggle>Action<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" ng-controller="MenuController" >
+                                    <li><a ng-click="updatePredictions(league);">Predictions</a></li>
+                                    <li class="divider"></li>
+                                    <li><a ng-click="viewPerformance(league);">Performance</a></li>
+                                    <li><a ng-click="viewLeaderBoard(league);">Leader Board</a></li>
+                                </ul>
+                            </div>
+                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="updatePredictions(league)">Predictions</button>-->
+                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="viewPerformance(league)">Performance</button>-->
+                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="viewLeaderBoard(league)">Leader</button>-->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="activeTab == 'Cancelled' || activeTab == 'Pending'" class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th>Registration Amount</th>
+                        <th>Members</th>
+                    </tr>
+                    <tr ng-repeat="league in commonLeagues = ((activeTab == 'Pending')?pendingLeagues:cancelledLeagues)">
+                        <td>{{league.name}}</td>
+                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.login}}</a></td>
+                        <td>{{league.fee}}</td>
+                        <td>{{league.memberCount}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div ng-show="activeTab == 'Owned'" class="table-responsive">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>Name</th>
+                        <th>Registration Amount</th>
+                        <th>Members</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="league in ownedLeagues | orderBy:'status'">
+                        <td>{{league.name}}</td>
+                        <td>{{league.fee}}</td>
+                        <td>{{league.memberCount}}</td>
+                        <td>{{league.statusDescription}}</td>
+                        <td><button ng-if="league.status=='ACTIVE'" type="button" class="btn btn-primary btn-xs" ng-click="manageLeague(league)">Manage</button></td>
+                    </tr>
                 </table>
             </div>
         </div>

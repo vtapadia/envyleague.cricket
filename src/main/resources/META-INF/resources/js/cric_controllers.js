@@ -2,11 +2,105 @@
 
 /* Controllers */
 
-envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLeague) {
+envyLeagueApp.controller('CricMyLeaguesController', function ($scope, $cookies, $location, Session, CricketLeague) {
     $scope.error = null;
     $scope.errorMessage = null;
     $scope.updateVisible = true;
+    //Ordering is important, used in template view
+    $scope.tabs = [
+        {
+            name: 'Registered',
+            disabled: false,
+            hidden:false
+        },
+        {
+            name: 'Pending',
+            disabled: false,
+            hidden:false
+        },
+        {
+            name: 'Cancelled',
+            disabled: false,
+            hidden:false
+        },
+        {
+            name: 'Owned',
+            disabled: false,
+            hidden:false
+        },
+    ];
+    $scope.activeTab = $scope.tabs[0].name;
+    $scope.setActive = function(data) {
+        $scope.activeTab = data;
+    };
+
     CricketLeague.query({},
+        function(data, responseHeaders) {
+            $scope.leagues = data;
+            $scope.ownedLeagues = [];
+            $scope.registeredLeagues = [];
+            $scope.pendingLeagues = [];
+            $scope.cancelledLeagues = [];
+            for (var i=0; i<$scope.leagues.length; i++) {
+                if (angular.equals($scope.leagues[i].owner.login,Session.login)) {
+                    $scope.ownedLeagues.push($scope.leagues[i]);
+                }
+                if (angular.equals($scope.leagues[i].status,'ACTIVE')) {
+                    for (var j=0; j<$scope.leagues[i].players.length; j++) {
+                        if (angular.equals($scope.leagues[i].players[j].user,Session.login)) {
+                            //Found logged in user one
+                            if (angular.equals($scope.leagues[i].players[j].status,'ACTIVE')) {
+                                $scope.registeredLeagues.push($scope.leagues[i]);
+                            } else if (angular.equals($scope.leagues[i].players[j].status,'PENDING')) {
+                                $scope.pendingLeagues.push($scope.leagues[i]);
+                            } else if (angular.equals($scope.leagues[i].players[j].status,'CANCELLED')) {
+                                $scope.cancelledLeagues.push($scope.leagues[i]);
+                            }
+                        }
+                    }
+                }
+            }
+            if ($scope.pendingLeagues.length == 0) {
+                $scope.tabs[1].disabled = true;
+                $scope.tabs[1].hidden = true;
+            }
+            if ($scope.cancelledLeagues.length == 0) {
+                $scope.tabs[2].disabled = true;
+                $scope.tabs[2].hidden = true;
+            }
+            if ($scope.ownedLeagues.length == 0) {
+                $scope.tabs[3].disabled = true;
+                $scope.tabs[3].hidden = true;
+            }
+        },
+        function(httpResponse) {
+            $scope.error = "ERROR";
+            $scope.errorMessage = httpResponse.data.message;
+        }
+    );
+    $scope.updatePredictions = function(data) {
+        $cookies.preferredLeague = data.name;
+        $location.path('/cricket/predictions').replace();
+    };
+    $scope.viewPerformance = function(data) {
+        $cookies.preferredLeague = data.name;
+        $location.path('/cricket/performance').replace();
+    };
+    $scope.viewLeaderBoard = function(data) {
+        $cookies.preferredLeague = data.name;
+        $location.path('/cricket/leaders').replace();
+    };
+    $scope.manageLeague = function(data) {
+        $cookies.preferredLeague = data.name;
+        $location.path('/cricket/manageLeague').replace();
+    }
+});
+
+envyLeagueApp.controller('CricManageLeagueController', function($scope, $cookies, CricketLeague) {
+    $scope.error = null;
+    $scope.errorMessage = null;
+    $scope.updateVisible = true;
+    CricketLeague.query({owned:'true', league:$cookies.preferredLeague},
         function(data, responseHeaders) {
             $scope.leagues = data;
         },
@@ -15,6 +109,7 @@ envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLea
             $scope.errorMessage = httpResponse.data.message;
         }
     );
+
     $scope.update = function(data) {
         $scope.updateVisible = false;
         $scope.error = null;
@@ -29,7 +124,8 @@ envyLeagueApp.controller('CricMyLeaguesController', function ($scope, CricketLea
                 $scope.errorMessage = httpResponse.data.message;
             }
         );
-    };});
+    };
+});
 
 envyLeagueApp.controller('CricPredictionController',
     function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, $filter) {

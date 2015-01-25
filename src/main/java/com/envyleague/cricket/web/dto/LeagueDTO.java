@@ -71,6 +71,9 @@ public class LeagueDTO {
         this.status = status;
     }
 
+    public String getStatusDescription() {
+        return status.getDescription();
+    }
     public String getMessage() {
         return message;
     }

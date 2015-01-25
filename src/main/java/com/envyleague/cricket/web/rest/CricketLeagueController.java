@@ -2,6 +2,7 @@ package com.envyleague.cricket.web.rest;
 
 import com.envyleague.cricket.domain.Authority;
 import com.envyleague.cricket.domain.League;
+import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.domain.UserLeague;
 import com.envyleague.cricket.repository.LeagueRepository;
@@ -10,6 +11,7 @@ import com.envyleague.cricket.service.UserLeagueService;
 import com.envyleague.cricket.service.UserService;
 import com.envyleague.cricket.web.dto.LeagueDTO;
 import com.envyleague.cricket.web.dto.UserLeagueDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,9 +20,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,10 +48,17 @@ public class CricketLeagueController {
     UserLeagueService userLeagueService;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> allMyLeague() {
+    public ResponseEntity<?> myLeagues(
+            @RequestParam(value = "owned", required = false, defaultValue = "false") boolean owned,
+            @RequestParam(value = "league", required = false, defaultValue = "") String leagueName,
+            HttpServletRequest request, HttpServletResponse response) {
         User currentUser = userService.getUserWithAuthorities();
-        List<LeagueDTO> allLeagues = currentUser.getUserLeagues().stream().map(ul -> ul.getLeague()).map(LeagueDTO::new).collect(Collectors.toList());
-        if (! currentUser.getAuthorities().contains(Authority.ADMIN)) {
+        List<LeagueDTO> allLeagues = currentUser.getUserLeagues().stream()
+                .map(ul -> ul.getLeague())
+                .filter(f1 -> (!owned || f1.getOwner().getLogin().equals(currentUser.getLogin())))
+                .filter(f2 -> (StringUtils.isBlank(leagueName) || f2.getName().equals(leagueName)))
+                .map(LeagueDTO::new).collect(Collectors.toList());
+        if (! currentUser.getAuthorities().contains(Authority.ADMIN) && !owned) {
             //Not Admin, filter others if not league owner.
             allLeagues.forEach(l -> {
                 if (! l.getOwner().getLogin().equals(currentUser.getLogin())) {
@@ -69,7 +81,13 @@ public class CricketLeagueController {
         }
         if (!league.getOwner().getLogin().equals(currentUser.getLogin())) {
             log.error("SECURITY_ALERT: User {} updating other league {}", currentUser, leagueDTO);
-            return new ResponseEntity<String>("League name owned by you.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("League not owned by you.", HttpStatus.BAD_REQUEST);
+        }
+        if (!leagueDTO.getPlayers().stream()
+                .filter(p -> p.getName().equals(currentUser.getLogin()))
+                .filter(z -> z.getStatus() == Status.ACTIVE)
+                .findAny().isPresent()) {
+            return new ResponseEntity<String>("League owner is not allowed to run away. :)", HttpStatus.BAD_REQUEST);
         }
         for(UserLeague userLeague : league.getUserLeagues()) {
             for (UserLeagueDTO userLeagueDTO : leagueDTO.getPlayers()) {

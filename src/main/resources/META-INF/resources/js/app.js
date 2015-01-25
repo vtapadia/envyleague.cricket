@@ -23,7 +23,7 @@ envyLeagueApp.constant('STATUS',
 );
 
 envyLeagueApp.config(
-    function ($routeProvider, $httpProvider, USER_ROLES) {
+    function ($routeProvider, $httpProvider, $provide, USER_ROLES) {
         $routeProvider
             .when('/register', {
                 templateUrl: 'views/register.html',
@@ -89,6 +89,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.user]
                 }
             })
+            .when('/cricket/manageLeague', {
+                templateUrl: 'views/cricket/manage_league.html',
+                controller: 'CricManageLeagueController',
+                access: {
+                    authorizedRoles: [USER_ROLES.league]
+                }
+            })
             .when('/cricket/leaders', {
                 templateUrl: 'views/cricket/leaders.html',
                 controller: 'CricLeadersController',
@@ -138,6 +145,13 @@ envyLeagueApp.config(
                     authorizedRoles: [USER_ROLES.all]
                 }
             });
+//    $provide.decorator('tabDirective', function($delegate) {
+//        var directive = $delegate[0];
+//        angular.extend(directive.scope, {
+//            hidden:'@'
+//        });
+//        return $delegate;
+//    });
     $httpProvider.interceptors.push(['$rootScope', function($rootScope) {
       return {
         'request': function(config) {
@@ -161,6 +175,11 @@ envyLeagueApp.config(
       "  </div>\n" +
       "</div>\n" +
       "");
+    $templateCache.put("template/tabs/tab.html",
+        "<li ng-class=\"{active: active, disabled: disabled, hidden: hidden}\">\n" +
+        "  <a href ng-click=\"select()\" tab-heading-transclude>{{heading}}</a>\n" +
+        "</li>\n" +
+        "");
     $rootScope.$on('$routeChangeStart', function (event, next) {
         $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
         $rootScope.userRoles = USER_ROLES;

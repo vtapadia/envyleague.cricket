@@ -57,13 +57,42 @@ body {
 
 .working-area-envy {
     background-color: rgba(233, 247, 248, 0.75);
-    /*height:100%;*/
+}
+
+.full-height {
+    height:100%;
 }
 
 .vcenter {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+.dropdown-menu > li > a {
+    cursor: pointer;
+}
+
+.nav-tabs > li > a,
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+  color: rgb(28, 95, 163);
+  background-color: rgb(145, 180, 215);
+  font-weight: bold;
+  font-size: large;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: rgb(255, 255, 255);
+  background-color: rgb(28, 95, 163);
+}
+
+.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #ffffff;
 }
 
 .footer {
