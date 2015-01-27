@@ -84,7 +84,7 @@ public class CricketLeagueController {
             return new ResponseEntity<String>("League not owned by you.", HttpStatus.BAD_REQUEST);
         }
         if (!leagueDTO.getPlayers().stream()
-                .filter(p -> p.getName().equals(currentUser.getLogin()))
+                .filter(p -> p.getUser().equals(currentUser.getLogin()))
                 .filter(z -> z.getStatus() == Status.ACTIVE)
                 .findAny().isPresent()) {
             return new ResponseEntity<String>("League owner is not allowed to run away. :)", HttpStatus.BAD_REQUEST);
