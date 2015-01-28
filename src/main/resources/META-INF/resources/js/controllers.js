@@ -143,7 +143,7 @@ envyLeagueApp.controller('ActivationController', function ($scope, $routeParams,
     );
 });
 envyLeagueApp.controller('LoginController', function ($scope, AuthenticationSharedService) {
-    $scope.rememberMe = false; //TODO Need to revisit remember me
+    $scope.rememberMe = true;
     $scope.login = function () {
         AuthenticationSharedService.login({
             username: $scope.username,
