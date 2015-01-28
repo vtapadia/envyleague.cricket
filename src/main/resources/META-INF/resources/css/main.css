@@ -63,6 +63,11 @@ body {
     height:100%;
 }
 
+.checkbox-envy {
+    color:#317eac;
+    display: inline;
+}
+
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -136,7 +141,7 @@ body {
 /*
 Referenced from ui.bootstrap
 */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .cursor, .carousel, .panel-title a { cursor: pointer; }
 
 .logo-main {
     width:auto;

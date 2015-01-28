@@ -21,7 +21,7 @@ public class PredictionDTO {
         this.user = prediction.getPredictionKey().getUser().getLogin();
         this.league = prediction.getPredictionKey().getLeague().getName();
         this.match = prediction.getPredictionKey().getMatch().getNumber();
-        this.teamWinner = (prediction.getTeamWinner()==null) ? "" : prediction.getTeamWinner().getName();
+        this.teamWinner = (prediction.getTeamWinner()==null) ? "Draw" : prediction.getTeamWinner().getName();
         this.totalRuns = prediction.getTotalRuns();
         this.totalWickets = prediction.getTotalWickets();
         this.totalFours = prediction.getTotalFours();

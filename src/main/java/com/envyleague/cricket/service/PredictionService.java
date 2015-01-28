@@ -36,10 +36,12 @@ public class PredictionService {
             prediction = new Prediction(new PredictionKey(user, league, match));
         }
 
-        if (StringUtils.isNotBlank(predictionDTO.getTeamWinner())) {
+        if (StringUtils.isNotBlank(predictionDTO.getTeamWinner()) &&
+                !predictionDTO.getTeamWinner().equalsIgnoreCase("Draw")) {
             Team team = teamRepository.findOne(predictionDTO.getTeamWinner());
             prediction.setTeamWinner(team);
         } else {
+            //Draw Predicted, Save null in DB
             prediction.setTeamWinner(null);
         }
         prediction.setTotalRuns(predictionDTO.getTotalRuns());

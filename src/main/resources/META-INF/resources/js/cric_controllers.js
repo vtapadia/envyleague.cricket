@@ -128,10 +128,22 @@ envyLeagueApp.controller('CricManageLeagueController', function($scope, $cookies
 });
 
 envyLeagueApp.controller('CricPredictionController',
-    function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, $filter) {
+    function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, $filter, $modal) {
 
     $scope.error = null;
-    $scope.saveOrUpdateVisible = true;
+    $scope.changeLeague = function() {
+        $cookies.preferredLeague = $scope.selectedLeague;
+        for (var i=0;i<$scope.matches.length;i++) {
+            var selectedPredictions = $filter('filter')($scope.matches[i].predictions, {league:$scope.selectedLeague});
+            if (angular.isArray(selectedPredictions) && selectedPredictions.length==1) {
+                $scope.matches[i].prediction = selectedPredictions[0];
+            } else {
+                $scope.matches[i].prediction = {};
+            }
+        }
+
+    }
+
     CricketUserLeague.query({},
         function(data, responseHeaders) {
             $scope.error = null;
@@ -146,6 +158,7 @@ envyLeagueApp.controller('CricPredictionController',
                 for (var i=0;i<$scope.leagues.length; i++) {
                     if ($scope.leagues[i].name == $cookies.preferredLeague) {
                         $scope.selectedLeague = $cookies.preferredLeague;
+                        break;
                     }
                 }
                 if ($scope.selectedLeague == undefined && $scope.leagues.length > 0) {
@@ -159,11 +172,11 @@ envyLeagueApp.controller('CricPredictionController',
                     for (var i=0;i<$scope.matches.length;i++) {
                         $scope.matches[i].winnerOptions= [
                             {value:$scope.matches[i].teamA,display:$scope.matches[i].teamA + ' Winner'},
-                            {value:"",display:"Draw"},
+                            {value:"Draw",display:"Draw"},
                             {value:$scope.matches[i].teamB,display:$scope.matches[i].teamB + ' Winner'}
                         ];
-                        $scope.matches[i].prediction = {};
                     }
+                    $scope.changeLeague();//Just to set the prediction object on match correct.
                 },
                 function(httpResponse) {
                     $scope.error = "ERROR";
@@ -177,42 +190,88 @@ envyLeagueApp.controller('CricPredictionController',
         }
     );
 
-    $scope.changeLeague = function() {
-        $cookies.preferredLeague = $scope.selectedLeague;
-    }
+  $scope.viewPredictionModal = function(selectedMatch) {
 
-    $scope.saveOrUpdate = function(match, prediction) {
-        $scope.saveOrUpdateVisible = false;
-        if (prediction.match == undefined) {
-            //New request
-            prediction.match = match.number;
-            prediction.league = $scope.selectedLeague;
-            match.predictions.push(prediction);
-            CricketPrediction.save(prediction,
-                function(data, responseHeaders) {
-                    $scope.saveOrUpdateVisible = true;
-                    match.prediction = undefined;
-                },
-                function(httpResponse) {
-                    $scope.saveOrUpdateVisible = true;
-                    $scope.error = "ERROR";
-                    $scope.errorMessage = httpResponse.data.message;
-                }
-            );
-        } else {
-            CricketPrediction.save(prediction,
-                function(data, responseHeaders) {
-                    $scope.saveOrUpdateVisible = true;
-                },
-                function(httpResponse) {
-                    $scope.saveOrUpdateVisible = true;
-                    $scope.error = "ERROR";
-                    $scope.errorMessage = httpResponse.data;
-                }
-            );
+      var modalInstance = $modal.open({
+          templateUrl: 'predictionModalContent.html',
+          controller: 'PredictionModalInstanceCtrl',
+          //size: 'lg',
+          resolve: {
+              match: function ()
+                  {return selectedMatch;},
+              prediction: function ()
+                  {return selectedMatch.prediction;},
+              league: function ()
+                  {return $scope.selectedLeague;}
+          }
+      });
+
+    modalInstance.result.then(function (prediction) {
+        var matchIndex = -1;
+        for (var i=0;i<$scope.matches.length;i++) {
+            if ($scope.matches[i].number==selectedMatch.number) {
+                matchIndex = i;break;
+            }
         }
-    }
+        var indexFound = -1;
+        for (var i=0;i<$scope.matches[matchIndex].predictions.length; i++) {
+            if ($scope.matches[matchIndex].predictions[i].league == prediction.league) {
+                indexFound = i;break;
+            }
+        }
+        if (indexFound == -1) {
+            $scope.matches[matchIndex].predictions.push(prediction);
+        } else {
+            $scope.matches[matchIndex].predictions[indexFound] = prediction;
+        }
+        $scope.matches[matchIndex].prediction = prediction;
+    }, function () {
+        //When modal is dismissed
+    });
+  };
 });
+envyLeagueApp.controller('PredictionModalInstanceCtrl',
+    function ($scope, $modalInstance, $filter, CricketPrediction, match, prediction, league) {
+        $scope.match = match;
+        $scope.selectedLeague = league;
+        $scope.prediction = angular.copy(prediction);
+
+        if (angular.isUndefined($scope.prediction.teamWinner)) {
+            $scope.prediction.teamWinner = 'Draw';
+        }
+
+        $scope.ok = function () {
+            if ($scope.prediction.match == undefined) {
+                //New request
+                $scope.prediction.match = $scope.match.number;
+                $scope.prediction.league = $scope.selectedLeague;
+                CricketPrediction.save($scope.prediction,
+                    function(data, responseHeaders) {
+                    },
+                    function(httpResponse) {
+                        $scope.error = "ERROR";
+                        $scope.errorMessage = httpResponse.data.message;
+                    }
+                );
+            } else {
+                CricketPrediction.save(prediction,
+                    function(data, responseHeaders) {
+                    },
+                    function(httpResponse) {
+                        $scope.error = "ERROR";
+                        $scope.errorMessage = httpResponse.data;
+                    }
+                );
+            }
+
+            $modalInstance.close($scope.prediction);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }
+);
 
 envyLeagueApp.controller('CricPerformanceController',
     function ($scope, $cookies, CricketPrediction, CricketUserLeague, CricketMatch, $filter) {
