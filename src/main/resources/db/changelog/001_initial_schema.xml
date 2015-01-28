@@ -242,4 +242,13 @@
             <column name="match"></column>
         </createIndex>
     </changeSet>
+    <changeSet id="001028" author="vtapadia">
+        <modifyDataType tableName="EL_USER" columnName="name" newDataType="varchar(255)"></modifyDataType>
+        <addColumn tableName="EL_USER">
+            <column name="status" type="varchar(25)" defaultValue="PENDING"></column>
+        </addColumn>
+        <update tableName="EL_USER">
+            <column name="status" value="ACTIVE"></column>
+        </update>
+    </changeSet>
 </databaseChangeLog>

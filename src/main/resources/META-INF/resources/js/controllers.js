@@ -43,6 +43,7 @@ envyLeagueApp.controller('RegisterController', function ($scope, Register) {
     $scope.doNotMatch = null;
     $scope.errorUserExists = null;
     $scope.error = null;
+    $scope.showButton = true;
     var strength = {
         colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
         mesureStrength: function (p) {
@@ -96,8 +97,6 @@ envyLeagueApp.controller('RegisterController', function ($scope, Register) {
                .css({ "background": "#DDD" })
                .slice(0, c.idx)
                .css({ "background": c.col });
-
-           console.log("newValue " + newValue);
        }
     });
 
@@ -110,11 +109,14 @@ envyLeagueApp.controller('RegisterController', function ($scope, Register) {
             $scope.error = null;
             $scope.errorUserExists = null;
             $scope.errorEmailExists = null;
+            $scope.showButton = false;
             Register.save($scope.registerAccount,
                 function (value, responseHeaders) {
+                    $scope.showButton = true;
                     $scope.success = 'OK';
                 },
                 function (httpResponse) {
+                    $scope.showButton = true;
                     if (httpResponse.status === 400 && httpResponse.data === "login already in use") {
                         $scope.error = null;
                         $scope.errorUserExists = "ERROR";
