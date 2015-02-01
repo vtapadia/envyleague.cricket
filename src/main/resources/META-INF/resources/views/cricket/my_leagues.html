@@ -21,7 +21,7 @@
                     </tr>
                     <tr ng-repeat="league in registeredLeagues">
                         <td>{{league.name}}</td>
-                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.login}}</a></td>
+                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.name}}</a></td>
                         <td>{{league.fee}}</td>
                         <td>{{league.memberCount}}</td>
                         <td>
@@ -36,9 +36,6 @@
                                     <li><a ng-click="viewLeaderBoard(league);">Leader Board</a></li>
                                 </ul>
                             </div>
-                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="updatePredictions(league)">Predictions</button>-->
-                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="viewPerformance(league)">Performance</button>-->
-                            <!--<button type="button" class="btn btn-primary btn-xs" ng-click="viewLeaderBoard(league)">Leader</button>-->
                         </td>
                     </tr>
                 </table>
@@ -53,7 +50,7 @@
                     </tr>
                     <tr ng-repeat="league in commonLeagues = ((activeTab == 'Pending')?pendingLeagues:cancelledLeagues)">
                         <td>{{league.name}}</td>
-                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.login}}</a></td>
+                        <td><a href="mailto:{{league.owner.email}}">{{league.owner.name}}</a></td>
                         <td>{{league.fee}}</td>
                         <td>{{league.memberCount}}</td>
                     </tr>
