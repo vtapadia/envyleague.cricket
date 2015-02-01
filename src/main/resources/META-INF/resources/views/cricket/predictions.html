@@ -6,22 +6,33 @@
             </div>
             <script type="text/ng-template" id="predictionModalContent.html">
                 <div class="modal-header">
-                    <h3 class="modal-title">{{match.teamA}} vs {{match.teamB}}</h3>
+                    <h3 class="modal-title">{{match.teamA}} vs {{match.teamB}} <small>{{match.startTime | date:'dd/MMM HH:mm'}}</small></h3>
                 </div>
                 <div class="modal-body">
-                    <table>
-                        <tr>
-                            <td>Match Result</td>
-                            <td><select class="form-control" ng-model="prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select></td>
-                        </tr>
-                        <tr><td>Total Runs</td><td><input class="form-control" type="number" ng-model="prediction.totalRuns" min="0" max="1200"></td></tr>
-                        <tr><td>Total Wickets</td><td><input class="form-control" type="number" ng-model="prediction.totalWickets" min="0" max="20"></td></tr>
-                        <tr><td>Total Fours</td><td><input class="form-control" type="number" ng-model="prediction.totalFours" min="0" max="600"></td></tr>
-                        <tr><td>Total Sixes</td><td><input class="form-control" type="number" ng-model="prediction.totalSixes" min="0" max="600"></td></tr>
-                    </table>
+                    <div >
+                        <table class="table table-condensed table-hover">
+                            <tr>
+                                <th>Option</th>
+                                <th>Your Prediction</th>
+                            </tr>
+                            <tr>
+                                <td>Match Result</td>
+                                <td><select class="form-control" ng-model="prediction.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select></td>
+                            </tr>
+                            <tr><td>Total Runs</td><td>
+                                <slider floor="0" ceiling="1000" modelrange="20" step="1" precision="0" ng-model="prediction.totalRuns"></slider></td></tr>
+                            <tr><td>Total Sixes</td>
+                                <td><slider floor="0" ceiling="600" modelrange="2" step="1" precision="0" ng-model="prediction.totalSixes"></slider></td></tr>
+                            <tr><td>Total Fours</td>
+                                <td><slider floor="0" ceiling="600" modelrange="2" step="1" precision="0" ng-model="prediction.totalFours"></slider></td></tr>
+                            <tr><td>Total Wickets</td>
+                                <td><slider floor="0" ceiling="20" modelrange="1" step="1" precision="0" ng-model="prediction.totalWickets"></slider></td></tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                    <button ng-if="prediction.league" class="btn btn-primary" ng-click="ok()">Update</button>
+                    <button ng-if="!prediction.league" class="btn btn-primary" ng-click="ok()">Save</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
             </script>
@@ -34,19 +45,20 @@
                         <th>Team B</th>
                         <th>Match Winner</th>
                         <th>Total Runs</th>
-                        <th>Total Wickets</th>
-                        <th>Total Fours</th>
                         <th>Total Sixes</th>
+                        <th>Total Fours</th>
+                        <th>Total Wickets</th>
                     </tr>
                     <tr ng-if="match.teamA && match.teamB" ng-repeat="match in matches | orderBy:'number'" ng-click="viewPredictionModal(match)" class="cursor">
                         <td>{{match.teamA}}</td>
                         <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
                         <td>{{match.teamB}}</td>
-                        <td>{{match.prediction.teamWinner}}</td>
-                        <td>{{match.prediction.totalRuns}}</td>
-                        <td>{{match.prediction.totalWickets}}</td>
-                        <td>{{match.prediction.totalFours}}</td>
-                        <td>{{match.prediction.totalSixes}}</td>
+                        <td ng-if="!match.prediction.match" class="text-center text-danger" colspan="5">No Predictions set</td>
+                        <td ng-if="match.prediction.match">{{match.prediction.teamWinner}}</td>
+                        <td ng-if="match.prediction.match">{{match.prediction.totalRuns-20<0 ? 0 : match.prediction.totalRuns-20}}-{{match.prediction.totalRuns+20}}</td>
+                        <td ng-if="match.prediction.match">{{match.prediction.totalSixes-2<0 ? 0 : match.prediction.totalSixes-2}}-{{match.prediction.totalSixes+2}}</td>
+                        <td ng-if="match.prediction.match">{{match.prediction.totalFours-2<0 ? 0 : match.prediction.totalFours-2}}-{{match.prediction.totalFours+2}}</td>
+                        <td ng-if="match.prediction.match">{{match.prediction.totalWickets-1<0 ? 0 : match.prediction.totalWickets-1}}-{{match.prediction.totalWickets+1}}</td>
                     </tr>
                 </table>
             </div>

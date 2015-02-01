@@ -195,7 +195,7 @@ envyLeagueApp.controller('CricPredictionController',
       var modalInstance = $modal.open({
           templateUrl: 'predictionModalContent.html',
           controller: 'PredictionModalInstanceCtrl',
-          //size: 'lg',
+          size: 'lg',
           resolve: {
               match: function ()
                   {return selectedMatch;},
@@ -245,25 +245,15 @@ envyLeagueApp.controller('PredictionModalInstanceCtrl',
                 //New request
                 $scope.prediction.match = $scope.match.number;
                 $scope.prediction.league = $scope.selectedLeague;
-                CricketPrediction.save($scope.prediction,
-                    function(data, responseHeaders) {
-                    },
-                    function(httpResponse) {
-                        $scope.error = "ERROR";
-                        $scope.errorMessage = httpResponse.data.message;
-                    }
-                );
-            } else {
-                CricketPrediction.save(prediction,
-                    function(data, responseHeaders) {
-                    },
-                    function(httpResponse) {
-                        $scope.error = "ERROR";
-                        $scope.errorMessage = httpResponse.data;
-                    }
-                );
             }
-
+            CricketPrediction.save($scope.prediction,
+                function(data, responseHeaders) {
+                },
+                function(httpResponse) {
+                    $scope.error = "ERROR";
+                    $scope.errorMessage = httpResponse.data.message;
+                }
+            );
             $modalInstance.close($scope.prediction);
         };
 

@@ -2,7 +2,7 @@
 
 /* App Module */
 var envyLeagueApp = angular.module('envyLeagueApp', ['http-auth-interceptor',
-    'ngResource', 'ngRoute', 'ngCookies', 'ui.bootstrap']);
+    'ngResource', 'ngRoute', 'ngCookies', 'ui.bootstrap', 'ui.slider']);
 
 
 envyLeagueApp.filter('unsafe', ['$sce', function ($sce) {
