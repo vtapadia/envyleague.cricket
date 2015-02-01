@@ -35,6 +35,9 @@ public class DatabaseConfig implements EnvironmentAware {
     @Value("${db.use.ssl:false}")
     private boolean useSSL;
 
+    @Value("${db.should.update:false}")
+    private boolean dbShouldUpdate;
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -100,6 +103,7 @@ public class DatabaseConfig implements EnvironmentAware {
         log.debug("Configuring Liquibase");
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
+        liquibase.setShouldRun(dbShouldUpdate);
         liquibase.setChangeLog("classpath:db/changelog/master.xml");
         liquibase.setContexts("development, production");
         return liquibase;
