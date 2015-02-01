@@ -4,39 +4,53 @@
             <div class="alert alert-danger" ng-show="error">
                 {{errorMessage}}
             </div>
+            <script type="text/ng-template" id="performanceModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">{{match.teamA}} vs {{match.teamB}} <small>{{match.startTime | date:'dd/MMM HH:mm'}}</small></h3>
+                </div>
+                <div class="modal-body">
+                    <div >
+                        <table class="table table-condensed table-hover">
+                            <tr>
+                                <th>Option</th>
+                                <th>Actual</th>
+                                <th>Your Prediction</th>
+                            </tr>
+                            <tr><td>Match Result</td><td>{{match.teamWinner}}</td><td><span ng-if="match.prediction.match != undefined">{{prediction.teamWinner}}</span></td></tr>
+                            <tr><td>Total Runs</td><td>{{match.totalRuns}}</td><td><span ng-if="match.prediction.match != undefined">{{match.prediction.totalRuns-20<0 ? 0 : match.prediction.totalRuns-20}}-{{match.prediction.totalRuns+20}}</span></td></tr>
+                            <tr><td>Total Sixes</td><td>{{match.totalSixes}}</td><td><span ng-if="match.prediction.match != undefined">{{match.prediction.totalSixes-2<0 ? 0 : match.prediction.totalSixes-2}}-{{match.prediction.totalSixes+2}}</span></td></tr>
+                            <tr><td>Total Fours</td><td>{{match.totalFours}}</td><td><span ng-if="match.prediction.match != undefined">{{match.prediction.totalFours-2<0 ? 0 : match.prediction.totalFours-2}}-{{match.prediction.totalFours+2}}</span></td></tr>
+                            <tr><td>Total Wickets</td><td>{{match.totalWickets}}</td><td><span ng-if="match.prediction.match != undefined">{{match.prediction.totalWickets-1<0 ? 0 : match.prediction.totalWickets-1}}-{{match.prediction.totalWickets+1}}</span></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                </div>
+            </script>
             <div ng-show="leagues" class="table-responsive">
                 <select class="form-control form-control-condensed pull-right marginRight" ng-model="selectedLeague" ng-change="changeLeague()" ng-options="league.name as league.name for league in leagues"></select>
                 <table class="table table-condensed table-hover">
-                    <caption>My Performance (Actual/Prediction)</caption>
+                    <caption>My Performance</caption>
                     <tr>
                         <th>Match</th>
                         <th>Time</th>
                         <th>Match Winner</th>
                         <th>Total Runs</th>
-                        <th>Total Wickets</th>
-                        <th>Total Fours</th>
                         <th>Total Sixes</th>
+                        <th>Total Fours</th>
+                        <th>Total Wickets</th>
                         <th>Points</th>
                     </tr>
-                    <tr ng-if="match.teamA && match.teamB" ng-repeat="match in matches | orderBy:'number':true">
+                    <tr ng-if="match.teamA && match.teamB" ng-repeat="match in matches | orderBy:'number':true" ng-click="viewPerformanceModal(match)" class="cursor">
                         <td nowrap style="white-space: nowrap">{{match.teamA}} vs {{match.teamB}}</td>
                         <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
-                        <td ng-class="(sp.pointScorer.indexOf('Winner')>-1)?'success':''" ng-repeat-start="sp in selectedPrediction =(match.predictions | filter:{league:selectedLeague})" nowrap style="white-space: nowrap" >
-                            {{match.teamWinner}}/{{sp.teamWinner}}
-                        </td>
-                        <td ng-class="(sp.pointScorer.indexOf('Runs')>-1)?'success':''">{{match.totalRuns}}/{{sp.totalRuns}}</td>
-                        <td ng-class="(sp.pointScorer.indexOf('Wickets')>-1)?'success':''">{{match.totalWickets}}/{{sp.totalWickets}}</td>
-                        <td ng-class="(sp.pointScorer.indexOf('Fours')>-1)?'success':''">{{match.totalFours}}/{{sp.totalFours}}</td>
-                        <td ng-class="(sp.pointScorer.indexOf('Sixes')>-1)?'success':''">{{match.totalSixes}}/{{sp.totalSixes}}</td>
-                        <td ng-class="(sp.points>0)?'success':''" ng-repeat-end>{{sp.points}}</td>
-                        <td ng-hide="selectedPrediction.length" nowrap style="white-space: nowrap">
-                            {{match.teamWinner}}/-
-                        </td>
-                        <td ng-hide="selectedPrediction.length">{{match.totalRuns}}/-</td>
-                        <td ng-hide="selectedPrediction.length">{{match.totalWickets}}/-</td>
-                        <td ng-hide="selectedPrediction.length">{{match.totalFours}}/-</td>
-                        <td ng-hide="selectedPrediction.length">{{match.totalSixes}}/-</td>
-                        <td ng-hide="selectedPrediction.length">-</td>
+                        <td><span ng-if="match.prediction.pointScorer.indexOf('Winner')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Winner')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.teamWinner}}</td>
+                        <td><span ng-if="match.prediction.pointScorer.indexOf('Runs')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Runs')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalRuns}}</td>
+                        <td><span ng-if="match.prediction.pointScorer.indexOf('Sixes')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Sixes')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalSixes}}</td>
+                        <td><span ng-if="match.prediction.pointScorer.indexOf('Fours')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Fours')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalFours}}</td>
+                        <td><span ng-if="match.prediction.pointScorer.indexOf('Wickets')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Wickets')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalWickets}}</td>
+                        <td>{{match.prediction.points}}</td>
                     </tr>
                 </table>
             </div>
