@@ -24,6 +24,11 @@ public class MatchService {
     private static final int FULL_POINTS = 10;
     private static final int BONUS_POINTS = 5;
 
+    private static final int RUNS_RANGE     = 20;
+    private static final int SIXES_RANGE    = 2;
+    private static final int FOURS_RANGE    = 2;
+    private static final int WICKETS_RANGE  = 1;
+
     private static final String WINNER  = "Winner,";
     private static final String RUNS    = "Runs,";
     private static final String WICKETS = "Wickets,";
@@ -40,87 +45,41 @@ public class MatchService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void finalizeMatch(Match match) {
         List<Prediction> predictionsList = predictionRepository.findByMatch(match);
-        Map<League, List<Prediction>> leaguePredictionsMap = predictionsList.stream().collect(Collectors.groupingBy(x->x.getPredictionKey().getLeague()));
+        predictionsList.stream().forEach(p -> {
+            updatePrediction(match, p);
+        });
 
-        leaguePredictionsMap.entrySet().stream().forEach(entry -> updatePredictions(match, entry.getValue()));
         predictionRepository.save(predictionsList);
         matchRepository.save(match);
         log.info("Finalized Match: " + match);
     }
 
-    private void updatePredictions(Match match, List<Prediction> predictions) {
+    private void updatePrediction(Match match, Prediction p) {
         int multiplier = match.getMatchType().getMultiplier();
-        //For FULL_POINTS in match
-        int closestDiffRuns = Integer.MAX_VALUE,closestDiffWickets = Integer.MAX_VALUE,closestDiffFours = Integer.MAX_VALUE,closestDiffSixes = Integer.MAX_VALUE;
-        for (Prediction p: predictions) {
-            if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
-                    match.getTeamWinner().equals(p.getTeamWinner())) { //Correct Winner
-                p.addPoints(multiplier*FULL_POINTS);
-                p.addPointScorer(WINNER);
-            }
-            if (p.getTotalRuns() != null) {
-                int diffRuns = Math.abs(match.getTotalRuns() - p.getTotalRuns());
-                if (diffRuns < closestDiffRuns) {closestDiffRuns = diffRuns;}
-                if (diffRuns == 0) {//Perfect Match so give FULL points
-                    p.addPoints(multiplier * FULL_POINTS);
-                    p.addPointScorer(RUNS);
-                }
-            }
-            if (p.getTotalWickets() != null) {
-                int diffWickets = Math.abs(match.getTotalWickets() - p.getTotalWickets());
-                if (diffWickets<closestDiffWickets) {closestDiffWickets = diffWickets;}
-                if (diffWickets == 0) {
-                    p.addPoints(multiplier * FULL_POINTS);
-                    p.addPointScorer(WICKETS);
-                }
-            }
-            if (p.getTotalFours() != null) {
-                int diffFours = Math.abs(match.getTotalFours() - p.getTotalFours());
-                if (diffFours<closestDiffFours) {closestDiffFours = diffFours;}
-                if (diffFours == 0) {
-                    p.addPoints(multiplier * FULL_POINTS);
-                    p.addPointScorer(FOURS);
-                }
-            }
-            if (p.getTotalSixes() != null) {
-                int diffSixes = Math.abs(match.getTotalSixes() - p.getTotalSixes());
-                if (diffSixes<closestDiffSixes) {closestDiffSixes = diffSixes;}
-                if (diffSixes == 0) {
-                    p.addPoints(multiplier * FULL_POINTS);
-                    p.addPointScorer(SIXES);
-                }
-            }
+        if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
+                match.getTeamWinner().equals(p.getTeamWinner())) { //Correct Winner
+            p.addPoints(multiplier*FULL_POINTS);
+            p.addPointScorer(WINNER);
         }
-        //For BONUS_POINTS, in case no one got an exact match.
-        for (Prediction p: predictions) {
-            if (closestDiffRuns != 0) {
-                if (p.getTotalRuns() != null &&
-                        Math.abs(match.getTotalRuns() - p.getTotalRuns()) == closestDiffRuns) {
-                    p.addPoints(multiplier * BONUS_POINTS);
-                    p.addPointScorer(RUNS);
-                }
-            }
-            if (closestDiffWickets != 0) {
-                if (p.getTotalWickets() != null &&
-                        Math.abs(match.getTotalWickets() - p.getTotalWickets()) == closestDiffWickets) {
-                    p.addPoints(multiplier * BONUS_POINTS);
-                    p.addPointScorer(WICKETS);
-                }
-            }
-            if (closestDiffFours != 0) {
-                if (p.getTotalFours() != null &&
-                        Math.abs(match.getTotalFours() - p.getTotalFours()) == closestDiffFours) {
-                    p.addPoints(multiplier * BONUS_POINTS);
-                    p.addPointScorer(FOURS);
-                }
-            }
-            if (closestDiffSixes != 0) {
-                if (p.getTotalSixes() != null &&
-                        Math.abs(match.getTotalSixes() - p.getTotalSixes()) == closestDiffSixes) {
-                    p.addPoints(multiplier * BONUS_POINTS);
-                    p.addPointScorer(SIXES);
-                }
-            }
+        if (match.getTotalRuns()-RUNS_RANGE <= p.getTotalRuns() ||
+                match.getTotalRuns()+RUNS_RANGE >= p.getTotalRuns()) {
+            p.addPoints(multiplier*BONUS_POINTS);
+            p.addPointScorer(RUNS);
+        }
+        if (match.getTotalSixes()-SIXES_RANGE <= p.getTotalSixes() ||
+                match.getTotalSixes()+SIXES_RANGE >= p.getTotalSixes()) {
+            p.addPoints(multiplier*BONUS_POINTS);
+            p.addPointScorer(SIXES);
+        }
+        if (match.getTotalFours()-FOURS_RANGE <= p.getTotalFours() ||
+                match.getTotalFours()+FOURS_RANGE >= p.getTotalFours()) {
+            p.addPoints(multiplier*BONUS_POINTS);
+            p.addPointScorer(FOURS);
+        }
+        if (match.getTotalWickets()-WICKETS_RANGE <= p.getTotalWickets() ||
+                match.getTotalWickets()+WICKETS_RANGE >= p.getTotalWickets()) {
+            p.addPoints(multiplier*BONUS_POINTS);
+            p.addPointScorer(WICKETS);
         }
     }
 
