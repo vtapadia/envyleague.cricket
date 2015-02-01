@@ -1,6 +1,7 @@
 package com.envyleague.cricket.service;
 
 import com.envyleague.cricket.domain.Authority;
+import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.PersistentTokenRepository;
 import com.envyleague.cricket.repository.UserRepository;
@@ -56,6 +57,7 @@ public class UserService {
         if (user != null) {
             user.setActivated(true);
             user.setActivationKey(null);
+            user.setStatus(Status.ACTIVE);
             log.info("Activated user : " + user.getLogin());
             userRepository.save(user);
         }

@@ -1,6 +1,7 @@
 package com.envyleague.cricket.security;
 
 import com.envyleague.cricket.domain.Authority;
+import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.UserRepository;
 import org.slf4j.Logger;
@@ -38,6 +39,8 @@ public class UserDetailsService implements org.springframework.security.core.use
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
         } else if (!userFromDatabase.isActivated()) {
             throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
+        } else if (userFromDatabase.getStatus() != Status.ACTIVE) {
+            throw new UserNotActivatedException("User " + lowercaseLogin + " is Blocked. Please contact Admin.");
         }
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();

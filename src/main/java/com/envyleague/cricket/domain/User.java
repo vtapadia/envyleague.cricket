@@ -62,6 +62,9 @@ public class User implements Serializable {
     @Column(name="FACEBOOK_AUTH_TOKEN", length = 500)
     private String facebookAuthToken;
 
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.PENDING;
+
     @OneToMany(mappedBy = "userLeagueKey.user", cascade = CascadeType.ALL)
     private Set<UserLeague> userLeagues = new HashSet<>();
 
@@ -161,6 +164,14 @@ public class User implements Serializable {
 
     public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
         this.persistentTokens = persistentTokens;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Set<UserLeague> getUserLeagues() {
