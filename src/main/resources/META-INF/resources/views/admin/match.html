@@ -18,9 +18,9 @@
                     <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
                     <td><select ng-model="match.teamWinner" ng-options="option.value as option.display for option in match.winnerOptions"></select></td>
                     <td><input type="number" ng-model="match.totalRuns" min="0" max="1200"></td>
+                    <td><input type="number" ng-model="match.totalSixes" min="0" max="100"></td>
+                    <td><input type="number" ng-model="match.totalFours" min="0" max="200"></td>
                     <td><input type="number" ng-model="match.totalWickets" min="0" max="20"></td>
-                    <td><input type="number" ng-model="match.totalFours" min="0" max="600"></td>
-                    <td><input type="number" ng-model="match.totalSixes" min="0" max="600"></td>
                     <td><button type="button" class="btn btn-primary" ng-show="updateVisible" ng-click="finalize(match)">Finalize</button></td>
                 </tr>
                 <tr ng-repeat="match in matches | filter:{finalized: true}">
