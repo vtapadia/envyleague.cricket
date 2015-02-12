@@ -6,6 +6,28 @@ envyLeagueApp.controller('HomeController', function ($scope) {
 });
 
 envyLeagueApp.controller('MainController', function ($scope) {
+    $scope.allslides =[
+        {image:'/images/street1.jpg', text:''},{image:'/images/street2.jpg', text:''},{image:'/images/street3.jpg', text:''},
+        {image:'/images/street4.jpg', text:''},{image:'/images/street5.jpg', text:''},{image:'/images/street6.jpg', text:''},
+        {image:'/images/street7.jpg', text:''},{image:'/images/street8.jpg', text:''},{image:'/images/street9.jpg', text:''},
+        {image:'/images/street10.jpg', text:''},{image:'/images/street11.jpg', text:''},{image:'/images/street12.jpg', text:''},
+        {image:'/images/street13.jpg', text:''},{image:'/images/street14.jpg', text:''},{image:'/images/street15.jpg', text:''},
+        {image:'/images/street16.jpg', text:''},{image:'/images/street17.jpg', text:''},{image:'/images/street18.jpg', text:''},
+        {image:'/images/street19.jpg', text:''},{image:'/images/street20.jpg', text:''},{image:'/images/street21.jpg', text:''},
+        {image:'/images/street22.jpg', text:''},{image:'/images/street23.jpg', text:''},{image:'/images/street24.jpg', text:''},
+        {image:'/images/street25.jpg', text:''},{image:'/images/street26.jpg', text:''},{image:'/images/street27.jpg', text:''},
+        {image:'/images/street28.jpg', text:''},{image:'/images/street29.jpg', text:''},{image:'/images/street30.jpg', text:''},
+        {image:'/images/street31.jpg', text:''},{image:'/images/street32.jpg', text:''},{image:'/images/street33.jpg', text:''},
+        {image:'/images/street34.jpg', text:''},{image:'/images/street35.jpg', text:''},{image:'/images/street36.jpg', text:''},
+        {image:'/images/street37.jpg', text:''}
+    ];
+    $scope.slides = [];
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
 });
 
 envyLeagueApp.controller('AdminController', function ($scope) {
