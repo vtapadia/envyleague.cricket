@@ -38,6 +38,7 @@
                 <!--img class="logo-main" alt="eNVy LEAGUE" src="images/logo.png"-->
                 <span>eNVy LEAGUE</span>
             </a>
+            <span class="navbar-brand" ng-if="authenticated">Welcome {{authenticatedName}}</span>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated" role="navigation">
             <ul class="nav navbar-nav nav-pills navbar-right">

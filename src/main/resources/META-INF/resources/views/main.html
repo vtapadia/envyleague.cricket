@@ -1,8 +1,9 @@
 <div class="jumbotron jumbotron-envy">
     <div class="container">
-        <h2><strong>Lets go CRAZY about CRICKET !!</strong></h2><br>
+        <h2 ng-show="!authenticated"><strong>Lets go CRAZY about CRICKET !!</strong></h2><br>
         <a ng-show="!authenticated" href="#/login" class="btn btn-primary btn-sm">Get Started</a>
-        <carousel interval="4000">
+        <h2 ng-show="authenticated"><strong>Universal rules of CRICKET !!</strong></h2><br>
+        <carousel ng-show="authenticated" interval="4000">
             <slide ng-repeat="slide in slides" active="slide.active">
                 <img ng-src="{{slide.image}}" style="background: rgba(0, 0, 0, 0.8); margin:auto;">
                 <div class="carousel-caption">

@@ -189,6 +189,7 @@ envyLeagueApp.config(
     // Call when the the client is confirmed
     $rootScope.$on('event:auth-loginConfirmed', function(data) {
         $rootScope.authenticated = true;
+        $rootScope.authenticatedName = Session.name;
         if ($location.path() === "/login") {
             var search = $location.search();
             if (search.redirect !== undefined) {

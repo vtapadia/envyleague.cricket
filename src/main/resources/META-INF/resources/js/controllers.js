@@ -22,12 +22,12 @@ envyLeagueApp.controller('MainController', function ($scope) {
         {image:'/images/street37.jpg', text:''}
     ];
     $scope.slides = [];
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
-    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 37)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 6)]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 6)+6]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 6)+12]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 6)+18]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 6)+24]);
+    $scope.slides.push($scope.allslides[Math.floor(Math.random() * 7)+30]);
 });
 
 envyLeagueApp.controller('AdminController', function ($scope) {
