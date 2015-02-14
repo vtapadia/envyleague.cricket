@@ -9,9 +9,9 @@
                     <th colspan="2">Match</th>
                     <th>Winner</th>
                     <th>Total Runs</th>
-                    <th>Total Wickets</th>
-                    <th>Total Fours</th>
                     <th>Total Sixes</th>
+                    <th>Total Fours</th>
+                    <th>Total Wickets</th>
                 </tr>
                 <tr ng-repeat="match in matches | filter:{finalized: false}">
                     <td nowrap style="white-space: nowrap">{{match.teamA}} vs {{match.teamB}}</td>
@@ -28,9 +28,9 @@
                     <td>{{match.startTime | date:'dd/MMM HH:mm'}}</td>
                     <td>{{match.teamWinner}}</td>
                     <td>{{match.totalRuns}}</td>
-                    <td>{{match.totalWickets}}</td>
-                    <td>{{match.totalFours}}</td>
                     <td>{{match.totalSixes}}</td>
+                    <td>{{match.totalFours}}</td>
+                    <td>{{match.totalWickets}}</td>
                     <td></td>
                 </tr>
             </table>
