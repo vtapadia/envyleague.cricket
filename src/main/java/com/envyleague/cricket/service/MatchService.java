@@ -61,22 +61,22 @@ public class MatchService {
             p.addPoints(multiplier*FULL_POINTS);
             p.addPointScorer(WINNER);
         }
-        if (match.getTotalRuns()-RUNS_RANGE <= p.getTotalRuns() ||
-                match.getTotalRuns()+RUNS_RANGE >= p.getTotalRuns()) {
+        if (p.getTotalRuns() >= match.getTotalRuns()-RUNS_RANGE &&
+                p.getTotalRuns() <= match.getTotalRuns()+RUNS_RANGE) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(RUNS);
         }
-        if (match.getTotalSixes()-SIXES_RANGE <= p.getTotalSixes() ||
+        if (match.getTotalSixes()-SIXES_RANGE <= p.getTotalSixes() &&
                 match.getTotalSixes()+SIXES_RANGE >= p.getTotalSixes()) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(SIXES);
         }
-        if (match.getTotalFours()-FOURS_RANGE <= p.getTotalFours() ||
+        if (match.getTotalFours()-FOURS_RANGE <= p.getTotalFours() &&
                 match.getTotalFours()+FOURS_RANGE >= p.getTotalFours()) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(FOURS);
         }
-        if (match.getTotalWickets()-WICKETS_RANGE <= p.getTotalWickets() ||
+        if (match.getTotalWickets()-WICKETS_RANGE <= p.getTotalWickets() &&
                 match.getTotalWickets()+WICKETS_RANGE >= p.getTotalWickets()) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(WICKETS);
