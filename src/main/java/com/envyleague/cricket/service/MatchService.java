@@ -56,6 +56,7 @@ public class MatchService {
 
     private void updatePrediction(Match match, Prediction p) {
         int multiplier = match.getMatchType().getMultiplier();
+        p.setPoints(0);
         if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
                 match.getTeamWinner().equals(p.getTeamWinner())) { //Correct Winner
             p.addPoints(multiplier*FULL_POINTS);
