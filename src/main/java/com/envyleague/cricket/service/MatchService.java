@@ -5,6 +5,7 @@ import com.envyleague.cricket.domain.Match;
 import com.envyleague.cricket.domain.Prediction;
 import com.envyleague.cricket.repository.MatchRepository;
 import com.envyleague.cricket.repository.PredictionRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,7 @@ public class MatchService {
     private void updatePrediction(Match match, Prediction p) {
         int multiplier = match.getMatchType().getMultiplier();
         p.setPoints(0);
+        p.setPointScorer(StringUtils.EMPTY);
         if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
                 match.getTeamWinner().equals(p.getTeamWinner())) { //Correct Winner
             p.addPoints(multiplier*FULL_POINTS);
