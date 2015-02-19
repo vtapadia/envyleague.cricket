@@ -64,20 +64,32 @@ public class MatchService {
             p.addPoints(multiplier*FULL_POINTS);
             p.addPointScorer(WINNER);
         }
+        if (p.getTotalRuns() == null) {
+            p.setTotalRuns(0);
+        }
         if (p.getTotalRuns() >= match.getTotalRuns()-RUNS_RANGE &&
                 p.getTotalRuns() <= match.getTotalRuns()+RUNS_RANGE) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(RUNS);
+        }
+        if (p.getTotalSixes() == null) {
+            p.setTotalSixes(0);
         }
         if (match.getTotalSixes()-SIXES_RANGE <= p.getTotalSixes() &&
                 match.getTotalSixes()+SIXES_RANGE >= p.getTotalSixes()) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(SIXES);
         }
+        if (p.getTotalFours() == null) {
+            p.setTotalFours(0);
+        }
         if (match.getTotalFours()-FOURS_RANGE <= p.getTotalFours() &&
                 match.getTotalFours()+FOURS_RANGE >= p.getTotalFours()) {
             p.addPoints(multiplier*BONUS_POINTS);
             p.addPointScorer(FOURS);
+        }
+        if (p.getTotalWickets() == null) {
+            p.setTotalWickets(0);
         }
         if (match.getTotalWickets()-WICKETS_RANGE <= p.getTotalWickets() &&
                 match.getTotalWickets()+WICKETS_RANGE >= p.getTotalWickets()) {
