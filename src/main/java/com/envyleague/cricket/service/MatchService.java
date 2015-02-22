@@ -60,7 +60,7 @@ public class MatchService {
         p.setPoints(0);
         p.setPointScorer(StringUtils.EMPTY);
         if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
-                match.getTeamWinner().equals(p.getTeamWinner())) { //Correct Winner
+                (match.getTeamWinner() != null && match.getTeamWinner().equals(p.getTeamWinner()))) { //Correct Winner
             p.addPoints(multiplier*FULL_POINTS);
             p.addPointScorer(WINNER);
         }
