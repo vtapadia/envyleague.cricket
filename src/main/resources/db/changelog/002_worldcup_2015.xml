@@ -457,4 +457,11 @@
             <column name="tournament">World Cup 2015</column>
         </insert>
     </changeSet>
+    <!--
+    Updates for Quater Finals
+    update el_cric_match  set team_a ='South Africa', team_b='Sri Lanka' where number=43;
+    update el_cric_match  set team_a ='Bangladesh', team_b='India' where number=44;
+    update el_cric_match  set team_a ='Australia', team_b='Pakistan' where number=45;
+    update el_cric_match  set team_a ='New Zealand', team_b='West Indies' where number=46;
+    -->
 </databaseChangeLog>
