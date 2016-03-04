@@ -18,7 +18,7 @@ import java.util.Arrays;
 @Configuration
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
-        org.springframework.boot.actuate.autoconfigure.ManagementSecurityAutoConfiguration.class})
+        org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class})
 @ComponentScan
 public class Application {
 
