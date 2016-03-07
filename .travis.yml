@@ -2,3 +2,8 @@ language: java
 
 jdk:
   - oraclejdk8
+
+install: true
+
+script:
+  - mvn clean install -Dbuild.number=$TRAVIS_BUILD_NUMBER -Dbranch.name=$TRAVIS_BRANCH -DskipTests=true -Dmaven.javadoc.skip=true -B -V
