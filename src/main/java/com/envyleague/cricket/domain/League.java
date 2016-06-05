@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "EL_CRIC_LEAGUE")
+@Table
 public class League implements Serializable {
     @NotNull
     @Size(min = 0, max = 50)
@@ -40,13 +40,11 @@ public class League implements Serializable {
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
 
-    @Column(name = "max_members")
     private int maxMembers = 25;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING;
 
-    @Column(name = "message")
     private String message;
 
     @JsonIgnore

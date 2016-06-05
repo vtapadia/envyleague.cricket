@@ -1,8 +1,7 @@
 package com.envyleague.cricket.service;
 
-import com.envyleague.cricket.domain.League;
-import com.envyleague.cricket.domain.Match;
-import com.envyleague.cricket.domain.Prediction;
+import com.envyleague.cricket.domain.cricket.CricketMatch;
+import com.envyleague.cricket.domain.cricket.CricketPrediction;
 import com.envyleague.cricket.repository.MatchRepository;
 import com.envyleague.cricket.repository.PredictionRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -14,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,18 +41,18 @@ public class MatchService {
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void finalizeMatch(Match match) {
-        List<Prediction> predictionsList = predictionRepository.findByMatch(match);
+    public void finalizeMatch(CricketMatch match) {
+        List<CricketPrediction> predictionsList = predictionRepository.findByMatch(match);
         predictionsList.stream().forEach(p -> {
             updatePrediction(match, p);
         });
 
         predictionRepository.save(predictionsList);
         matchRepository.save(match);
-        log.info("Finalized Match: " + match);
+        log.info("Finalized CricketMatch: " + match);
     }
 
-    private void updatePrediction(Match match, Prediction p) {
+    private void updatePrediction(CricketMatch match, CricketPrediction p) {
         int multiplier = match.getMatchType().getMultiplier();
         p.setPoints(0);
         p.setPointScorer(StringUtils.EMPTY);

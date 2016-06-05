@@ -1,6 +1,6 @@
 package com.envyleague.cricket.web.dto;
 
-import com.envyleague.cricket.domain.Match;
+import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.MatchType;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ public class MatchDTO {
 
     public MatchDTO() {}
 
-    public MatchDTO(Match match) {
+    public MatchDTO(CricketMatch match) {
         this.number = match.getNumber();
         this.tournament = match.getTournament().getName();
         this.matchType = match.getMatchType();

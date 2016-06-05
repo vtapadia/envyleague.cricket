@@ -24,10 +24,10 @@ import java.util.Set;
 @Transactional
 public class FacebookService {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    @Value("${FB_APP_ID}")
+    @Value("${FB_APP_ID:dummy}")
     private String facebookAppId;
 
-    @Value("${FB_APP_SECRET}")
+    @Value("${FB_APP_SECRET:dummy}")
     private String facebookAppSecret;
 
     @Inject

@@ -1,6 +1,6 @@
 package com.envyleague.cricket.web.dto;
 
-import com.envyleague.cricket.domain.Prediction;
+import com.envyleague.cricket.domain.cricket.CricketPrediction;
 
 public class PredictionDTO {
     private String user;
@@ -17,7 +17,7 @@ public class PredictionDTO {
 
     public PredictionDTO() {}
 
-    public PredictionDTO(Prediction prediction) {
+    public PredictionDTO(CricketPrediction prediction) {
         this.user = prediction.getPredictionKey().getUser().getLogin();
         this.league = prediction.getPredictionKey().getLeague().getName();
         this.match = prediction.getPredictionKey().getMatch().getNumber();

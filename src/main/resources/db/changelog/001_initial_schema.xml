@@ -126,7 +126,7 @@
             <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="points" type="int" />
+            <column name="rank" type="int" />
         </createTable>
     </changeSet>
     <changeSet id="001009" author="vtapadia" dbms="postgresql">
@@ -141,7 +141,7 @@
     </changeSet>
     <changeSet id="001010" author="vtapadia" dbms="postgresql">
         <addColumn tableName="EL_CRIC_PREDICTION">
-            <column name="points" type="int"></column>
+            <column name="rank" type="int"></column>
         </addColumn>
     </changeSet>
     <changeSet id="001011" author="vtapadia" dbms="postgresql">

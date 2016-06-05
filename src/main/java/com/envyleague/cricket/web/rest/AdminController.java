@@ -1,7 +1,7 @@
 package com.envyleague.cricket.web.rest;
 
+import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.League;
-import com.envyleague.cricket.domain.Match;
 import com.envyleague.cricket.domain.Status;
 import com.envyleague.cricket.repository.LeagueRepository;
 import com.envyleague.cricket.repository.MatchRepository;
@@ -77,7 +77,7 @@ public class AdminController {
 
     @RequestMapping(value = "/match", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> finalizeMatch(@NotNull @RequestBody MatchDTO matchDTO) {
-        Match match = matchRepository.findOne(matchDTO.getNumber());
+        CricketMatch match = matchRepository.findOne(matchDTO.getNumber());
 
         match.setTeamWinner(teamRepository.findOne(matchDTO.getTeamWinner()));
         match.setTotalRuns(matchDTO.getTotalRuns());

@@ -1,12 +1,8 @@
 package com.envyleague.cricket.web.rest;
 
-import com.envyleague.cricket.domain.Authority;
-import com.envyleague.cricket.domain.League;
-import com.envyleague.cricket.domain.Match;
-import com.envyleague.cricket.domain.Prediction;
-import com.envyleague.cricket.domain.Status;
-import com.envyleague.cricket.domain.User;
-import com.envyleague.cricket.domain.UserLeague;
+import com.envyleague.cricket.domain.*;
+import com.envyleague.cricket.domain.cricket.CricketMatch;
+import com.envyleague.cricket.domain.cricket.CricketPrediction;
 import com.envyleague.cricket.repository.LeagueRepository;
 import com.envyleague.cricket.repository.MatchRepository;
 import com.envyleague.cricket.repository.PredictionRepository;
@@ -50,7 +46,7 @@ public class CricketLeaders {
         User user = userService.getUserWithAuthorities();
         if (StringUtils.isNotBlank(league)) {
             League leagueDB = leagueRepository.findOneByName(league);
-            List<Match> finalizedMatches = matchRepository.findByFinalizedTrue();
+            List<CricketMatch> finalizedMatches = matchRepository.findByFinalizedTrue();
             List<User> users =
                     leagueDB.getUserLeagues().stream()
                             .filter(l -> l.getStatus() == Status.ACTIVE)
@@ -60,7 +56,7 @@ public class CricketLeaders {
             if (user.getUserLeagues().stream().anyMatch(ul->ul.getUser().equals(user)) || user.getAuthorities().contains(Authority.ADMIN)) {
                 if (finalizedMatches.size() != 0) {
                     //Only if you are a registered member (or ADMIN), you can view the league
-                    List<Prediction> predictions = predictionRepository.findByLeagueAndMatchInOrderByMatch(leagueDB, finalizedMatches);
+                    List<CricketPrediction> predictions = predictionRepository.findByLeagueAndMatchInOrderByMatch(leagueDB, finalizedMatches);
                     predictions.stream().forEach(p->{
                         userDTOs.stream().filter(u->u.getLogin().equals(p.getPredictionKey().getUser().getLogin())).forEach(z->z.setPoints(z.getPoints()+p.getPoints()));
                     });

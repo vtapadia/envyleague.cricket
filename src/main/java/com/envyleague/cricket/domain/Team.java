@@ -1,23 +1,23 @@
 package com.envyleague.cricket.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "EL_CRIC_TEAM")
+@Table
 public class Team implements Serializable {
-    @NotNull
-    @Size(min = 0, max = 50)
+
     @Id
-    @Column(length = 50)
+    @NotNull
     private String name;
 
-    private int points;
+    private Integer rank;
+
+    private String image;
 
     public String getName() {
         return name;
@@ -27,11 +27,19 @@ public class Team implements Serializable {
         this.name = name;
     }
 
-    public int getPoints() {
-        return points;
+    public Integer getRank() {
+        return rank;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

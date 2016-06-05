@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "EL_USER")
+@Table
 public class User implements Serializable {
     @NotNull
     @Size(min = 0, max = 50)
@@ -69,7 +69,7 @@ public class User implements Serializable {
     private Set<UserLeague> userLeagues = new HashSet<>();
 
     @ElementCollection(targetClass = Authority.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "EL_USER_AUTHORITY", joinColumns = @JoinColumn(name = "login"))
+    @CollectionTable(joinColumns = @JoinColumn(name = "login"))//name = "EL_USER_AUTHORITY",
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Authority> authorities = new HashSet<>();

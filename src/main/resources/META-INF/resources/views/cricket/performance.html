@@ -50,7 +50,7 @@
                         <td><span ng-if="match.prediction.pointScorer.indexOf('Sixes')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Sixes')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalSixes}}</td>
                         <td><span ng-if="match.prediction.pointScorer.indexOf('Fours')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Fours')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalFours}}</td>
                         <td><span ng-if="match.prediction.pointScorer.indexOf('Wickets')>-1" class="glyphicon glyphicon-thumbs-up"></span><span ng-if="match.prediction.pointScorer.indexOf('Wickets')<0 && match.prediction.match != undefined" class="glyphicon glyphicon-thumbs-down"></span> {{match.totalWickets}}</td>
-                        <td>{{match.prediction.points}}</td>
+                        <td>{{match.prediction.rank}}</td>
                     </tr>
                 </table>
             </div>

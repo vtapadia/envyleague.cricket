@@ -1,11 +1,10 @@
 package com.envyleague.cricket.service;
 
-import com.envyleague.cricket.domain.League;
-import com.envyleague.cricket.domain.Match;
-import com.envyleague.cricket.domain.Prediction;
-import com.envyleague.cricket.domain.PredictionKey;
-import com.envyleague.cricket.domain.Team;
-import com.envyleague.cricket.domain.User;
+import com.envyleague.cricket.domain.*;
+import com.envyleague.cricket.domain.cricket.CricketMatch;
+import com.envyleague.cricket.domain.cricket.CricketPrediction;
+import com.envyleague.cricket.domain.cricket.CricketPredictionKey;
+import com.envyleague.cricket.domain.cricket.CricketTournamentTeam;
 import com.envyleague.cricket.repository.PredictionRepository;
 import com.envyleague.cricket.repository.TeamRepository;
 import com.envyleague.cricket.web.dto.PredictionDTO;
@@ -30,15 +29,15 @@ public class PredictionService {
     TeamRepository teamRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveOrUpdate(User user, Match match, League league, PredictionDTO predictionDTO) {
-        Prediction prediction = predictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
+    public void saveOrUpdate(User user, CricketMatch match, League league, PredictionDTO predictionDTO) {
+        CricketPrediction prediction = predictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
         if (prediction == null) {
-            prediction = new Prediction(new PredictionKey(user, league, match));
+            prediction = new CricketPrediction(new CricketPredictionKey(user, league, match));
         }
 
         if (StringUtils.isNotBlank(predictionDTO.getTeamWinner()) &&
                 !predictionDTO.getTeamWinner().equalsIgnoreCase("Draw")) {
-            Team team = teamRepository.findOne(predictionDTO.getTeamWinner());
+            CricketTournamentTeam team = teamRepository.findOne(predictionDTO.getTeamWinner());
             prediction.setTeamWinner(team);
         } else {
             //Draw Predicted, Save null in DB

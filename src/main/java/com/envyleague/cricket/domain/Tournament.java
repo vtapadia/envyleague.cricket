@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "EL_CRIC_TOURNAMENT")
+@Table
 public class Tournament implements Serializable {
 
     @NotNull
@@ -38,6 +38,10 @@ public class Tournament implements Serializable {
     @Column(name = "end_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime endDate;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TournamentType type;
 
     @JsonGetter
     public int getDaysLeft() {

@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "EL_USER_CRIC_LEAGUE")
+@Table
 public class UserLeague implements Serializable {
     public UserLeague() {
         userLeagueKey = new UserLeagueKey();

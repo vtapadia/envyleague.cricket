@@ -1,4 +1,4 @@
-package com.envyleague.cricket.domain;
+package com.envyleague.cricket.domain.cricket;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -9,14 +9,14 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "EL_CRIC_PREDICTION")
-public class Prediction implements Serializable {
+@Table
+public class CricketPrediction implements Serializable {
     @EmbeddedId
-    private PredictionKey predictionKey;
+    private CricketPredictionKey predictionKey;
 
     @ManyToOne
     @JoinColumn(name = "team_winner")
-    private Team teamWinner;
+    private CricketTournamentTeam teamWinner;
 
     @Column(name = "total_runs")
     private Integer totalRuns;
@@ -32,26 +32,26 @@ public class Prediction implements Serializable {
     @Column(name="point_scorer")
     private String pointScorer;
 
-    public Prediction() {
+    public CricketPrediction() {
     }
 
-    public Prediction(PredictionKey key) {
+    public CricketPrediction(CricketPredictionKey key) {
         this.predictionKey = key;
     }
 
-    public PredictionKey getPredictionKey() {
+    public CricketPredictionKey getPredictionKey() {
         return predictionKey;
     }
 
-    public void setPredictionKey(PredictionKey predictionKey) {
+    public void setPredictionKey(CricketPredictionKey predictionKey) {
         this.predictionKey = predictionKey;
     }
 
-    public Team getTeamWinner() {
+    public CricketTournamentTeam getTeamWinner() {
         return teamWinner;
     }
 
-    public void setTeamWinner(Team teamWinner) {
+    public void setTeamWinner(CricketTournamentTeam teamWinner) {
         this.teamWinner = teamWinner;
     }
 
@@ -120,7 +120,7 @@ public class Prediction implements Serializable {
 
     @Override
     public String toString() {
-        return "Prediction{" +
+        return "CricketPrediction{" +
                 "predictionKey=" + predictionKey +
                 ", teamWinner=" + teamWinner +
                 ", totalRuns=" + totalRuns +
