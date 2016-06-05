@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/vtapadia/friendlyCricket.svg?branch=master)](https://travis-ci.org/vtapadia/friendlyCricket)
+[![Build Status](https://travis-ci.org/vtapadia/envyleague.svg?branch=master)](https://travis-ci.org/vtapadia/envyleague)
 
 
-friendlyCricket
-===============
+My League of Games 
+==================
 
-Visit www.envyleague.com
+Visit www.envyleague.com to experience the application.
