@@ -1,9 +1,8 @@
 language: java
-
 jdk:
-  - oraclejdk8
-
-install: true
-
-script:
-  - "mvn clean install -Dbuild.number=${TRAVIS_BUILD_NUMBER} -Dbranch.name=$TRAVIS_BRANCH -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+ - oraclejdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: JooUTSjWgy7GXTX+pb7mrGG9QCZOtAZlwojDA0Mdf0iyFXwXUDmTkcRx9hsza8y3Vdgy56bBS36EbezfhDQJkjogXGh3QbpFNMsFf9W4SDO3nshZDgXN56EdDLlh6r/JRBQZ/KKiQtQfmGw0TbdSpaANsnwOtPXVqcSiBv8iw6t7Yzn/fKiw9OI8kKWx4SpBhV4qYzgpyP5XaCHvtIrgkAihNy6q8+qmwPPLlXsbw7YcHIHFoFBABZaj1Eqkv/sonuO3Bt0aE4vkujkbtCCN1pwczpY3NaRDo1fmZALGvgQGYK5VC+fNX/iTEMKuDbJGURDsMkz62J2zaSEPmvrWzVO27oPTlYtYhi1M5/gqI/dkdsFfOOYi+FvNQ7VkzbOPanNuPAFXyBHXriSylyp9RttHN8doUW7ZCNHS/b/VxCCZylU1c6XV7tIWFoQFVKV+9+Nx+N27VLFfly0IT2/0enVs/yydLlEZ4iCRQjw1pbDiqE/pzCywzwNJieG8qanKklG6pDImdI8pQilegpGzF1DvdbEv4pRuI0sBEsOSmVS1WgHkTCV+6PqGdpSWqnAoqs11GZ5APxbzyzI7VvEWe0r7CeTuUcLQb50/4MSlABKFqNGLe3WHreKAP8C5pXhwsWkJOk6PpyZvsZHqgyVP4V2BnjGu/PKX63zPrej/2p0=
+  app: friendlycricket
