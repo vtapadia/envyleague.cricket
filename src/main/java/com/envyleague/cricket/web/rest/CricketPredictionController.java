@@ -3,9 +3,9 @@ package com.envyleague.cricket.web.rest;
 import com.envyleague.cricket.domain.League;
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.User;
+import com.envyleague.cricket.repository.CricketMatchRepository;
 import com.envyleague.cricket.repository.LeagueRepository;
-import com.envyleague.cricket.repository.MatchRepository;
-import com.envyleague.cricket.repository.PredictionRepository;
+import com.envyleague.cricket.repository.CricketPredictionRepository;
 import com.envyleague.cricket.service.PredictionService;
 import com.envyleague.cricket.service.UserService;
 import com.envyleague.cricket.web.dto.PredictionDTO;
@@ -32,10 +32,10 @@ public class CricketPredictionController {
     UserService userService;
 
     @Inject
-    MatchRepository matchRepository;
+    CricketMatchRepository cricketMatchRepository;
 
     @Inject
-    PredictionRepository predictionRepository;
+    CricketPredictionRepository cricketPredictionRepository;
 
     @Inject
     LeagueRepository leagueRepository;
@@ -49,7 +49,7 @@ public class CricketPredictionController {
         if (StringUtils.isBlank(predictionDTO.getUser())) {
             predictionDTO.setUser(user.getLogin());
         }
-        CricketMatch match = matchRepository.findOne(predictionDTO.getMatch());
+        CricketMatch match = cricketMatchRepository.findOne(predictionDTO.getMatch());
         if (match.getStartTime().isBefore(LocalDateTime.now())) {
             return new ResponseEntity<>("CricketMatch is started. update not allowed now", HttpStatus.BAD_REQUEST);
         }

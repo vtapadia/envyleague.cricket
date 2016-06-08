@@ -24,13 +24,13 @@ public class MatchDTO {
     public MatchDTO() {}
 
     public MatchDTO(CricketMatch match) {
-        this.number = match.getNumber();
+        this.number = match.getId();
         this.tournament = match.getTournament().getName();
         this.matchType = match.getMatchType();
         this.startTime = (match.getStartTime()==null)?null:match.getStartTime().toDate();
         this.teamA = (match.getTeamA() == null)?null:match.getTeamA().getName();
         this.teamB = (match.getTeamB() == null)?null:match.getTeamB().getName();
-        this.teamWinner = (match.getTeamWinner() == null) ? null:match.getTeamWinner().getName();
+        this.teamWinner = (match.getWinner() == null) ? null:match.getWinner().getName();
         this.totalRuns = match.getTotalRuns();
         this.totalWickets = match.getTotalWickets();
         this.totalFours = match.getTotalFours();

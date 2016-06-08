@@ -3,10 +3,12 @@ package com.envyleague.cricket.config;
 //import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -64,10 +66,11 @@ public class DatabaseConfig implements EnvironmentAware {
 //    }
 //
 //    @Bean
-//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+//    @Autowired
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
 //        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-//        lef.setDataSource(dataSource());
-//        lef.setJpaVendorAdapter(jpaVendorAdapter());
+//        lef.setDataSource(dataSource);
+//        lef.setJpaVendorAdapter(jpaVendorAdapter);
 //        lef.setPackagesToScan("com.envyleague.cricket.domain");
 //        lef.afterPropertiesSet();
 //        return lef;
@@ -90,10 +93,21 @@ public class DatabaseConfig implements EnvironmentAware {
 //    }
 //
 //    @Bean
+//    @Profile("!dev")
 //    public JpaVendorAdapter jpaVendorAdapter() {
 //        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 //        adapter.setDatabase(Database.POSTGRESQL);
 //        adapter.setShowSql(false);
+//        adapter.setGenerateDdl(false);
+//        return adapter;
+//    }
+//
+//    @Bean
+//    @Profile("dev")
+//    public JpaVendorAdapter jpaVendorAdapterDev() {
+//        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+//        adapter.setDatabase(Database.H2);
+//        adapter.setShowSql(true);
 //        adapter.setGenerateDdl(false);
 //        return adapter;
 //    }

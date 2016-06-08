@@ -3,9 +3,7 @@ package com.envyleague.cricket.service;
 import com.envyleague.cricket.domain.*;
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.cricket.CricketPrediction;
-import com.envyleague.cricket.domain.cricket.CricketPredictionKey;
-import com.envyleague.cricket.domain.cricket.CricketTournamentTeam;
-import com.envyleague.cricket.repository.PredictionRepository;
+import com.envyleague.cricket.repository.CricketPredictionRepository;
 import com.envyleague.cricket.repository.TeamRepository;
 import com.envyleague.cricket.web.dto.PredictionDTO;
 import org.apache.commons.lang3.StringUtils;
@@ -23,30 +21,30 @@ public class PredictionService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Inject
-    PredictionRepository predictionRepository;
+    CricketPredictionRepository cricketPredictionRepository;
 
     @Inject
     TeamRepository teamRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveOrUpdate(User user, CricketMatch match, League league, PredictionDTO predictionDTO) {
-        CricketPrediction prediction = predictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
+        CricketPrediction prediction = cricketPredictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
         if (prediction == null) {
-            prediction = new CricketPrediction(new CricketPredictionKey(user, league, match));
+            prediction = new CricketPrediction(new PredictionKey(user, match, league));
         }
 
         if (StringUtils.isNotBlank(predictionDTO.getTeamWinner()) &&
                 !predictionDTO.getTeamWinner().equalsIgnoreCase("Draw")) {
-            CricketTournamentTeam team = teamRepository.findOne(predictionDTO.getTeamWinner());
-            prediction.setTeamWinner(team);
+            Team team = teamRepository.findOne(predictionDTO.getTeamWinner());
+            prediction.setWinner(team);
         } else {
             //Draw Predicted, Save null in DB
-            prediction.setTeamWinner(null);
+            prediction.setWinner(null);
         }
         prediction.setTotalRuns(predictionDTO.getTotalRuns());
         prediction.setTotalWickets(predictionDTO.getTotalWickets());
         prediction.setTotalFours(predictionDTO.getTotalFours());
         prediction.setTotalSixes(predictionDTO.getTotalSixes());
-        predictionRepository.save(prediction);
+        cricketPredictionRepository.save(prediction);
     }
 }

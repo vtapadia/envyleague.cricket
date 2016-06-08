@@ -2,8 +2,8 @@ package com.envyleague.cricket.service;
 
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.cricket.CricketPrediction;
-import com.envyleague.cricket.repository.MatchRepository;
-import com.envyleague.cricket.repository.PredictionRepository;
+import com.envyleague.cricket.repository.CricketMatchRepository;
+import com.envyleague.cricket.repository.CricketPredictionRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,21 +34,21 @@ public class MatchService {
     private static final String SIXES   = "Sixes,";
 
     @Inject
-    MatchRepository matchRepository;
+    CricketMatchRepository cricketMatchRepository;
 
     @Inject
-    PredictionRepository predictionRepository;
+    CricketPredictionRepository cricketPredictionRepository;
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void finalizeMatch(CricketMatch match) {
-        List<CricketPrediction> predictionsList = predictionRepository.findByMatch(match);
+        List<CricketPrediction> predictionsList = cricketPredictionRepository.findByMatch(match);
         predictionsList.stream().forEach(p -> {
             updatePrediction(match, p);
         });
 
-        predictionRepository.save(predictionsList);
-        matchRepository.save(match);
+        cricketPredictionRepository.save(predictionsList);
+        cricketMatchRepository.save(match);
         log.info("Finalized CricketMatch: " + match);
     }
 
@@ -56,8 +56,8 @@ public class MatchService {
         int multiplier = match.getMatchType().getMultiplier();
         p.setPoints(0);
         p.setPointScorer(StringUtils.EMPTY);
-        if ((match.getTeamWinner() == null && p.getTeamWinner() == null) || //DRAW
-                (match.getTeamWinner() != null && match.getTeamWinner().equals(p.getTeamWinner()))) { //Correct Winner
+        if ((match.getWinner() == null && p.getWinner() == null) || //DRAW
+                (match.getWinner() != null && match.getWinner().equals(p.getWinner()))) { //Correct Winner
             p.addPoints(multiplier*FULL_POINTS);
             p.addPointScorer(WINNER);
         }

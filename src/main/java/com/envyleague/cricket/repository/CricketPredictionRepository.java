@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PredictionRepository extends JpaRepository<CricketPrediction, CricketPredictionKey> {
+public interface CricketPredictionRepository extends JpaRepository<CricketPrediction, CricketPredictionKey> {
     @Query("from Prediction p where p.predictionKey.user=:user and p.predictionKey.match in (:match) order by p.predictionKey.match")
     public List<CricketPrediction> findByUserAndMatchInOrderByMatch(@Param("user") User user, @Param("match") List<CricketMatch> match);
 

@@ -1,5 +1,8 @@
 package com.envyleague.cricket.domain.cricket;
 
+import com.envyleague.cricket.domain.Prediction;
+import com.envyleague.cricket.domain.PredictionKey;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -10,13 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @Table
-public class CricketPrediction implements Serializable {
-    @EmbeddedId
-    private CricketPredictionKey predictionKey;
-
-    @ManyToOne
-    @JoinColumn(name = "team_winner")
-    private CricketTournamentTeam teamWinner;
+public class CricketPrediction extends Prediction {
 
     @Column(name = "total_runs")
     private Integer totalRuns;
@@ -27,32 +24,12 @@ public class CricketPrediction implements Serializable {
     @Column(name="total_sixes")
     private Integer totalSixes;
 
-    private Integer points;
 
-    @Column(name="point_scorer")
-    private String pointScorer;
+    public CricketPrediction(PredictionKey key) {
+        super(key);
+    }
 
     public CricketPrediction() {
-    }
-
-    public CricketPrediction(CricketPredictionKey key) {
-        this.predictionKey = key;
-    }
-
-    public CricketPredictionKey getPredictionKey() {
-        return predictionKey;
-    }
-
-    public void setPredictionKey(CricketPredictionKey predictionKey) {
-        this.predictionKey = predictionKey;
-    }
-
-    public CricketTournamentTeam getTeamWinner() {
-        return teamWinner;
-    }
-
-    public void setTeamWinner(CricketTournamentTeam teamWinner) {
-        this.teamWinner = teamWinner;
     }
 
     public Integer getTotalRuns() {
@@ -87,45 +64,4 @@ public class CricketPrediction implements Serializable {
         this.totalSixes = totalSixes;
     }
 
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
-
-    public void addPoints(int point) {
-        if (this.points == null) {
-            this.points = point;
-        } else {
-            this.points += point;
-        }
-    }
-
-    public String getPointScorer() {
-        return pointScorer;
-    }
-
-    public void setPointScorer(String pointScorer) {
-        this.pointScorer = pointScorer;
-    }
-
-    public void addPointScorer(String pointScorer) {
-        if (this.pointScorer == null) {
-            this.pointScorer = "";
-        }
-        this.pointScorer += pointScorer;
-    }
-
-    @Override
-    public String toString() {
-        return "CricketPrediction{" +
-                "predictionKey=" + predictionKey +
-                ", teamWinner=" + teamWinner +
-                ", totalRuns=" + totalRuns +
-                ", totalWickets=" + totalWickets +
-                ", points=" + points +
-                '}';
-    }
 }

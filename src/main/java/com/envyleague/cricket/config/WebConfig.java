@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 @Configuration
-@AutoConfigureAfter(CachingConfig.class)
 public class WebConfig implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
     private final Logger log = LoggerFactory.getLogger(getClass());
 

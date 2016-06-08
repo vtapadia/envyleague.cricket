@@ -3,9 +3,9 @@ package com.envyleague.cricket.web.rest;
 import com.envyleague.cricket.domain.*;
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.cricket.CricketPrediction;
+import com.envyleague.cricket.repository.CricketMatchRepository;
 import com.envyleague.cricket.repository.LeagueRepository;
-import com.envyleague.cricket.repository.MatchRepository;
-import com.envyleague.cricket.repository.PredictionRepository;
+import com.envyleague.cricket.repository.CricketPredictionRepository;
 import com.envyleague.cricket.service.UserService;
 import com.envyleague.cricket.web.dto.UserDTO;
 import org.apache.commons.lang3.StringUtils;
@@ -36,17 +36,17 @@ public class CricketLeaders {
     LeagueRepository leagueRepository;
 
     @Inject
-    PredictionRepository predictionRepository;
+    CricketPredictionRepository cricketPredictionRepository;
 
     @Inject
-    MatchRepository matchRepository;
+    CricketMatchRepository cricketMatchRepository;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getLeaders(@NotNull @RequestParam("league") String league) {
         User user = userService.getUserWithAuthorities();
         if (StringUtils.isNotBlank(league)) {
             League leagueDB = leagueRepository.findOneByName(league);
-            List<CricketMatch> finalizedMatches = matchRepository.findByFinalizedTrue();
+            List<CricketMatch> finalizedMatches = cricketMatchRepository.findByFinalizedTrue();
             List<User> users =
                     leagueDB.getUserLeagues().stream()
                             .filter(l -> l.getStatus() == Status.ACTIVE)
@@ -56,7 +56,7 @@ public class CricketLeaders {
             if (user.getUserLeagues().stream().anyMatch(ul->ul.getUser().equals(user)) || user.getAuthorities().contains(Authority.ADMIN)) {
                 if (finalizedMatches.size() != 0) {
                     //Only if you are a registered member (or ADMIN), you can view the league
-                    List<CricketPrediction> predictions = predictionRepository.findByLeagueAndMatchInOrderByMatch(leagueDB, finalizedMatches);
+                    List<CricketPrediction> predictions = cricketPredictionRepository.findByLeagueAndMatchInOrderByMatch(leagueDB, finalizedMatches);
                     predictions.stream().forEach(p->{
                         userDTOs.stream().filter(u->u.getLogin().equals(p.getPredictionKey().getUser().getLogin())).forEach(z->z.setPoints(z.getPoints()+p.getPoints()));
                     });

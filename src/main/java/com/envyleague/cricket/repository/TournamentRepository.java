@@ -5,5 +5,5 @@ import com.envyleague.cricket.domain.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TournamentRepository extends JpaRepository<Tournament, String> {
-    public Tournament findOneByStatus(Status status);
+    Tournament findOneByStatus(Status status);
 }

@@ -20,8 +20,8 @@ public class PredictionDTO {
     public PredictionDTO(CricketPrediction prediction) {
         this.user = prediction.getPredictionKey().getUser().getLogin();
         this.league = prediction.getPredictionKey().getLeague().getName();
-        this.match = prediction.getPredictionKey().getMatch().getNumber();
-        this.teamWinner = (prediction.getTeamWinner()==null) ? "Draw" : prediction.getTeamWinner().getName();
+        this.match = prediction.getPredictionKey().getMatch().getId();
+        this.teamWinner = (prediction.getWinner()==null) ? "Draw" : prediction.getWinner().getName();
         this.totalRuns = prediction.getTotalRuns();
         this.totalWickets = prediction.getTotalWickets();
         this.totalFours = prediction.getTotalFours();
