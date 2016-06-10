@@ -1,5 +1,5 @@
 create table cricket_match (
-  id int PRIMARY KEY ,
+  id INTEGER PRIMARY KEY ,
   tournament VARCHAR(100),
   match_type VARCHAR(25),
   start_time TIMESTAMP ,
@@ -24,7 +24,7 @@ create TABLE cricket_tournament_team (
 
 create TABLE cricket_prediction (
   "user" VARCHAR(50),
-  match int,
+  match INTEGER ,
   league VARCHAR(50),
   winner VARCHAR(100),
   points int,

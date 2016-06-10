@@ -1,7 +1,6 @@
 package com.envyleague.cricket.domain;
 
 import javax.persistence.EmbeddedId;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 

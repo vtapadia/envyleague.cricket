@@ -1,10 +1,6 @@
 package com.envyleague.cricket.domain;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import org.hibernate.annotations.Type;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table
@@ -31,12 +29,10 @@ public class Tournament implements Serializable {
 
     @NotNull
     @Column(name = "start_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime startDate;
 
     @NotNull
     @Column(name = "end_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime endDate;
 
     @NotNull
@@ -44,8 +40,8 @@ public class Tournament implements Serializable {
     private TournamentType type;
 
     @JsonGetter
-    public int getDaysLeft() {
-        return Days.daysBetween(startDate, endDate).getDays();
+    public long getDaysLeft() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
     public String getName() {

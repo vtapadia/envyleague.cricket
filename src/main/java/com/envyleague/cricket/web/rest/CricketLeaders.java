@@ -58,7 +58,7 @@ public class CricketLeaders {
                     //Only if you are a registered member (or ADMIN), you can view the league
                     List<CricketPrediction> predictions = cricketPredictionRepository.findByLeagueAndMatchInOrderByMatch(leagueDB, finalizedMatches);
                     predictions.stream().forEach(p->{
-                        userDTOs.stream().filter(u->u.getLogin().equals(p.getPredictionKey().getUser().getLogin())).forEach(z->z.setPoints(z.getPoints()+p.getPoints()));
+                        userDTOs.stream().filter(u->u.getLogin().equals(p.getCricketPredictionKey().getUser().getLogin())).forEach(z->z.setPoints(z.getPoints()+p.getPoints()));
                     });
                 }
                 List<UserDTO> sortedUserDTOs = userDTOs.stream().sorted((e1,e2)->Integer.compare(e2.getPoints(), e1.getPoints())).collect(Collectors.toList());

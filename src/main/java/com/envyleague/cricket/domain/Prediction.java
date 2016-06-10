@@ -1,26 +1,16 @@
 package com.envyleague.cricket.domain;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class Prediction implements Serializable {
-    @EmbeddedId
-    private PredictionKey predictionKey;
-
-    @ManyToOne
-    private Team winner;
-
+public class Prediction implements Serializable {
     private Integer points;
 
-    private String pointScorer;
+    @Column(name = "points_scorer")
+    private String pointsScorer;
 
-    public Prediction(PredictionKey predictionKey) {
-        this.predictionKey = predictionKey;
-    }
 
     public Prediction() {
     }
@@ -34,26 +24,10 @@ public abstract class Prediction implements Serializable {
     }
 
     public void addPointScorer(String pointScorer) {
-        if (this.pointScorer == null) {
-            this.pointScorer = "";
+        if (this.pointsScorer == null) {
+            this.pointsScorer = "";
         }
-        this.pointScorer += pointScorer;
-    }
-
-    public PredictionKey getPredictionKey() {
-        return predictionKey;
-    }
-
-    public void setPredictionKey(PredictionKey predictionKey) {
-        this.predictionKey = predictionKey;
-    }
-
-    public Team getWinner() {
-        return winner;
-    }
-
-    public void setWinner(Team winner) {
-        this.winner = winner;
+        this.pointsScorer += pointScorer;
     }
 
     public Integer getPoints() {
@@ -64,11 +38,11 @@ public abstract class Prediction implements Serializable {
         this.points = points;
     }
 
-    public String getPointScorer() {
-        return pointScorer;
+    public String getPointsScorer() {
+        return pointsScorer;
     }
 
-    public void setPointScorer(String pointScorer) {
-        this.pointScorer = pointScorer;
+    public void setPointsScorer(String pointsScorer) {
+        this.pointsScorer = pointsScorer;
     }
 }

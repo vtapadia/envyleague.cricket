@@ -1,14 +1,10 @@
 package com.envyleague.cricket.domain.cricket;
 
 import com.envyleague.cricket.domain.Match;
-import com.envyleague.cricket.domain.MatchType;
-import com.envyleague.cricket.domain.Tournament;
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table

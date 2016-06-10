@@ -2,16 +2,21 @@ package com.envyleague.cricket.domain.football;
 
 import com.envyleague.cricket.domain.Match;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class FootballMatch extends Match {
+    @Column(name = "team_a_score")
     private Integer teamAScore;
+    @Column(name = "team_b_score")
     private Integer teamBScore;
 
+    @Column(name = "team_a_penalty")
     private Integer teamAPenalty;
+    @Column(name = "team_b_penalty")
     private Integer teamBPenalty;
 
     public Integer getTeamAScore() {

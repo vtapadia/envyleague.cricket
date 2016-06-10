@@ -3,6 +3,7 @@ package com.envyleague.cricket.web.dto;
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.MatchType;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class MatchDTO {
     private Integer number;
     private String tournament;
     private MatchType matchType;
-    private Date startTime;
+    private LocalDateTime startTime;
     private String teamA;
     private String teamB;
     private String teamWinner;
@@ -27,7 +28,7 @@ public class MatchDTO {
         this.number = match.getId();
         this.tournament = match.getTournament().getName();
         this.matchType = match.getMatchType();
-        this.startTime = (match.getStartTime()==null)?null:match.getStartTime().toDate();
+        this.startTime = (match.getStartTime()==null)?null:match.getStartTime();
         this.teamA = (match.getTeamA() == null)?null:match.getTeamA().getName();
         this.teamB = (match.getTeamB() == null)?null:match.getTeamB().getName();
         this.teamWinner = (match.getWinner() == null) ? null:match.getWinner().getName();
@@ -62,11 +63,11 @@ public class MatchDTO {
         this.matchType = matchType;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 

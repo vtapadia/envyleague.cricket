@@ -3,6 +3,7 @@ package com.envyleague.cricket.service;
 import com.envyleague.cricket.domain.*;
 import com.envyleague.cricket.domain.cricket.CricketMatch;
 import com.envyleague.cricket.domain.cricket.CricketPrediction;
+import com.envyleague.cricket.domain.cricket.CricketPredictionKey;
 import com.envyleague.cricket.repository.CricketPredictionRepository;
 import com.envyleague.cricket.repository.TeamRepository;
 import com.envyleague.cricket.web.dto.PredictionDTO;
@@ -30,7 +31,7 @@ public class PredictionService {
     public void saveOrUpdate(User user, CricketMatch match, League league, PredictionDTO predictionDTO) {
         CricketPrediction prediction = cricketPredictionRepository.findOneByUserAndLeagueAndMatch(user, league, match);
         if (prediction == null) {
-            prediction = new CricketPrediction(new PredictionKey(user, match, league));
+            prediction = new CricketPrediction(new CricketPredictionKey(user, match, league));
         }
 
         if (StringUtils.isNotBlank(predictionDTO.getTeamWinner()) &&

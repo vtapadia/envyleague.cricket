@@ -1,11 +1,16 @@
 package com.envyleague.cricket.domain;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class Match implements Serializable {
@@ -23,15 +28,19 @@ public abstract class Match implements Serializable {
 
     @NotNull
     @Column(name = "start_time")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime startTime;
 
+    @ManyToOne
+    @JoinColumn(name = "team_a")
     private Team teamA;
+    @ManyToOne
+    @JoinColumn(name = "team_b")
     private Team teamB;
 
     @Column(name = "finalized")
     private boolean finalized;
 
+    @ManyToOne
     private Team winner;
 
     public Integer getId() {

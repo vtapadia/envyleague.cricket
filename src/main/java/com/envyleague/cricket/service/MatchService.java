@@ -55,7 +55,7 @@ public class MatchService {
     private void updatePrediction(CricketMatch match, CricketPrediction p) {
         int multiplier = match.getMatchType().getMultiplier();
         p.setPoints(0);
-        p.setPointScorer(StringUtils.EMPTY);
+        p.setPointsScorer(StringUtils.EMPTY);
         if ((match.getWinner() == null && p.getWinner() == null) || //DRAW
                 (match.getWinner() != null && match.getWinner().equals(p.getWinner()))) { //Correct Winner
             p.addPoints(multiplier*FULL_POINTS);

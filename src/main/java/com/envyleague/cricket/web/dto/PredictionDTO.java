@@ -18,16 +18,16 @@ public class PredictionDTO {
     public PredictionDTO() {}
 
     public PredictionDTO(CricketPrediction prediction) {
-        this.user = prediction.getPredictionKey().getUser().getLogin();
-        this.league = prediction.getPredictionKey().getLeague().getName();
-        this.match = prediction.getPredictionKey().getMatch().getId();
+        this.user = prediction.getCricketPredictionKey().getUser().getLogin();
+        this.league = prediction.getCricketPredictionKey().getLeague().getName();
+        this.match = prediction.getCricketPredictionKey().getMatch().getId();
         this.teamWinner = (prediction.getWinner()==null) ? "Draw" : prediction.getWinner().getName();
         this.totalRuns = prediction.getTotalRuns();
         this.totalWickets = prediction.getTotalWickets();
         this.totalFours = prediction.getTotalFours();
         this.totalSixes = prediction.getTotalSixes();
         this.points = prediction.getPoints();
-        this.pointScorer = prediction.getPointScorer();
+        this.pointScorer = prediction.getPointsScorer();
     }
 
     public String getUser() {

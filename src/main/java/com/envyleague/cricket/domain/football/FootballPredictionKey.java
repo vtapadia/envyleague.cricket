@@ -1,4 +1,4 @@
-package com.envyleague.cricket.domain.cricket;
+package com.envyleague.cricket.domain.football;
 
 import com.envyleague.cricket.domain.League;
 import com.envyleague.cricket.domain.User;
@@ -8,26 +8,16 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
-public class CricketPredictionKey implements Serializable {
+public class FootballPredictionKey implements Serializable {
 
     @ManyToOne
     private User user;
 
     @ManyToOne
-    private CricketMatch match;
+    private FootballMatch match;
 
     @ManyToOne
     private League league;
-
-    public CricketPredictionKey(User user, CricketMatch match, League league) {
-        this.user = user;
-        this.match = match;
-        this.league = league;
-    }
-
-    public CricketPredictionKey(User user) {
-        this.user = user;
-    }
 
     public User getUser() {
         return user;
@@ -37,11 +27,11 @@ public class CricketPredictionKey implements Serializable {
         this.user = user;
     }
 
-    public CricketMatch getMatch() {
+    public FootballMatch getMatch() {
         return match;
     }
 
-    public void setMatch(CricketMatch match) {
+    public void setMatch(FootballMatch match) {
         this.match = match;
     }
 
@@ -58,7 +48,7 @@ public class CricketPredictionKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CricketPredictionKey that = (CricketPredictionKey) o;
+        FootballPredictionKey that = (FootballPredictionKey) o;
 
         if (!user.equals(that.user)) return false;
         if (!match.equals(that.match)) return false;

@@ -28,7 +28,6 @@ create TABLE football_prediction (
   "user" VARCHAR(50),
   match int,
   league VARCHAR(50),
-  winner VARCHAR(100),
   points int,
   points_scorer VARCHAR(200),
   team_a_score int,

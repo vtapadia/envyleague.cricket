@@ -2,10 +2,6 @@ package com.envyleague.cricket.domain;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 
 import javax.persistence.Column;
@@ -14,14 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name = "EL_PERSISTENT_TOKEN")
 public class PersistentToken implements Serializable {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMMM yyyy");
 
     public PersistentToken() {
     }
@@ -30,7 +29,7 @@ public class PersistentToken implements Serializable {
         this();
         this.series = token.getSeries();
         this.user = user;
-        this.tokenDate = new LocalDate(token.getDate());
+        this.tokenDate = token.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         this.tokenValue = token.getTokenValue();
     }
 
@@ -44,7 +43,6 @@ public class PersistentToken implements Serializable {
 
     @JsonIgnore
     @Column(name = "token_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate tokenDate;
 
     @JsonIgnore
@@ -77,13 +75,14 @@ public class PersistentToken implements Serializable {
 
     @JsonGetter
     public String getFormattedTokenDate() {
-        return DATE_TIME_FORMATTER.print(this.tokenDate);
+        return DATE_TIME_FORMATTER.format(this.tokenDate);
     }
 
     @JsonIgnore
     public PersistentRememberMeToken getPersistentToken() {
         PersistentRememberMeToken token = new PersistentRememberMeToken(
-                this.getUser().getLogin(), this.getSeries(), this.getTokenValue(), this.getTokenDate().toDate());
+                this.getUser().getLogin(), this.getSeries(), this.getTokenValue(),
+                Date.from(this.getTokenDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         return token;
     }
     public User getUser() {

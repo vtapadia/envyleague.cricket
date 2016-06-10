@@ -219,7 +219,7 @@ public class User implements Serializable {
                 ", activated=" + activated +
                 ", langKey='" + langKey + '\'' +
                 ", facebookUserId='" + facebookUserId + '\'' +
-                ", userLeagues=" + userLeagues +
+//                ", userLeagues=" + userLeagues +
                 ", authorities=" + authorities +
                 '}';
     }

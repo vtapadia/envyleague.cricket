@@ -36,4 +36,23 @@ public class UserLeagueKey implements Serializable{
     public void setLeague(League league) {
         this.league = league;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserLeagueKey that = (UserLeagueKey) o;
+
+        if (!user.equals(that.user)) return false;
+        return league.equals(that.league);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user.hashCode();
+        result = 31 * result + league.hashCode();
+        return result;
+    }
 }

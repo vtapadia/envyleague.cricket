@@ -1,6 +1,13 @@
 
 CREATE SEQUENCE hibernate_sequence INCREMENT BY 1 START WITH 1;
 
+create table el_persistent_token (
+  series varchar(256),
+  token_value VARCHAR(256),
+  token_date DATE ,
+  "user" varchar(50)
+);
+
 CREATE TABLE "USER" (
   login VARCHAR(50) PRIMARY KEY ,
   password VARCHAR(256),

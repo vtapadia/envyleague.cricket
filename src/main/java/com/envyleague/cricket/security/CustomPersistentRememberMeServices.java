@@ -4,7 +4,6 @@ import com.envyleague.cricket.domain.PersistentToken;
 import com.envyleague.cricket.domain.User;
 import com.envyleague.cricket.repository.PersistentTokenRepository;
 import com.envyleague.cricket.repository.UserRepository;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -17,18 +16,14 @@ import org.springframework.security.web.authentication.rememberme.CookieTheftExc
 import org.springframework.security.web.authentication.rememberme.InvalidCookieException;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.TransactionManager;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
@@ -97,7 +92,7 @@ public class CustomPersistentRememberMeServices extends
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
         log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
-        token.setTokenDate(new LocalDate());
+        token.setTokenDate(LocalDate.now());
         token.setTokenValue(generateTokenData());
         try {
             persistentTokenRepository.saveAndFlush(token);
@@ -120,7 +115,7 @@ public class CustomPersistentRememberMeServices extends
         token.setSeries(generateSeriesData());
         token.setUser(user);
         token.setTokenValue(generateTokenData());
-        token.setTokenDate(new LocalDate());
+        token.setTokenDate(LocalDate.now());
         try {
             persistentTokenRepository.save(token);
             persistentTokenRepository.flush();

@@ -11,19 +11,19 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CricketPredictionRepository extends JpaRepository<CricketPrediction, CricketPredictionKey> {
-    @Query("from Prediction p where p.predictionKey.user=:user and p.predictionKey.match in (:match) order by p.predictionKey.match")
+    @Query("from CricketPrediction p where p.cricketPredictionKey.user=:user and p.cricketPredictionKey.match in (:match) order by p.cricketPredictionKey.match")
     public List<CricketPrediction> findByUserAndMatchInOrderByMatch(@Param("user") User user, @Param("match") List<CricketMatch> match);
 
-    @Query("from Prediction p where p.predictionKey.league=:league and p.predictionKey.match in (:match) order by p.predictionKey.match")
+    @Query("from CricketPrediction p where p.cricketPredictionKey.league=:league and p.cricketPredictionKey.match in (:match) order by p.cricketPredictionKey.match")
     public List<CricketPrediction> findByLeagueAndMatchInOrderByMatch(@Param("league") League league, @Param("match") List<CricketMatch> match);
 
-    @Query("from Prediction p where p.predictionKey.user=:user and p.predictionKey.league=:league and p.predictionKey.match=:match")
+    @Query("from CricketPrediction p where p.cricketPredictionKey.user=:user and p.cricketPredictionKey.league=:league and p.cricketPredictionKey.match=:match")
     public CricketPrediction findOneByUserAndLeagueAndMatch(@Param("user") User user, @Param("league") League league, @Param("match") CricketMatch match);
 
-    @Query("from Prediction p where p.predictionKey.league=:league order by p.predictionKey.match")
+    @Query("from CricketPrediction p where p.cricketPredictionKey.league=:league order by p.cricketPredictionKey.match")
     public List<CricketPrediction> findByLeagueOrderByMatch(@Param("league") League league);
 
-    @Query("from Prediction p where p.predictionKey.match=:match")
+    @Query("from CricketPrediction p where p.cricketPredictionKey.match=:match")
     public List<CricketPrediction> findByMatch(@Param("match") CricketMatch match);
 
 }
