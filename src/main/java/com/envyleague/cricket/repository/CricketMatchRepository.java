@@ -1,7 +1,7 @@
 package com.envyleague.cricket.repository;
 
 import com.envyleague.cricket.domain.cricket.CricketMatch;
-import org.joda.time.LocalDateTime;
+import java.time.LocalDateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
