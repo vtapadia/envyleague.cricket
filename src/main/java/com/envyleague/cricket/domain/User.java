@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table
+@Table(name = "el_user")
 public class User implements Serializable {
     @NotNull
     @Size(min = 0, max = 50)

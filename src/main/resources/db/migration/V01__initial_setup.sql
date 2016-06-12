@@ -8,7 +8,7 @@ create table el_persistent_token (
   "user" varchar(50)
 );
 
-CREATE TABLE "USER" (
+CREATE TABLE el_user (
   login VARCHAR(50) PRIMARY KEY ,
   password VARCHAR(256),
   name VARCHAR(256),
